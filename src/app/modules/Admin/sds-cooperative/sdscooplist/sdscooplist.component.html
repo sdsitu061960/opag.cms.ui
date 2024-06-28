@@ -1,0 +1,563 @@
+<!-- <div id="layout-wrapper">
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+
+  <div class="main-content">
+    <router-outlet></router-outlet> -->
+
+<div class="page-content">
+  <div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+      <div class="col-12">
+        <div
+          class="page-title-box d-sm-flex align-items-center justify-content-between"
+        >
+          <h4 class="mb-sm-0">SDS COOP PER CATEGORY</h4>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card">
+          <!-- Filter section -->
+          <div class="card-body">
+            <!-- Filter controls -->
+            <div class="row mb-3">
+              <!-- Search input -->
+              <div class="col-3">
+                <!-- <input
+                        type="text"
+                        (keyup)="onSearch()"
+                        [(ngModel)]="searchTerm"
+                        class="form-control"
+                        placeholder="Search..."
+                      /> -->
+              </div>
+              <!-- Municipality filter -->
+              <div class="col-2">
+                <!-- <select
+                        class="form-select"
+                        [(ngModel)]="filterOnMunicipalitiesId"
+                        (change)="onFilter()"
+                      >
+                        <option value="" selected>All Municipality</option>
+                        <option
+                          *ngFor="let municipality of MunicipalityList"
+                          [value]="municipality.id"
+                        >
+                          {{ municipality.municipality }}
+                        </option>
+                      </select> -->
+              </div>
+              <!-- Coop Type filter -->
+              <!-- <div class="col-2">
+                      <select
+                        class="form-select"
+                        [(ngModel)]="filterOnCoopTypeId"
+                        (change)="onFilter()"
+                      >
+                        <option value="" selected>All Cooperative Type</option>
+                        <option
+                          *ngFor="let coopType of CoopTypeList"
+                          [value]="coopType.id"
+                        >
+                          {{ coopType.cooperativeType }}
+                        </option>
+                      </select>
+                    </div> -->
+              <!-- Asset Size filter -->
+              <div class="col-2">
+                <!-- <select
+                        class="form-select"
+                        [(ngModel)]="filterOnCoopAssetSizeCatNameId"
+                        (change)="onFilter()"
+                      >
+                        
+                        <option value="" selected>All Asset Size</option>
+                        <option
+                          *ngFor="let coopAsset of CoopAssetList"
+                          [value]="coopAsset.id"
+                        >
+                          {{ coopAsset.assetSizeCategory }}
+                        </option>
+                      </select> -->
+              </div>
+              <div class="col-1">
+                <!-- <select
+                        (change)="onChangePageSize()"
+                        [(ngModel)]="pageSize"
+                        name="pageSize"
+                        class="form-select"
+                      >
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                      </select> -->
+              </div>
+              <div class="col-2 float-start">
+                <a
+                  [routerLink]="['/admin/sds-cooperative/add']"
+                  class="btn btn-primary waves-effect waves-light float-end mb-2"
+                >
+                  Add SDS Coop
+                </a>
+              </div>
+            </div>
+            <!-- Pagination -->
+            <div class="row mb-3">
+              <div class="col-6">
+                <nav aria-label="Page navigation">
+                  <!-- <ul class="pagination">
+                          <li class="page-item" [class.disabled]="pageNumber === 1">
+                            <a
+                              class="page-link"
+                              (click)="onPageChange(pageNumber - 1)"
+                              aria-label="Previous"
+                            >
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                          </li>
+                          <li
+                            class="page-item"
+                            *ngFor="let page of pages"
+                            [class.active]="page === pageNumber"
+                          >
+                            <a class="page-link" (click)="onPageChange(page)">{{
+                              page
+                            }}</a>
+                          </li>
+                          <li
+                            class="page-item"
+                            [class.disabled]="pageNumber === totalPages"
+                          >
+                            <a
+                              class="page-link"
+                              (click)="onPageChange(pageNumber + 1)"
+                              aria-label="Next"
+                            >
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                          </li>
+                        </ul> -->
+                </nav>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table section -->
+          <div class="container">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Name of Cooperative</th>
+                    <th>Municipality</th>
+                    <th>Category Name</th>
+                    <th>Cooperative Type</th>
+                    <th>Business Activities</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>data</td>
+                    <td>data</td>
+                    <td>data</td>
+                    <td>data</td>
+                    <td>data</td>
+                    <td>data</td>
+                    <td>
+                      <!-- <span
+                              *ngFor="let activity of data.coopBusinessActivities"
+                              class="badge bg-warning me-2"
+                              >{{ activity.businessActivities }}</span
+                            > -->
+                    </td>
+                    <td>
+                      <!-- Your action buttons -->
+                      <!-- <button
+                              data-bs-toggle="modal"
+                              data-bs-target="#editModal"
+                              class="btn btn-info"
+                              (click)="onPullEdit(data)"
+                            >
+                              Edit
+                            </button>
+                            <button class="btn btn-danger" (click)="onDelete(data)">
+                              Delete
+                            </button> -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end page title -->
+  </div>
+  <!-- container-fluid -->
+</div>
+
+<!-- Edit Modal -->
+<div
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<div
+  class="border border-1 modal fade"
+  id="editModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  class="modal fade bs-example-modal-lg"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" style="max-width: 90%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myLargeModalLabel">Edit Cooperative</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- modal content-->
+        <div class="container p-2">
+          <ng-container>
+            <form>
+              <div class="row">
+                <div class="col-md-6">
+                  <!-- <div class="mb-3">
+                          <label for="coopName" class="form-label"
+                            >NAME OF COOPERATIVE</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="coopName"
+                            id="coopName"
+                            placeholder="Coop name"
+                            [(ngModel)]="sdsCoopModel.coopName"
+                          />
+                        </div> -->
+                </div>
+                <!-- your.component.html -->
+
+                <div class="col-md-2">
+                  <div class="mb-3">
+                    <label for="municipality" class="form-label"
+                      >MUNICIPALITY</label
+                    >
+                    <!-- <select
+                            class="form-select"
+                            id="municipality"
+                            required
+                            name="municipality"
+                            [(ngModel)]="sdsCoopModel.municipalitiesId"
+                          >
+                            <option selected disabled value="">Choose...</option>
+                            <option
+                              *ngFor="let municipality of MunicipalityList"
+                              [value]="municipality.id"
+                            >
+                              {{ municipality.municipality }}
+                            </option>
+                          </select> -->
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <!-- <div class="mb-3">
+                          <label for="streetAddress" class="form-label"
+                            >STREET ADDRESS</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="streetAddress"
+                            id="streetAddress"
+                            placeholder="Street Address"
+                            [(ngModel)]="sdsCoopModel.streetAddress"
+                          />
+                        </div> -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <!-- <div class="mb-3">
+                          <label for="number" class="form-label"
+                            >REGISTRATION NUMBER</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="number"
+                            id="number"
+                            placeholder="Registration no. "
+                            [(ngModel)]="sdsCoopModel.number"
+                          />
+                        </div> -->
+                </div>
+                <div class="col-md-3">
+                  <!-- <div class="mb-3">
+                          <label for="date" class="form-label"
+                            >REGISTRATION DATE
+                          </label>
+                          <input
+                            type="date"
+                            name="date"
+                            class="form-control"
+                            id="date"
+                            value="{{ sdsCoopModel.date }}"
+                            [ngModel]="sdsCoopModel.date | date : 'yyy-MM-dd'"
+                            (ngModelChange)="sdsCoopModel.date = $event"
+                          />
+                        </div> -->
+                </div>
+
+                <div class="col-md-2">
+                  <div class="mb-3">
+                    <label for="categoryName" class="form-label"
+                      >CATEGORY NAME</label
+                    >
+                    <!-- <select
+                            class="form-select"
+                            id="categoryName"
+                            required
+                            name="categoryName"
+                            [(ngModel)]="sdsCoopModel.coopCatNameId"
+                          >
+                            <option selected disabled value="">Choose...</option>
+                            <option
+                              *ngFor="let coopname of CoopNameList"
+                              [value]="coopname.id"
+                            >
+                              {{ coopname.categoryName }}
+                            </option>
+                          </select> -->
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="mb-3">
+                    <label for="coopType" class="form-label"
+                      >COOPERATIVE TYPE</label
+                    >
+                    <!-- <select
+                            class="form-select"
+                            id="coopType"
+                            required
+                            name="coopType"
+                            [(ngModel)]="sdsCoopModel.coop_TypeId"
+                          >
+                            <option selected disabled value="">Choose...</option>
+                            <option
+                              *ngFor="let cooptype of CoopTypeList"
+                              [value]="cooptype.id"
+                            >
+                              {{ cooptype.cooperativeType }}
+                            </option>
+                          </select> -->
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <!-- <div class="mb-3">
+                          <label for="contactNumber" class="form-label"
+                            >CONTACT PERSON</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="contactNumber"
+                            id="contactNumber"
+                            placeholder=""
+                            [(ngModel)]="sdsCoopModel.contactPerson"
+                          />
+                        </div> -->
+                </div>
+                <div class="col-md-3">
+                  <!-- <div class="mb-3">
+                          <label for="position" class="form-label">POSITION</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="position"
+                            id="position"
+                            placeholder=""
+                            [(ngModel)]="sdsCoopModel.position"
+                          />
+                        </div> -->
+                </div>
+                <div class="col-md-3">
+                  <!-- <div class="mb-3">
+                          <label for="contactNumber" class="form-label"
+                            >CONTACT NO.</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="contactNumber"
+                            id="contactNumber"
+                            placeholder=""
+                            [(ngModel)]="sdsCoopModel.contactNumber"
+                          />
+                        </div> -->
+                </div>
+                <div class="col-md-3">
+                  <!-- <div class="mb-3">
+                          <label for="emailAddress" class="form-label"
+                            >EMAIL ADDRESS</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="emailAddress"
+                            id="emailAddress"
+                            placeholder=""
+                            [(ngModel)]="sdsCoopModel.emailAddress"
+                          />
+                        </div> -->
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mt-3">
+                      <label
+                        for="coopBusinessActivities"
+                        class="form-label radio-inline"
+                        >BUSINESS ACTIVITIES</label
+                      >
+                      <!-- <ng-container
+                              *ngIf="CoopBusinessAsset$ | async as CoopBusinessAsset"
+                            >
+                              <select
+                                class="form-control"
+                                [(ngModel)]="selectedBusinessAsset"
+                                name="coopBusinessActivities"
+                                id="coopBusinessActivities"
+                                multiple
+                                style="height: 200px"
+                              >
+                                <option
+                                  *ngFor="let coopBusinessAsset of CoopBusinessAsset"
+                                  [value]="coopBusinessAsset.id"
+                                >
+                                  {{ coopBusinessAsset.businessActivities }}
+                                </option>
+                              </select>
+                            </ng-container> -->
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="mb-3">
+                          <label for="coopType" class="form-label"
+                            >COOPERATIVE ASSET-SIZE</label
+                          >
+                          <!-- <select
+                                class="form-select"
+                                id="coopType"
+                                required
+                                name="coopType"
+                                [(ngModel)]="addModel.coopAssetSizeCatNameId"
+                              >
+                                <option selected disabled value="">
+                                  Choose...
+                                </option>
+                                <option
+                                  *ngFor="let coopAssetSize of CoopAssetList"
+                                  [value]="coopAssetSize.id"
+                                >
+                                  {{ coopAssetSize.assetSizeCategory }}
+                                </option>
+                              </select> -->
+                          <!-- <div *ngFor="let coopAssetSize of CoopAssetList">
+                                  <label>
+                                    <input
+                                      type="radio"
+                                      [value]="coopAssetSize.id"
+                                      name="assetSizeCategory"
+                                      [(ngModel)]="
+                                        sdsCoopModel.coopAssetSizeCatNameId
+                                      "
+                                    />
+                                    {{ coopAssetSize.assetSizeCategory }}
+                                  </label>
+                                </div> -->
+                        </div>
+                      </div>
+
+                      <!-- <div class="col-md-12">
+                              <div class="form-check mt-3">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  name="count"
+                                  id="count"
+                                  [(ngModel)]="sdsCoopModel.count"
+                                />
+                                <label class="form-check-label" for="count">
+                                  CERTIFICATE OF TAX EXEMPTION (CTE)
+                                </label>
+                              </div>
+                            </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div>
+                <button class="btn btn-primary mt-2" type="submit">
+                  Update Cooperative
+                </button>
+                <button
+                  #editModal
+                  type="button"
+                  class="btn btn-warning mt-2 mx-2 waves-effect"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </form>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Display Loading if blogPost has no value -->
+<ng-template #loader>
+  <div class="text-center mt-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</ng-template>
+
+<!-- <app-footer></app-footer>
+        </div>
+      </div> -->
