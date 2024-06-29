@@ -17,6 +17,7 @@ import { CreateRboComponent } from './modules/Admin/rbo-directory/create-rbo/cre
 import { ListRboComponent } from './modules/Admin/rbo-directory/list-rbo/list-rbo.component';
 import { BarangayService } from './modules/Admin/barangay/service/barangay-service.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [BarangayService],
   bootstrap: [AppComponent]

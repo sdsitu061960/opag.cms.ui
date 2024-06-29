@@ -19,7 +19,7 @@ export class BaseService<TModel, TModelInput> {
 
   //Create
   create(data: TModelInput): Observable<TModelInput> {
-    return this.http.post<TModelInput>(`${environment.apiBaseUrl}`, data);
+    return this.http.post<TModelInput>(`${this.apiBaseUrl}`, data);
   }
 
   //Get by Id

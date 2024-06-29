@@ -135,7 +135,7 @@
   >
     <div #yourModal class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <form >
+        <form #formRef="ngForm" (ngSubmit)="AddBarangay()" >
           <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">Add Barangay</h5>
             <button
@@ -150,24 +150,22 @@
             <div class="col-md-12">
               <div class="mb-3">
                 <label for="categoryName" class="form-label"
-                  >Cooperative Name</label
+                  >Barangay Name</label
                 >
-                <!-- <input
+                <input
                   type="text"
                   class="form-control"
                   id="barangays"
-                  name="barangay"
+                  name="barangays"
                   placeholder="Barangay, Municipality"
-                  required=""
-                  [(ngModel)]="addBarangay.barangay"
-                /> -->
-                <div class="valid-feedback">Ok na good!</div>
+                  [(ngModel)]="inputs.barangays"
+                />
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button
-              #addModalElement
+              #closeModal
               type="button"
               class="btn btn-light waves-effect"
               data-bs-dismiss="modal"
