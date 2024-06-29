@@ -24,16 +24,16 @@ export class BaseService<TModel, TModelInput> {
 
   //Get by Id
   getById(id: string): Observable<TModel> {
-    return this.http.get<TModel>(`${environment.apiBaseUrl}/${id}`);
+    return this.http.get<TModel>(`${this.apiBaseUrl}/${id}`);
   }
 
   //Update
-  update(id: string, item: TModelInput): Observable<TModel> {
-    return this.http.put<TModel>(`${environment.apiBaseUrl}/${id}`, item);
+  update(data: TModelInput): Observable<TModel> {
+    return this.http.put<TModel>(`${this.apiBaseUrl}`, data);
   }
 
   //Delete
   delete(id: string): Observable<TModel> {
-    return this.http.delete<TModel>(`${environment.apiBaseUrl}/${id}`);
+    return this.http.delete<TModel>(`${this.apiBaseUrl}/${id}`);
   }
 }

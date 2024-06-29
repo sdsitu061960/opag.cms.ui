@@ -18,10 +18,10 @@ export class BarangayListComponent implements OnInit {
   @ViewChild('formRef', { static: false }) form!: NgForm;
   //close modal
   @ViewChild('closeModal') closeModal!: ElementRef
-  // close modal
-  @ViewChild('closeModalUpdate') closeModals!: ElementRef
   // open modal
   @ViewChild('updateModal') updateModal!: ElementRef;
+  // close modal
+  @ViewChild('closeModalUpdate') closeModals!: ElementRef
 
   constructor(private barangayService: BarangayService) { }
 
@@ -71,5 +71,36 @@ export class BarangayListComponent implements OnInit {
           });
         }
       });
+  }
+
+  fetchBarangayById(barangayId: string): void {
+    this.barangayService.getById(barangayId).subscribe((data: IBarangay) => {
+      this.barangay = data;
+    });
+  }
+
+  updateBarangayOnSubmit(): void {
+    console.log('Meow');
+    this.barangayService.update(this.barangay).subscribe(
+      response => {
+        Swal.fire({
+          icon: 'success',
+          title: 'success',
+          text: 'Updated Successfully!',
+        });
+        // reset form
+        this.form.resetForm();
+        // close modal
+        this.closeModals.nativeElement.click();
+        this.fetchBarangay();
+      },
+      error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'error',
+          text: 'Error!',
+        });
+      }
+    )
   }
 }

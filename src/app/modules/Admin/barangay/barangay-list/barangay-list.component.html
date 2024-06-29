@@ -90,9 +90,9 @@
                                {{ data.barangays}}
                             </td>
                             <td valign="top" class="">
-                                <!-- (click)="fetchBarangayById(data)" -->
+                                
                               <button
-                               
+                              (click)="fetchBarangayById(data.barangayId)"
                                 data-bs-toggle="modal"
                                 data-bs-target="#editModal"
                                 class="btn btn-info waves-effect waves-light m-2"
@@ -198,7 +198,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <ng-container >
-          <form >
+          <form *ngIf="barangay" (ngSubmit)="updateBarangayOnSubmit()">
             <div class="modal-header">
               <h5 class="modal-title" id="staticBackdropLabel">Edit Barangay</h5>
               <button
@@ -213,22 +213,20 @@
               <div class="col-md-12">
                 <div class="mb-3">
                   <label for="coopNameModel" class="form-label">Barangay Name</label>
-                  <!-- <input
-                    type="text"
-                    class="form-control"
-                    id="barangay"
-                    name="barangay"
-                    placeholder="Barangay, Municipality"
-                    required=""
-                    [(ngModel)]="BarangayModel.barangay"
-                  /> -->
-                  <div class="valid-feedback">Ok na good!</div>
+                  <input
+                  type="text"
+                  class="form-control"
+                  id="barangays"
+                  name="barangays"
+                  placeholder="Barangay, Municipality"
+                  [(ngModel)]="barangay.barangays"
+                />
                 </div>
               </div>
             </div>
             <div class="modal-footer">
               <button
-                #editModal
+                #closeModalUpdate
                 type="button"
                 class="btn btn-light waves-effect"
                 data-bs-dismiss="modal"
