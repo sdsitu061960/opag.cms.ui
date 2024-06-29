@@ -14,26 +14,26 @@ export class BaseService<TModel, TModelInput> {
 
   //Get All 
   getAll(): Observable<TModel[]> {
-    return this.http.get<TModel[]>(`${environment.apiBaseUrl}/api/CoopType`)
+    return this.http.get<TModel[]>(`${this.apiBaseUrl}/all`);
   }
 
-  //Get AlL
+  //Create
   create(data: TModelInput): Observable<TModelInput> {
-    return this.http.post<TModelInput>(`${environment.apiBaseUrl}/api/CoopType`, data);
+    return this.http.post<TModelInput>(`${environment.apiBaseUrl}`, data);
   }
 
-  //Get
+  //Get by Id
   getById(id: string): Observable<TModel> {
-    return this.http.get<TModel>(`${environment.apiBaseUrl}/api/CoopType/${id}`);
+    return this.http.get<TModel>(`${environment.apiBaseUrl}/${id}`);
   }
 
   //Update
   update(id: string, item: TModelInput): Observable<TModel> {
-    return this.http.put<TModel>(`${environment.apiBaseUrl}/api/CoopType/${id}`, item);
+    return this.http.put<TModel>(`${environment.apiBaseUrl}/${id}`, item);
   }
 
   //Delete
   delete(id: string): Observable<TModel> {
-    return this.http.delete<TModel>(`${environment.apiBaseUrl}/api/CoopType/${id}`);
+    return this.http.delete<TModel>(`${environment.apiBaseUrl}/${id}`);
   }
 }

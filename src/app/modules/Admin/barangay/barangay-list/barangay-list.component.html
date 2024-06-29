@@ -1,1 +1,252 @@
-<p>barangay-list works!</p>
+<div class="page-content">
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="page-title-box d-sm-flex align-items-center justify-content-between"
+          >
+            <h4 class="mb-sm-0">Cooperative Names page</h4>
+  
+            <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item">
+                  <a href="javascript: void(0);">Utility</a>
+                </li>
+                <li class="breadcrumb-item active">Starter page</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Barangay Maintenance</h4>
+              <div class="row">
+                <div class="col-10">
+                  <p class="card-title-desc">This mainteance is for barangay</p>
+                </div>
+                <div class="col-2">
+                  <button
+                    class="btn btn-primary waves-effect waves-light float-end"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addModal"
+                  >
+                    Add Barangay
+                  </button>
+                </div>
+              </div>
+  
+              <div
+                id="datatable_wrapper"
+                class="dataTables_wrapper dt-bootstrap4 no-footer"
+              >
+                <div class="row">
+                  <div class="col-sm-12">
+                    <ng-container >
+                      <table
+                        datatable
+                        
+                        class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                        style="
+                          border-collapse: collapse;
+                          border-spacing: 0px;
+                          width: 100%;
+                        "
+                        role="grid"
+                        aria-describedby="datatable_info"
+                      >
+                        <thead>
+                          <tr role="row">
+                            <th
+                              class="sorting"
+                              tabindex="0"
+                              aria-controls="datatable"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                              Barangay
+                            </th>
+                            <th
+                              class="sorting"
+                              tabindex="0"
+                              aria-controls="datatable"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                              Action
+                            </th>
+                          </tr>
+                        </thead>
+  
+                        <tbody>
+                          <tr class="odd" *ngFor="let data of barangayList">
+                            <td valign="top" class="">
+                               {{ data.barangays}}
+                            </td>
+                            <td valign="top" class="">
+                                <!-- (click)="fetchBarangayById(data)" -->
+                              <button
+                               
+                                data-bs-toggle="modal"
+                                data-bs-target="#editModal"
+                                class="btn btn-info waves-effect waves-light m-2"
+                              >
+                                Edit
+                              </button>
+                              <!-- <a
+                                (click)="onDelete(data)"
+                                class="btn btn-danger waves-effect waves-light"
+                                >Delete</a
+                              > -->
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container-fluid -->
+  </div>
+  
+  <!-- Add Modal -->
+  <div
+    #yourModal
+    class="modal fade"
+    id="addModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div #yourModal class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <form >
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Add Barangay</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+  
+          <div class="modal-body">
+            <div class="col-md-12">
+              <div class="mb-3">
+                <label for="categoryName" class="form-label"
+                  >Cooperative Name</label
+                >
+                <!-- <input
+                  type="text"
+                  class="form-control"
+                  id="barangays"
+                  name="barangay"
+                  placeholder="Barangay, Municipality"
+                  required=""
+                  [(ngModel)]="addBarangay.barangay"
+                /> -->
+                <div class="valid-feedback">Ok na good!</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              #addModalElement
+              type="button"
+              class="btn btn-light waves-effect"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary waves-effect waves-light"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Edit Modal -->
+  <div
+    class="modal fade"
+    id="editModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <ng-container >
+          <form >
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Edit Barangay</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+  
+            <div class="modal-body">
+              <div class="col-md-12">
+                <div class="mb-3">
+                  <label for="coopNameModel" class="form-label">Barangay Name</label>
+                  <!-- <input
+                    type="text"
+                    class="form-control"
+                    id="barangay"
+                    name="barangay"
+                    placeholder="Barangay, Municipality"
+                    required=""
+                    [(ngModel)]="BarangayModel.barangay"
+                  /> -->
+                  <div class="valid-feedback">Ok na good!</div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                #editModal
+                type="button"
+                class="btn btn-light waves-effect"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary waves-effect waves-light"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  

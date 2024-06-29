@@ -15,7 +15,7 @@
         </li>
 
         <li>
-          <a [routerLink]="['/admin/rbo-directory']" class="metismenu">
+          <a [routerLink]="['/admin/rbo-directory']" class="waves-effect">
             <i class="ri-book-3-line"></i>
             <span>Rbo Directory</span>
           </a>
@@ -46,14 +46,25 @@
             [class.mm-show]="isMenuExpanded"
             [attr.aria-expanded]="isMenuExpanded ? 'true' : 'false'"
           >
-            <li><a href="ecommerce-products.html">Products</a></li>
-            <li><a href="ecommerce-product-detail.html">Product Detail</a></li>
-            <li><a href="ecommerce-orders.html">Orders</a></li>
-            <li><a href="ecommerce-customers.html">Customers</a></li>
-            <li><a href="ecommerce-cart.html">Cart</a></li>
-            <li><a href="ecommerce-checkout.html">Checkout</a></li>
-            <li><a href="ecommerce-shops.html">Shops</a></li>
-            <li><a href="ecommerce-add-product.html">Add Product</a></li>
+          <li><a [routerLink]="['/admin/barangay']">Barangay</a></li>
+          <li><a [routerLink]="['/admin/rbo-category']">RBO Category</a></li>
+          <li><a [routerLink]="['/admin/coop-name']">Coop Names</a></li>
+          <li><a [routerLink]="['/admin/coop-type']">Coop Type</a></li>
+          <li>
+            <a [routerLink]="['/admin/ccop-asset']"
+              >Coop Asset Size Category</a
+            >
+          </li>
+          <li>
+            <a [routerLink]="['/admin/business-activity']"
+              >Coop Business Activities</a
+            >
+          </li>
+          <li>
+            <a [routerLink]="['/admin/intervention-received']"
+              >Intervention Received</a
+            >
+          </li>
           </ul>
         </li>
 

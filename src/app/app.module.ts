@@ -13,6 +13,10 @@ import { SharedModule } from './shared/shared.module';
 import { SdscooplistComponent } from './modules/Admin/sds-cooperative/sdscooplist/sdscooplist.component';
 import { AddSdscoopComponent } from './modules/Admin/sds-cooperative/add-sdscoop/add-sdscoop.component';
 import { BarangayListComponent } from './modules/Admin/barangay/barangay-list/barangay-list.component';
+import { CreateRboComponent } from './modules/Admin/rbo-directory/create-rbo/create-rbo.component';
+import { ListRboComponent } from './modules/Admin/rbo-directory/list-rbo/list-rbo.component';
+import { BarangayService } from './modules/Admin/barangay/service/barangay-service.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,13 +30,16 @@ import { BarangayListComponent } from './modules/Admin/barangay/barangay-list/ba
     SdscooplistComponent,
     AddSdscoopComponent,
     BarangayListComponent,
+    CreateRboComponent,
+    ListRboComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [BarangayService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
