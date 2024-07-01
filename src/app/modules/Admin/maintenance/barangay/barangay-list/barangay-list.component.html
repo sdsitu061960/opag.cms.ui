@@ -6,7 +6,7 @@
           <div
             class="page-title-box d-sm-flex align-items-center justify-content-between"
           >
-            <h4 class="mb-sm-0">Cooperative Names page</h4>
+            <h4 class="mb-sm-0">Barangay Maitenance</h4>
   
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
@@ -25,7 +25,7 @@
               <h4 class="card-title">Barangay Maintenance</h4>
               <div class="row">
                 <div class="col-10">
-                  <p class="card-title-desc">This mainteance is for barangay</p>
+                  <p class="card-title-desc">This module you can modify barangays.</p>
                 </div>
                 <div class="col-2">
                   <button
@@ -37,14 +37,27 @@
                   </button>
                 </div>
               </div>
+
+              <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+                <div class="d-flex align-items-center">
+                  <select id="pageSizeSelect" class="form-select" (change)="onPageSizeChange($event)">
+                    <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+                  </select>
+                </div>
+                <div class="d-flex align-items-center">
+                  <input type="text" class="form-control" placeholder="Search...">
+                </div>
+              </div>
+
+             
   
               <div
                 id="datatable_wrapper"
                 class="dataTables_wrapper dt-bootstrap4 no-footer"
               >
                 <div class="row">
-                  <div class="col-sm-12">
-                    <ng-container >
+                  <div class="col-sm-12"> 
+                    <ng-container *ngIf="barangayList.length > 0">
                       <table
                         datatable
                         
@@ -110,6 +123,24 @@
                       </table>
                     </ng-container>
                   </div>
+
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p>Showing {{(pageNumber - 1) * pageSize + 1}} to {{pageNumber * pageSize > totalRecords ? totalRecords : pageNumber * pageSize}} of {{totalRecords}} entries</p>
+                    <div class="d-flex align-items-center">
+                      <button class="btn btn-primary me-2" (click)="onPrev()" [disabled]="pageNumber === 1">Previous</button>
+                      
+                      <ng-container *ngFor="let page of totalPagesArray">
+                        <button class="btn btn-primary mx-1" (click)="goToPage(page)" [class.btn-primary]="pageNumber === page">{{ page }}</button>
+                      </ng-container>
+                      
+                      <button class="btn btn-primary ms-2" (click)="onNext()" [disabled]="pageNumber * pageSize >= totalRecords">Next</button>
+                    </div>
+                  </div>
+
+                  <div *ngIf="barangayList.length === 0" class="mt-2">
+                    <p class="text-center">No entries found.</p>
+                  </div>
+
                 </div>
               </div>
             </div>

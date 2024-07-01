@@ -5,7 +5,7 @@ import { DefaultComponentComponent } from './layout/default/default-component/de
 import { DashboardComponent } from './modules/Admin/dashboard/dashboard/dashboard.component';
 import { SdscooplistComponent } from './modules/Admin/sds-cooperative/sdscooplist/sdscooplist.component';
 import { ListRboComponent } from './modules/Admin/rbo-directory/list-rbo/list-rbo.component';
-import { BarangayListComponent } from './modules/Admin/barangay/barangay-list/barangay-list.component';
+import { BarangayListComponent } from './modules/Admin/maintenance/barangay/barangay-list/barangay-list.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },

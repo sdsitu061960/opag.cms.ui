@@ -12,10 +12,10 @@ import { DashboardComponent } from './modules/Admin/dashboard/dashboard/dashboar
 import { SharedModule } from './shared/shared.module';
 import { SdscooplistComponent } from './modules/Admin/sds-cooperative/sdscooplist/sdscooplist.component';
 import { AddSdscoopComponent } from './modules/Admin/sds-cooperative/add-sdscoop/add-sdscoop.component';
-import { BarangayListComponent } from './modules/Admin/barangay/barangay-list/barangay-list.component';
+import { BarangayListComponent } from './modules/Admin/maintenance//barangay/barangay-list/barangay-list.component';
 import { CreateRboComponent } from './modules/Admin/rbo-directory/create-rbo/create-rbo.component';
 import { ListRboComponent } from './modules/Admin/rbo-directory/list-rbo/list-rbo.component';
-import { BarangayService } from './modules/Admin/barangay/service/barangay-service.service';
+import { BarangayService } from './modules/Admin/maintenance/barangay/service/barangay-service.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 

@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   imports: [
     CommonModule
   ]
 })
-export class SharedModule { 
+export class SharedModule {
   toggleSidebar: EventEmitter<boolean> = new EventEmitter<boolean>();
   isSidebarEnabled: boolean = false;
   isVerticalCollapsed: boolean = false;

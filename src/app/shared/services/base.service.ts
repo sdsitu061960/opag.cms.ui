@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
+import { IBarangay, PaginatedResponse } from 'src/app/modules/Admin/maintenance/barangay/model/barangay.model';
 
 export class BaseService<TModel, TModelInput> {
 
@@ -13,8 +14,18 @@ export class BaseService<TModel, TModelInput> {
   }
 
   //Get All 
-  getAll(): Observable<TModel[]> {
-    return this.http.get<TModel[]>(`${this.apiBaseUrl}/all`);
+  // getAll(pageNumber: number, pageSize: number): Observable<TModel[]> {
+  //   let params = new HttpParams()
+  //     .set('pageNumber', pageNumber.toString())
+  //     .set('pageSize', pageSize.toString());
+  //   return this.http.get<TModel[]>(`${this.apiBaseUrl}/allPaging`, { params });
+  // }
+
+  getAll(pageNumber: number, pageSize: number): Observable<PaginatedResponse<IBarangay>> {
+    let params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+    return this.http.get<PaginatedResponse<IBarangay>>(`${this.apiBaseUrl}/allPaging`, { params });
   }
 
   //Create
