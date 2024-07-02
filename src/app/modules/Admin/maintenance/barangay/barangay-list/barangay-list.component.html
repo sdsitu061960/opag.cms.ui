@@ -45,7 +45,11 @@
                   </select>
                 </div>
                 <div class="d-flex align-items-center">
-                  <input type="text" class="form-control" placeholder="Search...">
+                  <input  type="text" 
+                  class="form-control" 
+                  placeholder="Search..." 
+                  [(ngModel)]="searchTerm" 
+                  (input)="onSearch()" >
                 </div>
               </div>
 

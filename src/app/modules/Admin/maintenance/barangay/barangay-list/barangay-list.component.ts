@@ -22,6 +22,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   totalPages: number = 0;
   totalRecords: number = 0;
   pageSizeOptions: number[] = [5, 10, 25, 50, 100];
+  searchTerm: string = '';
 
   //subscription
   private BarangaySucription?: Subscription;
@@ -46,7 +47,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   }
 
   private fetchBarangay() {
-    this.BarangaySucription = this.barangayService.getAll(this.pageNumber, this.pageSize)
+    this.BarangaySucription = this.barangayService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
       .subscribe({
         next: (response: any) => {
           this.barangayList = response.items;
@@ -153,6 +154,11 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   }
 
 
+  onSearch(): void {
+    this.pageNumber = 1; // Reset to first page whenever a search is performed
+    this.fetchBarangay();
+  }
+
   onPrev(): void {
     if (this.pageNumber > 1) {
       this.pageNumber--;
@@ -161,7 +167,6 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   }
 
   onNext(): void {
-    //< this.totalEntriesc
     console.log('Total Record:', this.totalRecords);
     if (this.pageNumber * this.pageSize < this.totalRecords) {
       this.pageNumber++;
@@ -183,8 +188,28 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     }
   }
 
+  // get totalPagesArray(): number[] {
+  //   return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+  // }
+
+  visiblePageCount = 5;
+
   get totalPagesArray(): number[] {
-    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+    const currentPage = this.pageNumber;
+    const totalPages = this.totalPages;
+    const halfVisible = Math.floor(this.visiblePageCount / 2);
+
+    let startPage = currentPage - halfVisible;
+    startPage = Math.max(1, startPage); // Ensure startPage is at least 1
+
+    let endPage = startPage + this.visiblePageCount - 1;
+    endPage = Math.min(totalPages, endPage); // Ensure endPage does not exceed totalPages
+
+    const pages = [];
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    return pages;
   }
 
   ngOnDestroy(): void {
