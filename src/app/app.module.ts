@@ -20,6 +20,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MunicipalityListComponent } from './modules/Admin/maintenance/municipality/municipality-list/municipality-list.component';
 import { RboCategoryListComponent } from './modules/Admin/maintenance/rbo category/rbo-category-list/rbo-category-list.component';
+import { CooperativeTypeListComponent } from './modules/Admin/maintenance/cooperative type/cooperative-type-list/cooperative-type-list.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RboCategoryListComponent } from './modules/Admin/maintenance/rbo catego
     CreateRboComponent,
     ListRboComponent,
     MunicipalityListComponent,
-    RboCategoryListComponent
+    RboCategoryListComponent,
+    CooperativeTypeListComponent
   ],
   imports: [
     BrowserModule,

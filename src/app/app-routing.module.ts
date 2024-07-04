@@ -8,6 +8,7 @@ import { ListRboComponent } from './modules/Admin/rbo-directory/list-rbo/list-rb
 import { BarangayListComponent } from './modules/Admin/maintenance/barangay/barangay-list/barangay-list.component';
 import { MunicipalityListComponent } from './modules/Admin/maintenance/municipality/municipality-list/municipality-list.component';
 import { RboCategoryListComponent } from './modules/Admin/maintenance/rbo category/rbo-category-list/rbo-category-list.component';
+import { CooperativeTypeListComponent } from './modules/Admin/maintenance/cooperative type/cooperative-type-list/cooperative-type-list.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -20,7 +21,9 @@ const routes: Routes = [
       { path: 'sds-cooperative', component: SdscooplistComponent, title: 'SDS Cooperative' },
       { path: 'barangay', component: BarangayListComponent, title: 'Barangay' },
       { path: 'municipality', component: MunicipalityListComponent, title: 'Municipality' },
-      { path: 'rbo-category', component: RboCategoryListComponent, title: 'RboCategory' }
+      { path: 'rbo-category', component: RboCategoryListComponent, title: 'RboCategory' },
+      { path: 'coop-type', component: CooperativeTypeListComponent, title: 'Cooperative Types' },
+
 
     ]
   }
