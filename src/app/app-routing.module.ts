@@ -10,6 +10,7 @@ import { MunicipalityListComponent } from './modules/Admin/maintenance/municipal
 import { RboCategoryListComponent } from './modules/Admin/maintenance/rbo category/rbo-category-list/rbo-category-list.component';
 import { CooperativeTypeListComponent } from './modules/Admin/maintenance/cooperative type/cooperative-type-list/cooperative-type-list.component';
 import { CoopAssetSizeListComponent } from './modules/Admin/maintenance/cooperative asset size/coop-asset-size-list/coop-asset-size-list.component';
+import { CoopBusinessListComponent } from './modules/Admin/maintenance/cooperative business/coop-business-list/coop-business-list.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
       { path: 'municipality', component: MunicipalityListComponent, title: 'Municipality' },
       { path: 'rbo-category', component: RboCategoryListComponent, title: 'RboCategory' },
       { path: 'coop-type', component: CooperativeTypeListComponent, title: 'Cooperative Types' },
-      { path: 'ccop-asset', component: CoopAssetSizeListComponent, title: 'Cooperative Asset Size' }
+      { path: 'ccop-asset', component: CoopAssetSizeListComponent, title: 'Cooperative Asset Size' },
+      { path: 'business-activity', component: CoopBusinessListComponent, title: 'Business Activity' }
     ]
   }
 ];
