@@ -21,7 +21,7 @@ export class BaseService<TModel, TModelInput> {
   //   return this.http.get<TModel[]>(`${this.apiBaseUrl}/allPaging`, { params });
   // }
 
-  getAll(pageNumber: number, pageSize: number, searchTerm?: string): Observable<PaginatedResponse<IBarangay>> {
+  getAll(pageNumber: number, pageSize: number, searchTerm?: string): Observable<PaginatedResponse<TModel[]>> {
     let params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString());
@@ -30,7 +30,7 @@ export class BaseService<TModel, TModelInput> {
       params = params.set('searchTerm', searchTerm);
     }
 
-    return this.http.get<PaginatedResponse<IBarangay>>(`${this.apiBaseUrl}/allPaging`, { params });
+    return this.http.get<PaginatedResponse<TModel[]>>(`${this.apiBaseUrl}/all`, { params });
   }
 
   //Create

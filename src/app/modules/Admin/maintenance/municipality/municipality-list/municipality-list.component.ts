@@ -1,19 +1,19 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BarangayService } from '../service/barangay-service.service';
-import { IBarangay, IBarangayInput } from '../model/barangay.model';
-import Swal from 'sweetalert2';
+import { IMunicipality, IMunicipalityInput } from '../model/municipality';
 import { NgForm } from '@angular/forms';
+import { MunicipalityService } from '../service/municipality.service';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-barangay-list',
-  templateUrl: './barangay-list.component.html',
-  styleUrls: ['./barangay-list.component.css']
+  selector: 'app-municipality-list',
+  templateUrl: './municipality-list.component.html',
+  styleUrls: ['./municipality-list.component.css']
 })
-export class BarangayListComponent implements OnInit, OnDestroy {
-  barangayList: IBarangay[] = [];
-  inputs: IBarangayInput = { barangays: '' };
-  barangay: IBarangay | any;
+export class MunicipalityListComponent implements OnInit, OnDestroy {
+  municipalityList: IMunicipality[] = [];
+  inputs: IMunicipalityInput = { municipalities: '' };
+  municipality: IMunicipality | any;
 
   //Paganation
   entries: any[] = [];
@@ -22,36 +22,37 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   totalPages: number = 0;
   totalRecords: number = 0;
   pageSizeOptions: number[] = [5, 10, 25, 50, 100];
-  visiblePageCount = 5;
   searchTerm: string = '';
+  visiblePageCount = 5;
 
   //subscription
-  private BarangaySucription?: Subscription;
-  private AddBarangaySubcription?: Subscription;
-  private FetchBarangayByIdSubcription?: Subscription;
-  private UpdateBarangaySubcription?: Subscription;
+  private MunicipalitySucription?: Subscription;
+  private AddMunicipalitySubcription?: Subscription;
+  private FetchMunicipalityByIdSubcription?: Subscription;
+  private UpdateMunicipalitySubcription?: Subscription;
   private onDeleteSubcription?: Subscription;
 
   //reset
   @ViewChild('formRef', { static: false }) form!: NgForm;
   //close modal
-  @ViewChild('closeModal') closeModal!: ElementRef
+  @ViewChild('closeModal') closeModal!: ElementRef;
   // open modal
   @ViewChild('updateModal') updateModal!: ElementRef;
   // close modal
   @ViewChild('closeModalUpdate') closeModals!: ElementRef
 
-  constructor(private barangayService: BarangayService) { }
+  constructor(private municipalityService: MunicipalityService) { }
 
   ngOnInit(): void {
-    this.fetchBarangay();
+    this.fetchMunicpality();
+
   }
 
-  private fetchBarangay() {
-    this.BarangaySucription = this.barangayService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+  private fetchMunicpality() {
+    this.MunicipalitySucription = this.municipalityService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
       .subscribe({
         next: (response: any) => {
-          this.barangayList = response.items;
+          this.municipalityList = response.items;
           this.totalPages = response.totalPages;
           this.totalRecords = response.totalRecords;
         },
@@ -61,12 +62,11 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       });
   }
 
-  AddBarangay(): void {
-    console.log('submited');
-    this.AddBarangaySubcription = this.barangayService.create(this.inputs)
+  AddMunicipality(): void {
+    this.AddMunicipalitySubcription = this.municipalityService.create(this.inputs)
       .subscribe({
 
-        next: (response) => {
+        next: () => {
 
           // reset form
           this.form.resetForm();
@@ -76,17 +76,17 @@ export class BarangayListComponent implements OnInit, OnDestroy {
 
           Swal.fire({
             icon: 'success',
-            text: "Barangay Created!",
+            text: "Municipality Created!",
             showConfirmButton: false,
             timer: 1000,
           });
 
-          this.fetchBarangay();
+          this.fetchMunicpality();
         },
-        error: (error) => {
+        error: () => {
           Swal.fire({
             icon: 'error',
-            text: "Error Creating barangay.",
+            text: "Error Creating municipality.",
             showConfirmButton: false,
             timer: 2000,
           });
@@ -94,14 +94,14 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       });
   }
 
-  fetchBarangayById(barangayId: string): void {
-    this.FetchBarangayByIdSubcription = this.barangayService.getById(barangayId).subscribe((data: IBarangay) => {
-      this.barangay = data;
+  fetchMunicipalityById(municipalityId: string): void {
+    this.FetchMunicipalityByIdSubcription = this.municipalityService.getById(municipalityId).subscribe((data: IMunicipality) => {
+      this.municipality = data;
     });
   }
 
-  updateBarangayOnSubmit(): void {
-    this.UpdateBarangaySubcription = this.barangayService.update(this.barangay).subscribe(
+  updateMunicipalityOnSubmit(): void {
+    this.UpdateMunicipalitySubcription = this.municipalityService.update(this.municipality).subscribe(
       response => {
         Swal.fire({
           icon: 'success',
@@ -112,7 +112,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
         this.form.resetForm();
         // close modal
         this.closeModals.nativeElement.click();
-        this.fetchBarangay();
+        this.fetchMunicpality();
       },
       error => {
         Swal.fire({
@@ -124,7 +124,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     )
   }
 
-  onDelete(barangayId: string): void {
+  onDelete(municipalityId: string): void {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -135,10 +135,10 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.onDeleteSubcription = this.barangayService.delete(barangayId)
+        this.onDeleteSubcription = this.municipalityService.delete(municipalityId)
           .subscribe({
             next: (response) => {
-              this.fetchBarangay();
+              this.fetchMunicpality();
             },
             error: (error) => {
               Swal.fire({
@@ -154,16 +154,15 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     });
   }
 
-
   onSearch(): void {
     this.pageNumber = 1; // Reset to first page whenever a search is performed
-    this.fetchBarangay();
+    this.fetchMunicpality();
   }
 
   onPrev(): void {
     if (this.pageNumber > 1) {
       this.pageNumber--;
-      this.fetchBarangay();
+      this.fetchMunicpality();
     }
   }
 
@@ -171,7 +170,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     console.log('Total Record:', this.totalRecords);
     if (this.pageNumber * this.pageSize < this.totalRecords) {
       this.pageNumber++;
-      this.fetchBarangay();
+      this.fetchMunicpality();
     }
   }
 
@@ -179,19 +178,15 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLSelectElement;
     this.pageSize = +target.value;
     this.pageNumber = 1; // Reset to first page whenever page size changes
-    this.fetchBarangay();
+    this.fetchMunicpality();
   }
 
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.pageNumber = page;
-      this.fetchBarangay();
+      this.fetchMunicpality();
     }
   }
-
-  // get totalPagesArray(): number[] {
-  //   return Array(this.totalPages).fill(0).map((x, i) => i + 1);
-  // }
 
   get totalPagesArray(): number[] {
     const currentPage = this.pageNumber;
@@ -212,11 +207,12 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.BarangaySucription?.unsubscribe();
-    this.AddBarangaySubcription?.unsubscribe();
-    this.FetchBarangayByIdSubcription?.unsubscribe();
-    this.UpdateBarangaySubcription?.unsubscribe();
+    this.MunicipalitySucription?.unsubscribe();
+    this.AddMunicipalitySubcription?.unsubscribe();
+    this.FetchMunicipalityByIdSubcription?.unsubscribe();
+    this.UpdateMunicipalitySubcription?.unsubscribe();
     this.onDeleteSubcription?.unsubscribe();
   }
+
 
 }

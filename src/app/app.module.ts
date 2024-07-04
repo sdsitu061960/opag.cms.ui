@@ -18,6 +18,7 @@ import { ListRboComponent } from './modules/Admin/rbo-directory/list-rbo/list-rb
 import { BarangayService } from './modules/Admin/maintenance/barangay/service/barangay-service.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { MunicipalityListComponent } from './modules/Admin/maintenance/municipality/municipality-list/municipality-list.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FormsModule } from '@angular/forms';
     AddSdscoopComponent,
     BarangayListComponent,
     CreateRboComponent,
-    ListRboComponent
+    ListRboComponent,
+    MunicipalityListComponent
   ],
   imports: [
     BrowserModule,

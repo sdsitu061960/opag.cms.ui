@@ -1,7 +1,3 @@
-import { Barangay } from './barangay.model';
+import { IBarangay } from './barangay.model';
 
-describe('Barangay', () => {
-  it('should create an instance', () => {
-    expect(new Barangay()).toBeTruthy();
-  });
-});
+
