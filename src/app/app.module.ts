@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { MunicipalityListComponent } from './modules/Admin/maintenance/municipality/municipality-list/municipality-list.component';
 import { RboCategoryListComponent } from './modules/Admin/maintenance/rbo category/rbo-category-list/rbo-category-list.component';
 import { CooperativeTypeListComponent } from './modules/Admin/maintenance/cooperative type/cooperative-type-list/cooperative-type-list.component';
+import { CoopAssetSizeListComponent } from './modules/Admin/maintenance/cooperative asset size/coop-asset-size-list/coop-asset-size-list.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CooperativeTypeListComponent } from './modules/Admin/maintenance/cooper
     ListRboComponent,
     MunicipalityListComponent,
     RboCategoryListComponent,
-    CooperativeTypeListComponent
+    CooperativeTypeListComponent,
+    CoopAssetSizeListComponent
   ],
   imports: [
     BrowserModule,
