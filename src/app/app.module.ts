@@ -19,6 +19,7 @@ import { BarangayService } from './modules/Admin/maintenance/barangay/service/ba
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MunicipalityListComponent } from './modules/Admin/maintenance/municipality/municipality-list/municipality-list.component';
+import { RboCategoryListComponent } from './modules/Admin/maintenance/rbo category/rbo-category-list/rbo-category-list.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MunicipalityListComponent } from './modules/Admin/maintenance/municipal
     BarangayListComponent,
     CreateRboComponent,
     ListRboComponent,
-    MunicipalityListComponent
+    MunicipalityListComponent,
+    RboCategoryListComponent
   ],
   imports: [
     BrowserModule,

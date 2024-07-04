@@ -1,19 +1,19 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BarangayService } from '../service/barangay-service.service';
-import { IBarangay, IBarangayInput } from '../model/barangay.model';
-import Swal from 'sweetalert2';
-import { NgForm } from '@angular/forms';
+import { IRboCateory, IRboCateoryInput } from '../model/rbo-category.model';
+import { RboCategoryService } from '../service/rbo-category.service';
 import { Subscription } from 'rxjs';
+import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-barangay-list',
-  templateUrl: './barangay-list.component.html',
-  styleUrls: ['./barangay-list.component.css']
+  selector: 'app-rbo-category-list',
+  templateUrl: './rbo-category-list.component.html',
+  styleUrls: ['./rbo-category-list.component.css']
 })
-export class BarangayListComponent implements OnInit, OnDestroy {
-  barangayList: IBarangay[] = [];
-  inputs: IBarangayInput = { barangays: '' };
-  barangay: IBarangay | any;
+export class RboCategoryListComponent implements OnInit, OnDestroy {
+  rboCategoryList: IRboCateory[] = [];
+  inputs: IRboCateoryInput = { categoryName: '', shortName: '' };
+  rboCategory: IRboCateory | any;
 
   //Paganation
   entries: any[] = [];
@@ -26,10 +26,10 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   searchTerm: string = '';
 
   //subscription
-  private BarangaySucription?: Subscription;
-  private AddBarangaySubcription?: Subscription;
-  private FetchBarangayByIdSubcription?: Subscription;
-  private UpdateBarangaySubcription?: Subscription;
+  private RboCategorySucription?: Subscription;
+  private AddRboCategorySubcription?: Subscription;
+  private FetchRboCategoryByIdSubcription?: Subscription;
+  private UpdateRboCateogrySubcription?: Subscription;
   private onDeleteSubcription?: Subscription;
 
   //reset
@@ -41,17 +41,17 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   // close modal
   @ViewChild('closeModalUpdate') closeModals!: ElementRef;
 
-  constructor(private barangayService: BarangayService) { }
+  constructor(private rboCategoryService: RboCategoryService) { }
 
   ngOnInit(): void {
-    this.fetchBarangay();
+    this.fetchrbo();
   }
 
-  private fetchBarangay() {
-    this.BarangaySucription = this.barangayService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+  private fetchrbo() {
+    this.RboCategorySucription = this.rboCategoryService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
       .subscribe({
         next: (response: any) => {
-          this.barangayList = response.items;
+          this.rboCategoryList = response.items;
           this.totalPages = response.totalPages;
           this.totalRecords = response.totalRecords;
         },
@@ -61,9 +61,9 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       });
   }
 
-  AddBarangay(): void {
+  AddrboCategory(): void {
     console.log('submited');
-    this.AddBarangaySubcription = this.barangayService.create(this.inputs)
+    this.AddRboCategorySubcription = this.rboCategoryService.create(this.inputs)
       .subscribe({
 
         next: (response) => {
@@ -81,7 +81,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
             timer: 1000,
           });
 
-          this.fetchBarangay();
+          this.fetchrbo();
         },
         error: (error) => {
           Swal.fire({
@@ -94,14 +94,14 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       });
   }
 
-  fetchBarangayById(barangayId: string): void {
-    this.FetchBarangayByIdSubcription = this.barangayService.getById(barangayId).subscribe((data: IBarangay) => {
-      this.barangay = data;
+  fetchRboCategoryById(rbocategoryId: string): void {
+    this.FetchRboCategoryByIdSubcription = this.rboCategoryService.getById(rbocategoryId).subscribe((data: IRboCateory) => {
+      this.rboCategory = data;
     });
   }
 
-  updateBarangayOnSubmit(): void {
-    this.UpdateBarangaySubcription = this.barangayService.update(this.barangay).subscribe(
+  updateRboCategoryOnSubmit(): void {
+    this.UpdateRboCateogrySubcription = this.rboCategoryService.update(this.rboCategory).subscribe(
       response => {
         Swal.fire({
           icon: 'success',
@@ -112,7 +112,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
         this.form.resetForm();
         // close modal
         this.closeModals.nativeElement.click();
-        this.fetchBarangay();
+        this.fetchrbo();
       },
       error => {
         Swal.fire({
@@ -124,7 +124,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     )
   }
 
-  onDelete(barangayId: string): void {
+  onDelete(rbocategoryId: string): void {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -135,10 +135,10 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.onDeleteSubcription = this.barangayService.delete(barangayId)
+        this.onDeleteSubcription = this.rboCategoryService.delete(rbocategoryId)
           .subscribe({
             next: (response) => {
-              this.fetchBarangay();
+              this.fetchrbo();
             },
             error: (error) => {
               Swal.fire({
@@ -154,16 +154,15 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     });
   }
 
-
   onSearch(): void {
-    this.pageNumber = 1; // Reset to first page whenever a search is performed
-    this.fetchBarangay();
+    this.pageNumber = 1;
+    this.fetchrbo();
   }
 
   onPrev(): void {
     if (this.pageNumber > 1) {
       this.pageNumber--;
-      this.fetchBarangay();
+      this.fetchrbo();
     }
   }
 
@@ -171,7 +170,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     console.log('Total Record:', this.totalRecords);
     if (this.pageNumber * this.pageSize < this.totalRecords) {
       this.pageNumber++;
-      this.fetchBarangay();
+      this.fetchrbo();
     }
   }
 
@@ -179,19 +178,15 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLSelectElement;
     this.pageSize = +target.value;
     this.pageNumber = 1; // Reset to first page whenever page size changes
-    this.fetchBarangay();
+    this.fetchrbo();
   }
 
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.pageNumber = page;
-      this.fetchBarangay();
+      this.fetchrbo();
     }
   }
-
-  // get totalPagesArray(): number[] {
-  //   return Array(this.totalPages).fill(0).map((x, i) => i + 1);
-  // }
 
   get totalPagesArray(): number[] {
     const currentPage = this.pageNumber;
@@ -212,10 +207,10 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.BarangaySucription?.unsubscribe();
-    this.AddBarangaySubcription?.unsubscribe();
-    this.FetchBarangayByIdSubcription?.unsubscribe();
-    this.UpdateBarangaySubcription?.unsubscribe();
+    this.RboCategorySucription?.unsubscribe();
+    this.AddRboCategorySubcription?.unsubscribe();
+    this.FetchRboCategoryByIdSubcription?.unsubscribe();
+    this.UpdateRboCateogrySubcription?.unsubscribe();
     this.onDeleteSubcription?.unsubscribe();
   }
 
