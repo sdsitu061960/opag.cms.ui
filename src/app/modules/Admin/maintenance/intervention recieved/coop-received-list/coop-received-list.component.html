@@ -6,7 +6,7 @@
           <div
             class="page-title-box d-sm-flex align-items-center justify-content-between"
           >
-            <h4 class="mb-sm-0">Cooprative Business Asset Maintenance</h4>
+            <h4 class="mb-sm-0">Intervention Received Maitenance</h4>
   
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
@@ -22,10 +22,10 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Cooperative Business Maintenance</h4>
+              <h4 class="card-title">Intervention Received Maintenance</h4>
               <div class="row">
                 <div class="col-9">
-                  <p class="card-title-desc">This module you can modify cooperative business.</p>
+                  <p class="card-title-desc">This module you can modify intervention received.</p>
                 </div>
                 <div class="col-3">
                   <button
@@ -33,7 +33,7 @@
                     data-bs-toggle="modal"
                     data-bs-target="#addModal"
                   >
-                    Add Cooperative Business
+                    Add Intervention Received
                   </button>
                 </div>
               </div>
@@ -61,10 +61,9 @@
               >
                 <div class="row">
                   <div class="col-sm-12"> 
-                    <ng-container *ngIf="coopBusinessList.length > 0">
+                    <ng-container *ngIf="interventionReceivedList.length > 0">
                       <table
                         datatable
-                        
                         class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
                         style="
                           border-collapse: collapse;
@@ -85,7 +84,7 @@
                               style="width: 165px"
                               aria-label="Position: activate to sort column ascending"
                             >
-                            Cooperative Business
+                            Intervention Received From
                             </th>
                             <th
                               class="sorting"
@@ -102,14 +101,14 @@
                         </thead>
   
                         <tbody>
-                          <tr class="odd" *ngFor="let data of coopBusinessList">
+                          <tr class="odd" *ngFor="let data of interventionReceivedList">
                             <td valign="top" class="">
-                               {{ data.businessActivities}}
+                               {{ data.receivedFrom}}
                             </td>
                             <td valign="top" class="">
                                 
                               <button
-                              (click)="fetchcoopBusinessById(data.cooperativeBusinessActivityId)"
+                              (click)="fetchinterventionReceivedById(data.interventionReceivedId)"
                                 data-bs-toggle="modal"
                                 data-bs-target="#editModal"
                                 class="btn btn-info waves-effect waves-light m-2"
@@ -117,7 +116,7 @@
                                 Edit
                               </button>
                               <a
-                                (click)="onDelete(data.cooperativeBusinessActivityId)"
+                                (click)="onDelete(data.interventionReceivedId)"
                                 class="btn btn-danger waves-effect waves-light"
                                 >Delete</a
                               >
@@ -141,7 +140,7 @@
                     </div>
                   </div>
 
-                  <div *ngIf="coopBusinessList.length === 0" class="mt-2">
+                  <div *ngIf="interventionReceivedList.length === 0" class="mt-2">
                     <p class="text-center">No entries found.</p>
                   </div>
 
@@ -170,9 +169,9 @@
   >
     <div #yourModal class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <form #formRef="ngForm" (ngSubmit)="AddcoopBusiness()" >
+        <form #formRef="ngForm" (ngSubmit)="AddinterventionReceived()" >
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Add Barangay</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Add Intervention Received</h5>
             <button
               type="button"
               class="btn-close"
@@ -184,16 +183,16 @@
           <div class="modal-body">
             <div class="col-md-12">
               <div class="mb-3">
-                <label for="businessActivities" class="form-label"
-                  >Business Activities</label
+                <label for="receivedFrom" class="form-label"
+                  >Intervention Received From</label
                 >
                 <input
                   type="text"
                   class="form-control"
-                  id="businessActivities"
-                  name="businessActivities"
-                  placeholder="Business Activity"
-                  [(ngModel)]="inputs.businessActivities"
+                  id="receivedFrom"
+                  name="receivedFrom"
+                  placeholder="Received from"
+                  [(ngModel)]="inputs.receivedFrom"
                 />
               </div>
             </div>
@@ -233,9 +232,9 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <ng-container >
-          <form *ngIf="coopBusiness" (ngSubmit)="updatecoopBusinessOnSubmit()">
+          <form *ngIf="interventionReceived" (ngSubmit)="updateinterventionReceivedOnSubmit()">
             <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Edit Business Activities</h5>
+              <h5 class="modal-title" id="staticBackdropLabel">Edit Intervention Received</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -247,14 +246,14 @@
             <div class="modal-body">
               <div class="col-md-12">
                 <div class="mb-3">
-                  <label for="businessActivities" class="form-label">Coop Business Activity Name</label>
+                  <label for="receivedFrom" class="form-label">Intervention Received From</label>
                   <input
                   type="text"
                   class="form-control"
-                  id="businessActivities"
-                  name="businessActivities"
-                  placeholder="Business Activity"
-                  [(ngModel)]="coopBusiness.businessActivities"
+                  id="receivedFrom"
+                  name="receivedFrom"
+                  placeholder="Received From"
+                  [(ngModel)]="interventionReceived.receivedFrom"
                 />
                 </div>
               </div>

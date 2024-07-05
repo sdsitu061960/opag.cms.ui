@@ -1,19 +1,19 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BarangayService } from '../service/barangay-service.service';
-import { IBarangay, IBarangayInput } from '../model/barangay.model';
-import Swal from 'sweetalert2';
-import { NgForm } from '@angular/forms';
+import { CoopReceivedService } from '../service/coop-received.service';
+import { ICoopReceived, ICoopReceivedInput } from '../model/coo-received.model';
 import { Subscription } from 'rxjs';
+import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-barangay-list',
-  templateUrl: './barangay-list.component.html',
-  styleUrls: ['./barangay-list.component.css']
+  selector: 'app-coop-received-list',
+  templateUrl: './coop-received-list.component.html',
+  styleUrls: ['./coop-received-list.component.css']
 })
-export class BarangayListComponent implements OnInit, OnDestroy {
-  barangayList: IBarangay[] = [];
-  inputs: IBarangayInput = { barangays: '' };
-  barangay: IBarangay | any;
+export class CoopReceivedListComponent implements OnInit, OnDestroy {
+  interventionReceivedList: ICoopReceived[] = [];
+  inputs: ICoopReceivedInput = { receivedFrom: '' };
+  interventionReceived: ICoopReceived | any;
 
   //Paganation
   entries: any[] = [];
@@ -26,10 +26,10 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   searchTerm: string = '';
 
   //subscription
-  private BarangaySucription?: Subscription;
-  private AddBarangaySubcription?: Subscription;
-  private FetchBarangayByIdSubcription?: Subscription;
-  private UpdateBarangaySubcription?: Subscription;
+  private interventionReceivedSucription?: Subscription;
+  private AddinterventionReceivedSubcription?: Subscription;
+  private FetchinterventionReceivedByIdSubcription?: Subscription;
+  private UpdateinterventionReceivedSubcription?: Subscription;
   private onDeleteSubcription?: Subscription;
 
   //reset
@@ -41,17 +41,17 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   // close modal
   @ViewChild('closeModalUpdate') closeModals!: ElementRef;
 
-  constructor(private barangayService: BarangayService) { }
+  constructor(private coopReceivedService: CoopReceivedService) { }
 
   ngOnInit(): void {
-    this.fetchBarangay();
+    this.fetchinterventionReceived();
   }
 
-  private fetchBarangay() {
-    this.BarangaySucription = this.barangayService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+  private fetchinterventionReceived() {
+    this.interventionReceivedSucription = this.coopReceivedService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
       .subscribe({
         next: (response: any) => {
-          this.barangayList = response.items;
+          this.interventionReceivedList = response.items;
           this.totalPages = response.totalPages;
           this.totalRecords = response.totalRecords;
         },
@@ -61,9 +61,8 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       });
   }
 
-  AddBarangay(): void {
-    console.log('submited');
-    this.AddBarangaySubcription = this.barangayService.create(this.inputs)
+  AddinterventionReceived(): void {
+    this.AddinterventionReceivedSubcription = this.coopReceivedService.create(this.inputs)
       .subscribe({
 
         next: (response) => {
@@ -76,17 +75,17 @@ export class BarangayListComponent implements OnInit, OnDestroy {
 
           Swal.fire({
             icon: 'success',
-            text: "Barangay Created!",
+            text: "Intervention Created!",
             showConfirmButton: false,
             timer: 1000,
           });
 
-          this.fetchBarangay();
+          this.fetchinterventionReceived();
         },
         error: (error) => {
           Swal.fire({
             icon: 'error',
-            text: "Error Creating barangay.",
+            text: "Error Creating Intervention.",
             showConfirmButton: false,
             timer: 2000,
           });
@@ -94,14 +93,14 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       });
   }
 
-  fetchBarangayById(barangayId: string): void {
-    this.FetchBarangayByIdSubcription = this.barangayService.getById(barangayId).subscribe((data: IBarangay) => {
-      this.barangay = data;
+  fetchinterventionReceivedById(interventionId: string): void {
+    this.FetchinterventionReceivedByIdSubcription = this.coopReceivedService.getById(interventionId).subscribe((data: ICoopReceived) => {
+      this.interventionReceived = data;
     });
   }
 
-  updateBarangayOnSubmit(): void {
-    this.UpdateBarangaySubcription = this.barangayService.update(this.barangay).subscribe(
+  updateinterventionReceivedOnSubmit(): void {
+    this.UpdateinterventionReceivedSubcription = this.coopReceivedService.update(this.interventionReceived).subscribe(
       response => {
         Swal.fire({
           icon: 'success',
@@ -112,7 +111,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
         this.form.resetForm();
         // close modal
         this.closeModals.nativeElement.click();
-        this.fetchBarangay();
+        this.fetchinterventionReceived();
       },
       error => {
         Swal.fire({
@@ -124,7 +123,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     )
   }
 
-  onDelete(barangayId: string): void {
+  onDelete(interventionId: string): void {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -135,10 +134,10 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.onDeleteSubcription = this.barangayService.delete(barangayId)
+        this.onDeleteSubcription = this.coopReceivedService.delete(interventionId)
           .subscribe({
             next: (response) => {
-              this.fetchBarangay();
+              this.fetchinterventionReceived();
             },
             error: (error) => {
               Swal.fire({
@@ -154,16 +153,15 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     });
   }
 
-
   onSearch(): void {
     this.pageNumber = 1; // Reset to first page whenever a search is performed
-    this.fetchBarangay();
+    this.fetchinterventionReceived();
   }
 
   onPrev(): void {
     if (this.pageNumber > 1) {
       this.pageNumber--;
-      this.fetchBarangay();
+      this.fetchinterventionReceived();
     }
   }
 
@@ -171,7 +169,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     console.log('Total Record:', this.totalRecords);
     if (this.pageNumber * this.pageSize < this.totalRecords) {
       this.pageNumber++;
-      this.fetchBarangay();
+      this.fetchinterventionReceived();
     }
   }
 
@@ -179,13 +177,13 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLSelectElement;
     this.pageSize = +target.value;
     this.pageNumber = 1; // Reset to first page whenever page size changes
-    this.fetchBarangay();
+    this.fetchinterventionReceived();
   }
 
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.pageNumber = page;
-      this.fetchBarangay();
+      this.fetchinterventionReceived();
     }
   }
 
@@ -208,10 +206,10 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.BarangaySucription?.unsubscribe();
-    this.AddBarangaySubcription?.unsubscribe();
-    this.FetchBarangayByIdSubcription?.unsubscribe();
-    this.UpdateBarangaySubcription?.unsubscribe();
+    this.interventionReceivedSucription?.unsubscribe();
+    this.AddinterventionReceivedSubcription?.unsubscribe();
+    this.FetchinterventionReceivedByIdSubcription?.unsubscribe();
+    this.UpdateinterventionReceivedSubcription?.unsubscribe();
     this.onDeleteSubcription?.unsubscribe();
   }
 
