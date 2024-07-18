@@ -25,7 +25,7 @@
               <h4 class="card-title">Barangay Maintenance</h4>
               <div class="row">
                 <div class="col-10">
-                  <p class="card-title-desc">This module you can modify barangays.</p>
+                  <p class="card-title-desc">This module you can modify barangays and its municipality.</p>
                 </div>
                 <div class="col-2">
                   <button
@@ -104,12 +104,14 @@
                         <tbody>
                           <tr class="odd" *ngFor="let data of barangayList">
                             <td valign="top" class="">
-                               {{ data.barangays}}
+                               {{ data.barangays}} 
+                               - {{ data.municipality.municipalities}}
                             </td>
+                            
                             <td valign="top" class="">
                                 
                               <button
-                              (click)="fetchBarangayById(data.barangayId)"
+                                (click)="fetchBarangayById(data.barangayId)"
                                 data-bs-toggle="modal"
                                 data-bs-target="#editModal"
                                 class="btn btn-info waves-effect waves-light m-2"
@@ -192,9 +194,27 @@
                   class="form-control"
                   id="barangays"
                   name="barangays"
-                  placeholder="Barangay, Municipality"
+                  placeholder="Barangay"
                   [(ngModel)]="inputs.barangays"
                 />
+                <label for="municipality" class="form-label"
+                  >Municipality</label
+                >
+                <select
+                  class="form-select"
+                  id="municipality"
+                  required
+                  name="municipality"
+                  [(ngModel)]="inputs.municipalityId"
+                >
+                  <option selected disabled value="">Choose...</option>
+                  <option
+                    *ngFor="let municipality of municipalityList"
+                    [value]="municipality.municipalityId"
+                  >
+                    {{ municipality.municipalities }}
+                  </option>
+                </select>
               </div>
             </div>
           </div>
@@ -232,8 +252,8 @@
   >
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <ng-container >
-          <form *ngIf="barangay" (ngSubmit)="updateBarangayOnSubmit()">
+        <ng-container *ngIf="barangay">
+          <form #form="ngForm" (ngSubmit)="updateBarangayOnSubmit()">
             <div class="modal-header">
               <h5 class="modal-title" id="staticBackdropLabel">Edit Barangay</h5>
               <button
@@ -247,7 +267,7 @@
             <div class="modal-body">
               <div class="col-md-12">
                 <div class="mb-3">
-                  <label for="coopNameModel" class="form-label">Barangay Name</label>
+                  <label for="barangays" class="form-label">Barangay Name</label>
                   <input
                   type="text"
                   class="form-control"
@@ -255,7 +275,24 @@
                   name="barangays"
                   placeholder="Barangay, Municipality"
                   [(ngModel)]="barangay.barangays"
-                />
+                />  
+                
+                  <label for="coopNameModel" class="form-label">Municipality Name</label>
+                <select
+                  class="form-select"
+                  id="municipality"
+                  required
+                  name="municipality"
+                  [(ngModel)]="barangay.municipalityId"
+                >
+                  <option selected disabled value="">Choose...</option>
+                  <option
+                    *ngFor="let municipality of municipalityList"
+                    [value]="municipality.municipalityId"
+                  >
+                    {{ municipality.municipalities }}
+                  </option>
+                </select>
                 </div>
               </div>
             </div>
@@ -280,4 +317,6 @@
       </div>
     </div>
   </div>
+  
+
   

@@ -4,6 +4,8 @@ import { IBarangay, IBarangayInput } from '../model/barangay.model';
 import Swal from 'sweetalert2';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { MunicipalityService } from '../../municipality/service/municipality.service';
+import { IMunicipality } from '../../municipality/model/municipality';
 
 @Component({
   selector: 'app-barangay-list',
@@ -12,7 +14,8 @@ import { Subscription } from 'rxjs';
 })
 export class BarangayListComponent implements OnInit, OnDestroy {
   barangayList: IBarangay[] = [];
-  inputs: IBarangayInput = { barangays: '' };
+  municipalityList: IMunicipality[] = [];
+  inputs: IBarangayInput = { barangays: '', municipalityId: '' };
   barangay: IBarangay | any;
 
   //Paganation
@@ -28,23 +31,25 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   //subscription
   private BarangaySucription?: Subscription;
   private AddBarangaySubcription?: Subscription;
-  private FetchBarangayByIdSubcription?: Subscription;
+  private FetchBarangayByIdSubscription?: Subscription;
   private UpdateBarangaySubcription?: Subscription;
   private onDeleteSubcription?: Subscription;
 
   //reset
   @ViewChild('formRef', { static: false }) form!: NgForm;
   //close modal
-  @ViewChild('closeModal') closeModal!: ElementRef
+  @ViewChild('closeModal') closeModal!: ElementRef;
   // open modal
   @ViewChild('updateModal') updateModal!: ElementRef;
   // close modal
   @ViewChild('closeModalUpdate') closeModals!: ElementRef;
 
-  constructor(private barangayService: BarangayService) { }
+  constructor(private barangayService: BarangayService,
+    private municipalityService: MunicipalityService) { }
 
   ngOnInit(): void {
     this.fetchBarangay();
+    this.fetchMunicipality();
   }
 
   private fetchBarangay() {
@@ -52,6 +57,20 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response: any) => {
           this.barangayList = response.items;
+          this.totalPages = response.totalPages;
+          this.totalRecords = response.totalRecords;
+        },
+        error: (error) => {
+          console.error('Error fetching Data:', error);
+        }
+      });
+  }
+
+  private fetchMunicipality() {
+    this.municipalityService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+      .subscribe({
+        next: (response: any) => {
+          this.municipalityList = response.items;
           this.totalPages = response.totalPages;
           this.totalRecords = response.totalRecords;
         },
@@ -95,8 +114,9 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   }
 
   fetchBarangayById(barangayId: string): void {
-    this.FetchBarangayByIdSubcription = this.barangayService.getById(barangayId).subscribe((data: IBarangay) => {
+    this.FetchBarangayByIdSubscription = this.barangayService.getById(barangayId).subscribe((data: IBarangay) => {
       this.barangay = data;
+      console.log(this.barangay);
     });
   }
 
@@ -108,6 +128,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
           title: 'success',
           text: 'Updated Successfully!',
         });
+        console.log(this.barangay);
         // reset form
         this.form.resetForm();
         // close modal
@@ -210,7 +231,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.BarangaySucription?.unsubscribe();
     this.AddBarangaySubcription?.unsubscribe();
-    this.FetchBarangayByIdSubcription?.unsubscribe();
+    this.FetchBarangayByIdSubscription?.unsubscribe();
     this.UpdateBarangaySubcription?.unsubscribe();
     this.onDeleteSubcription?.unsubscribe();
   }
