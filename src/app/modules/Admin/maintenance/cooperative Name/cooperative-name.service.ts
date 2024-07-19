@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class CooperativeNameService extends BaseService<ICategoryName, ICategoryNameinput> {
 
   constructor(http: HttpClient) {
-    super(http, 'GetCategoryName');
+    super(http, 'CooperativeCategoryName');
   }
 
 }

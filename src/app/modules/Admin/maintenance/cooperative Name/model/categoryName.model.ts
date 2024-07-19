@@ -1,8 +1,8 @@
 export interface ICategoryName {
-    id: number,
-    name: string;
+    categoryNameId: string;
+    categoryName: string;
 }
 
 export interface ICategoryNameinput {
-    name: string;
+    categoryName: string;
 }
