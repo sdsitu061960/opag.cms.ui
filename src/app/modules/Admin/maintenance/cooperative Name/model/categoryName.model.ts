@@ -1,5 +1,5 @@
 export interface ICategoryName {
-    categoryNameId: string;
+    cooperativeCategoryNameId: string;
     categoryName: string;
 }
 
