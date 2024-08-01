@@ -1,0 +1,95 @@
+import { IBarangay } from "../../maintenance/barangay/model/barangay.model";
+import { IMunicipality } from "../../maintenance/municipality/model/municipality";
+import { IRboCateory } from "../../maintenance/rbo category/model/rbo-category.model";
+import { Region } from "../../../../shared/enums/Region/region.model";
+import { Suffix } from "../../../../shared/enums/Suffix/suffix.model";
+import { Gender } from "../../../../shared/enums/Gender/gender.model";
+import { CivilStatus } from "../../../../shared/enums/CivilStatus/civilStatus.model";
+import { EducationalAttainment } from "../../../../shared/enums/EducationalAttainment/educationalAttainment.model";
+import { District } from "../../../../shared/enums/District/district.model";
+import { Province } from "../../../../shared/enums/Province/province.model";
+import { ICoopReceived } from "../../maintenance/intervention recieved/model/coo-received.model";
+
+export interface IRuralOrganizationMember {
+    ruralOrganizationMemberId: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    suffix: Suffix;
+    region: Region;
+    gender: Gender;
+    civilStatus: CivilStatus;
+    dateOfBirth: Date;
+    age: number;
+    educationalAttainment: EducationalAttainment;
+    degree: string;
+    association: string;
+    landSize: number;
+    registeredWith: string;
+    registeredNo: string;
+    tin: string;
+    femaleMembers: number;
+    maleMembers: number;
+    dateApproved: Date;
+    district: District;
+    province: Province;
+    municipalityId: string;
+    cityMunicipalityClass: string;
+    zipCode: string;
+    barangayId: string;
+    position: string;
+    emailAddress?: string;
+    officeOrganizationAddress?: string;
+    rboCategoryId: string;
+    interventionReceivedId: string;
+    interventionDetails: string;
+    others: string;
+    trainingAttended: string;
+
+    municipality: IMunicipality;
+    barangay: IBarangay;
+    rboCategory: IRboCateory;
+    interventionReceived: ICoopReceived;
+}
+
+export interface IRuralOrganizationMemberInput {
+    ruralOrganizationMemberId: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    suffix: Suffix;
+    region: Region;
+    gender: Gender;
+    civilStatus: CivilStatus;
+    dateOfBirth: Date;
+    age: number;
+    educationalAttainment: EducationalAttainment;
+    degree: string;
+    association: string;
+    landSize: number;
+    registeredWith: string;
+    registeredNo: string;
+    tin: string;
+    femaleMembers: number;
+    maleMembers: number;
+    dateApproved: Date;
+    district: District;
+    province: Province;
+    municipalityId: string;
+    cityMunicipalityClass: string;
+    zipCode: string;
+    barangayId: string;
+    position: string;
+    emailAddress?: string;
+    officeOrganizationAddress?: string;
+    rboCategoryId: string;
+    interventionReceivedId: string;
+    interventionDetails: string;
+    others: string;
+    trainingAttended: string;
+
+    municipality: IMunicipality;
+    barangay: IBarangay;
+    rboCategory: IRboCateory;
+    interventionReceived: ICoopReceived;
+}

@@ -12,7 +12,282 @@
   
         
         <!-- Content Here-->
-
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Surigao Del Sur Cooperative</h4>
+              <div class="row">
+                <div class="col-10">
+                  <p class="card-title-desc">This module you can modify Surigao Del Sur Cooperative.</p>
+                </div>
+                <div class="col-2">
+                  <button
+                    class="btn btn-primary waves-effect waves-light float-end"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addModal" 
+                    [routerLink]="['/admin/sds-cooperative/add']"
+                  >
+                    Add Sds Coop
+                  </button>
+                </div>
+              </div>
+  
+              <!-- <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+                <div class="d-flex align-items-center">
+                  <select id="pageSizeSelect" class="form-select" (change)="onPageSizeChange($event)">
+                    <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+                  </select>
+                </div>
+                <div class="d-flex align-items-center">
+                  <input  type="text" 
+                  class="form-control" 
+                  placeholder="Search..." 
+                  [(ngModel)]="searchTerm" 
+                  (input)="onSearch()" >
+                </div>
+              </div> -->
+  
+              <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+                <div class="col-1">
+                  <select id="pageSizeSelect" class="form-select">
+                    <!-- <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option> -->
+                  </select>
+                </div>
+  
+                <div class="col-2">
+                  <select
+                    class="form-select"
+                   
+                  >
+                    <option value="" selected>All Municipality</option>
+                    <!-- <option *ngFor="let municipality of municipalityList" [value]="municipality.municipalityId">
+                      {{ municipality.municipalities }}
+                    </option> -->
+                  </select>
+                </div>
+  
+                <div class="col-2">
+                  <select
+                    class="form-select"
+                    
+                  >
+                    <option value="" selected>All Barangay</option>
+                    <!-- <option *ngFor="let categoryName of coopCategoryNameList" [value]="categoryName.cooperativeCategoryNameId">
+                      {{ categoryName.categoryName }}
+                    </option> -->
+                  </select>
+                </div>
+                
+                <div class="col-2">
+                  <select
+                    class="form-select"
+                  
+                  >
+                    <option value="" selected>All Registered With</option>
+                    <!-- <option *ngFor="let coopType of coopTypeList" [value]="coopType.cooperativeTypeId">
+                      {{ coopType.cooperativeTypes }}
+                    </option> -->
+                  </select>
+                </div>
+                <div class="col-2">
+                  <select
+                    class="form-select"
+                    
+                  >
+                    <option value="" selected>All Commodity</option>
+                    <!-- <option *ngFor="let coopAsset of coopAssetSizeList" [value]="coopAsset.cooperativeAssetSizeId">
+                      {{ coopAsset.assetSizeCategory }}
+                    </option> -->
+                  </select>
+                </div>
+               
+                <div class="d-flex align-items-center">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search..."
+                 
+                  >
+                </div>
+              </div>
+  
+             
+  
+              <div
+                id="datatable_wrapper"
+                class="dataTables_wrapper dt-bootstrap4 no-footer"
+              >
+                <div class="row">
+                  <div class="col-sm-12"> 
+                    <ng-container >
+                      <table
+                        datatable
+                        
+                        class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                        style="
+                          border-collapse: collapse;
+                          border-spacing: 0px;
+                          width: 100%;
+                        "
+                        role="grid"
+                        aria-describedby="datatable_info"
+                      >
+                        <thead>
+                          <tr role="row">
+                            <th
+                              tabindex="0"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                              No.
+                            </th>
+                            <th
+                              tabindex="0"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                            Name of Rbo 
+                            </th>
+                            <th
+                              tabindex="0"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                             Municipality
+                            </th>
+                            <th
+                              tabindex="0"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                            Barangay 
+                            </th>
+                            <th
+                              tabindex="0"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                            Registered with
+                            </th>
+                            <th
+                              tabindex="0"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                            Commodity
+                            </th>
+                            <th
+                              tabindex="0"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                            Total Number of Farmers 
+                            </th>
+                            <th
+                              tabindex="0"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                            Total Number of Hectares 
+                            </th>
+                            <th
+                              class="sorting"
+                              tabindex="0"
+                              aria-controls="datatable"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                              Action
+                            </th>
+                          </tr>
+                        </thead>
+  
+                        <tbody>
+                          <tr class="odd" >
+                            <td valign="top" class="">
+                              test
+                            </td>
+                            <td valign="top" class="">
+                              admin
+                            </td>
+                            <td valign="top" class="">
+                              admin
+                            </td>
+                            <td valign="top" class="">
+                              admin
+                            </td>
+                            <td valign="top" class="">
+                              admin
+                            </td>
+                            <td>
+                              TEST
+                            </td>
+                            <td>
+                              TEST
+                            </td>
+                            
+                            <td valign="top" class="">
+                              <!-- <button
+                              (click)="fetchSdsCoopById(data.sdsCooperativeId)"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editModal"
+                                class="btn btn-info waves-effect waves-light m-2"
+                              >
+                                Edit
+                              </button> -->
+                              <!-- (click)="onDelete(data.barangayId)" -->
+                              <!-- <a
+                              (click)="onDelete(data.sdsCooperativeId)"
+                                class="btn btn-danger waves-effect waves-light"
+                                >Delete</a
+                              > -->
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </ng-container>
+                  </div>
+  
+                  <!-- <div class="d-flex justify-content-between align-items-center">
+                    <p>Showing {{(pageNumber - 1) * pageSize + 1}} to {{pageNumber * pageSize > totalRecords ? totalRecords : pageNumber * pageSize}} of {{totalRecords}} entries</p>
+                    <div class="d-flex align-items-center">
+                      <button class="btn btn-primary me-2" (click)="onPrev()" [disabled]="pageNumber === 1">Previous</button>
+                      
+                      <ng-container *ngFor="let page of totalPagesArray">
+                        <button class="btn btn-primary mx-1" (click)="goToPage(page)" [class.btn-primary]="pageNumber === page">{{ page }}</button>
+                      </ng-container>
+                      
+                      <button class="btn btn-primary ms-2" (click)="onNext()" [disabled]="pageNumber * pageSize >= totalRecords">Next</button>
+                    </div>
+                  </div>
+   -->
+                  <!-- <div  *ngIf="sdsCoopList.length === 0" class="mt-2">
+                    <p class="text-center">No entries found.</p>
+                  </div>
+   -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
       </div>

@@ -53,6 +53,7 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
   selectedBusinessAsset?: string[];
 
   @Input() sdsCoopModel?: ISdsCooperative;
+  private subscriptions: Subscription[] = [];
 
   //Multi selected
   CoopBusinessAsset$?: Observable<ICoopBusiness[]>;
@@ -66,6 +67,11 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
   pageSizeOptions: number[] = [5, 10, 25, 50, 100];
   visiblePageCount = 5;
   searchTerm: string = '';
+  filterOnCoopName: string = '';
+  filterOnMunicipalitiesId: string = '';
+  filterOnCooperativeCategoryNameId: string = '';
+  filterOnCoopTypeId: string = '';
+  filterOnCoopAssetSizeCatNameId: string = '';
 
   //Subcription
   private AddSdsCoopSubcription?: Subscription;
@@ -162,13 +168,22 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
   }
 
 
-  private fetchSdsCoop() {
-    this.sdscoopService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+  fetchSdsCoop() {
+    this.sdscoopService.getAllSdsCooperative(
+      this.pageNumber,
+      this.pageSize,
+      this.searchTerm,
+      '',
+      '',
+      '',
+      '',
+      '')
       .subscribe({
         next: (response: any) => {
           this.sdsCoopList = response.items;
           this.totalPages = response.totalPages;
           this.totalRecords = response.totalRecords;
+          this.onFilters();
         },
         error: (error) => {
           console.error('Error fetching Data:', error);
@@ -306,6 +321,20 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
     });
   }
 
+  onFilters(): void {
+    this.sdsCoopList = this.sdsCoopList.filter(coop =>
+      coop.coopName.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
+      (this.filterOnMunicipalitiesId ? coop.municipality.municipalityId === this.filterOnMunicipalitiesId : true) &&
+      (this.filterOnCooperativeCategoryNameId ? coop.cooperativeCategoryName.cooperativeCategoryNameId === this.filterOnCooperativeCategoryNameId : true) &&
+      (this.filterOnCoopTypeId ? coop.cooperativeType.cooperativeTypeId === this.filterOnCoopTypeId : true) &&
+      (this.filterOnCoopAssetSizeCatNameId ? coop.cooperativeAssetSizeId === this.filterOnCoopAssetSizeCatNameId : true)
+    );
+  }
+
+  onFilter(): void {
+    this.onFilters();
+    this.fetchSdsCoop();
+  }
 
   onSearch(): void {
     this.pageNumber = 1; // Reset to first page whenever a search is performed
@@ -332,6 +361,7 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
     this.pageSize = +target.value;
     this.pageNumber = 1; // Reset to first page whenever page size changes
     this.fetchSdsCoop();
+
   }
 
   goToPage(page: number): void {
