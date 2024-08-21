@@ -14,6 +14,7 @@ import { CoopBusinessListComponent } from './modules/Admin/maintenance/cooperati
 import { CoopReceivedListComponent } from './modules/Admin/maintenance/intervention recieved/coop-received-list/coop-received-list.component';
 import { CoopCategoryNameListComponent } from './modules/Admin/maintenance/cooperative Name/coop-category-name-list/coop-category-name-list.component';
 import { AddSdscoopComponent } from './modules/Admin/sds-cooperative/add-sdscoop/add-sdscoop.component';
+import { CreateRboComponent } from './modules/Admin/rbo-directory/create-rbo/create-rbo.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent, title: 'Main Dashboard' },
       { path: 'rbo-directory', component: ListRboComponent, title: 'Rbo Directory' },
+      { path: 'rbo-directory/add', component: CreateRboComponent, title: 'Add Rbo Directory' },
       { path: 'sds-cooperative', component: SdscooplistComponent, title: 'SDS Cooperative' },
       { path: 'barangay', component: BarangayListComponent, title: 'Barangay' },
       { path: 'municipality', component: MunicipalityListComponent, title: 'Municipality' },

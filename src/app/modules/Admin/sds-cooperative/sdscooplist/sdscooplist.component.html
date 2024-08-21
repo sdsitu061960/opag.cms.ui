@@ -240,7 +240,8 @@
                           </td>
                           
                           <td valign="top" class="">
-                            <button
+                            <div class="d-grid gap-2 d-md-block">
+                              <button
                             (click)="fetchSdsCoopById(data.sdsCooperativeId)"
                               data-bs-toggle="modal"
                               data-bs-target="#editModal"
@@ -254,6 +255,7 @@
                               class="btn btn-danger waves-effect waves-light"
                               >Delete</a
                             >
+                            </div>
                           </td>
                         </tr>
                       </tbody>

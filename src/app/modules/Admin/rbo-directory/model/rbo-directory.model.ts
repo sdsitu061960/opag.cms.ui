@@ -1,13 +1,6 @@
 import { IBarangay } from "../../maintenance/barangay/model/barangay.model";
 import { IMunicipality } from "../../maintenance/municipality/model/municipality";
 import { IRboCateory } from "../../maintenance/rbo category/model/rbo-category.model";
-import { Region } from "../../../../shared/enums/Region/region.model";
-import { Suffix } from "../../../../shared/enums/Suffix/suffix.model";
-import { Gender } from "../../../../shared/enums/Gender/gender.model";
-import { CivilStatus } from "../../../../shared/enums/CivilStatus/civilStatus.model";
-import { EducationalAttainment } from "../../../../shared/enums/EducationalAttainment/educationalAttainment.model";
-import { District } from "../../../../shared/enums/District/district.model";
-import { Province } from "../../../../shared/enums/Province/province.model";
 import { ICoopReceived } from "../../maintenance/intervention recieved/model/coo-received.model";
 
 export interface IRuralOrganizationMember {
@@ -15,14 +8,15 @@ export interface IRuralOrganizationMember {
     firstName: string;
     middleName: string;
     lastName: string;
-    suffix: Suffix;
-    region: Region;
-    gender: Gender;
-    civilStatus: CivilStatus;
+    suffix: string;
+    region: string;
+    gender: string;
+    civilStatus: string;
     dateOfBirth: Date;
     age: number;
-    educationalAttainment: EducationalAttainment;
+    educationalAttainment: string;
     degree: string;
+    contactNumber: string;
     association: string;
     landSize: number;
     registeredWith: string;
@@ -31,8 +25,8 @@ export interface IRuralOrganizationMember {
     femaleMembers: number;
     maleMembers: number;
     dateApproved: Date;
-    district: District;
-    province: Province;
+    district: string;
+    province: string;
     municipalityId: string;
     cityMunicipalityClass: string;
     zipCode: string;
@@ -57,14 +51,15 @@ export interface IRuralOrganizationMemberInput {
     firstName: string;
     middleName: string;
     lastName: string;
-    suffix: Suffix;
-    region: Region;
-    gender: Gender;
-    civilStatus: CivilStatus;
+    suffix: string;
+    region: string;
+    gender: string;
+    civilStatus: string;
     dateOfBirth: Date;
     age: number;
-    educationalAttainment: EducationalAttainment;
+    educationalAttainment: string;
     degree: string;
+    contactNumber: string;
     association: string;
     landSize: number;
     registeredWith: string;
@@ -73,8 +68,8 @@ export interface IRuralOrganizationMemberInput {
     femaleMembers: number;
     maleMembers: number;
     dateApproved: Date;
-    district: District;
-    province: Province;
+    district: string;
+    province: string;
     municipalityId: string;
     cityMunicipalityClass: string;
     zipCode: string;
@@ -88,8 +83,8 @@ export interface IRuralOrganizationMemberInput {
     others: string;
     trainingAttended: string;
 
-    municipality: IMunicipality;
-    barangay: IBarangay;
-    rboCategory: IRboCateory;
-    interventionReceived: ICoopReceived;
+    // municipality: IMunicipality;
+    // barangay: IBarangay;
+    // rboCategory: IRboCateory;
+    // interventionReceived: ICoopReceived;
 }

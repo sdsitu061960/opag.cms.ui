@@ -17,7 +17,7 @@ import { CreateRboComponent } from './modules/Admin/rbo-directory/create-rbo/cre
 import { ListRboComponent } from './modules/Admin/rbo-directory/list-rbo/list-rbo.component';
 import { BarangayService } from './modules/Admin/maintenance/barangay/service/barangay-service.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MunicipalityListComponent } from './modules/Admin/maintenance/municipality/municipality-list/municipality-list.component';
 import { RboCategoryListComponent } from './modules/Admin/maintenance/rbo category/rbo-category-list/rbo-category-list.component';
 import { CooperativeTypeListComponent } from './modules/Admin/maintenance/cooperative type/cooperative-type-list/cooperative-type-list.component';
@@ -53,7 +53,8 @@ import { CoopCategoryNameListComponent } from './modules/Admin/maintenance/coope
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [BarangayService],
   bootstrap: [AppComponent]

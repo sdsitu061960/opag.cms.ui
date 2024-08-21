@@ -1,0 +1,695 @@
+<!-- <div id="layout-wrapper">
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+
+  <div class="main-content">
+    <router-outlet></router-outlet> -->
+
+    <div class="page-content">
+        <div class="container-fluid">
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div
+                class="page-title-box d-sm-flex align-items-center justify-content-between"
+              >
+                <h4 class="mb-sm-0">ADD RBO</h4>
+      
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                      <a href="javascript: void(0);">Add Coop</a>
+                    </li>
+                    <li class="breadcrumb-item active">Page</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+      
+            <div #yourModal class="col-xl-12">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Add RBO form</h4>
+                  <h4 class="card-title-desc text-center">
+                    President/Chairman Information Details
+                  </h4>
+                  <!-- (ngSubmit)="OnAddFormSubmit()" -->
+
+                  <form (ngSubmit)=" onSubmit()" [formGroup]="rboDirectoryForm" #form="ngForm" (ngSubmit)="AddRboDirectory()">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="FirstName" class="form-label">FIRSTNAME</label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="text"
+                            class="form-control"
+                            name="FirstName"
+                            id="FirstName"
+                            placeholder="FirstName"
+                            [(ngModel)]="inputs.firstName"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="MiddleName" class="form-label">MIDLENAME</label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="text"
+                            class="form-control"
+                            name="MiddleName"
+                            id="MiddleName"
+                            placeholder="MiddleName"
+                            [(ngModel)]="inputs.middleName"
+                          />
+                          
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="mb-3">
+                          <label for="LastName" class="form-label">LASTNAME</label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="text"
+                            class="form-control"
+                            name="LastName"
+                            id="LastName"
+                            placeholder="LastName"
+                            [(ngModel)]="inputs.lastName"
+                          />
+                          
+                        </div>
+                      </div>
+                      <!-- your.component.html -->
+      
+                      <div class="col-md-2">
+                        <div class="mb-3">
+                          <label for="Suffix" class="form-label">SUFFIX</label>
+                          <select
+                          [ngModelOptions]="{standalone: true}"
+                            class="form-select"
+                            id="Suffix"
+                            required
+                            name="Suffix"
+                            [(ngModel)]="inputs.suffix"
+                          >
+                            <option selected disabled value="">Select</option>
+                            <option value="Jr">Jr</option>
+                            <option value="Sr">Sr</option>
+                            <option value="II">II</option>
+                            <option value="III">III</option>
+                            <option value="IV">IV</option>
+                            <option value="V">V</option>
+                            <option value="Sr">Sr</option>
+                          </select>
+                        </div>
+                      </div>
+      
+                      <div class="col-md-2">
+                        <div class="mb-3">
+                          <label for="municipality" class="form-label">REGION</label>
+                          <p class="form-select">
+                            Region XIII
+                          </p>
+                        </div>
+                      </div>
+      
+                      <div class="col-md-2">
+                        <div class="mb-3">
+                          <label for="gender" class="form-label">SEX</label>
+                          <select
+                          [ngModelOptions]="{standalone: true}"
+                            class="form-select"
+                            id="gender"
+                            required
+                            name="gender"
+                          [(ngModel)]="inputs.gender"
+                          >
+                            <option selected disabled value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                          </select>
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="streetAddress" class="form-label"
+                            >CIVIL STATUS</label
+                          >
+                          <select
+                          [ngModelOptions]="{standalone: true}"
+                            class="form-select"
+                            id="civilStat"
+                            required
+                            name="civilStat"
+                          [(ngModel)]="inputs.civilStatus"
+                          >
+                          <option selected disabled value="">Select</option> 
+                          <option value="Single">Single</option>
+                          <option value="Divorced">Divorced</option>
+                          <option value="Separated">Separated</option>
+                          <option value="Married">Married</option>
+                          <option value="Widowed">Widowed</option>
+                          </select>
+                        </div>
+                      </div>
+      
+                      <div class="col-md-2">
+                        <div class="mb-3">
+                          <label for="dateOfBirth" class="form-label"
+                            >DATE OF BIRTH
+                          </label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="date"
+                            name="dateOfBirth"
+                            class="form-control"
+                            id="dateOfBirth"
+                            placeholder=""
+                            [(ngModel)]="inputs.dateOfBirth"
+                          />
+                          
+                        </div>
+                      </div>
+      
+                      <div class="col-md-1">
+                        <div class="mb-3">
+                          <label for="age" class="form-label">AGE</label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="number"
+                            class="form-control"
+                            name="age"
+                            id="age"
+                            placeholder=""
+                            [(ngModel)]="inputs.age"
+                          />
+                        </div>
+                      </div>
+      
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="streetAddress" class="form-label"
+                            >HIGHEST EDUCATIONAL ATTAINMENT</label
+                          >
+                          <select
+                          [ngModelOptions]="{standalone: true}"
+                            class="form-select"
+                            id="educationalAttainment"
+                            required
+                            name="educationalAttainment"
+                          [(ngModel)]="inputs.educationalAttainment"
+                          >
+                          <option selected disabled value="">Choose...</option>
+                          <option value="None">None</option>
+                          <option value="HighSchool">HighSchool</option>
+                          <option value="MS">MS</option>
+                          <option value="PhD">PhD</option>
+                          <option value="Elementary">Elementary</option>
+                          <option value="College Graduate">College</option>
+                          </select>
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="degree" class="form-label">DEGREE</label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="text"
+                            class="form-control"
+                            name="degree"
+                            id="degree"
+                            placeholder="Degree"
+                            [(ngModel)]="inputs.degree"
+                          />
+                          
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="ContactNumber" class="form-label"
+                            >Contact Number/s
+                          </label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="text"
+                            class="form-control"
+                            name="ContactNumber"
+                            id="ContactNumber"
+                            placeholder="+63 "
+                          [(ngModel)]="inputs.contactNumber"
+                            
+                          />
+                        </div>
+                      </div>
+      
+                      <hr />
+      
+                      <h4 class="card-title-desc text-center">
+                        Organization Profile
+                      </h4>
+                      <div class="row">
+                        <div class="col-4">
+                          <label for="cooperative">Association/Organiation</label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            id="assoc"
+                            name="assoc"
+                            type="text"
+                            class="form-control"
+                            [(ngModel)]="inputs.association" 
+                          />
+                          
+                        </div>
+      
+                        <div class="col-3">
+                          <label for="completeName">Service Area (HA) </label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            id="serviceHa"
+                            name="serviceHa"
+                            type="number"
+                            class="form-control"
+                            class="form-control"
+                            [(ngModel)]="inputs.landSize"
+                          />
+                          
+                        </div>
+      
+                        <div class="col-2">
+                          <label for="registeredWith">Registered with:</label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            id="registeredWith"
+                            name="registeredWith"
+                            type="text"
+                            class="form-control"
+                            [(ngModel)]="inputs.registeredWith" 
+                          />
+                          
+                        </div>
+      
+                        <div class="col-3">
+                          <label for="Contact">Registaion Number:</label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            id="registeredNo"
+                            name="registeredNo"
+                            type="text"
+                            class="form-control"
+                            [(ngModel)]="inputs.registeredNo"
+                          />
+                          
+                        </div>
+                      </div>
+      
+                      <div class="row">
+                        <!-- <div class="col-2">
+                          <label for="femaleMembers">Size of Hectars</label>
+                          <input
+                            id="femaleMembers"
+                            name="femaleMembers"
+                            type="number"
+                            class="form-control"
+                          />
+                        </div> -->
+      
+                        <div class="col-3">
+                          <label for="Contact">TIN</label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            id="tin"
+                            name="tin"
+                            type="text"
+                            class="form-control"
+                            [(ngModel)]="inputs.tin"
+                          />
+                          
+                        </div>
+      
+                        <div class="col-3">
+                          <label for="femaleMembers">Female Members</label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            id="femaleMembers"
+                            name="femaleMembers"
+                            type="number"
+                            class="form-control"
+                            [(ngModel)]="inputs.femaleMembers"
+                          />
+                          
+                        </div>
+                        <div class="col-3">
+                          <label for="maleMembers">Male Members</label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            id="maleMembers"
+                            name="maleMembers"
+                            type="number"
+                            class="form-control"
+                            [(ngModel)]="inputs.maleMembers"
+                          />
+                          
+                        </div>
+      
+                        <div class="col-3">
+                          <label for="regWith">Date Approved:</label>
+                          <!-- <input
+                          
+                            id="regWith"
+                            name="regWith"
+                            type="date"
+                            class="form-control"
+                          /> -->
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="streetAddress" class="form-label"
+                            >DISTRICT</label
+                          >
+                          <select
+                          [ngModelOptions]="{standalone: true}"
+                            class="form-select"
+                            id="district"
+                            required
+                            name="district"
+                            [(ngModel)]="inputs.district"
+                          >
+                            <option selected disabled value="">Choose...</option>
+                            <option value="I">I</option>
+                            <option value="II">II</option>
+                          </select>
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="streetAddress" class="form-label"
+                            >PROVINCE</label
+                          >
+                          <p class="form-select">
+                            Surigao Del Sur
+                          </p>
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="streetAddress" class="form-label"
+                            >MUNICIPALITY</label
+                          >
+                          <select
+                          [ngModelOptions]="{standalone: true}"
+                        class="form-select"
+                        id="municipality"
+                        required
+                        name="municipality"
+                        [(ngModel)]="inputs.municipalityId"
+                      >
+                        <option selected disabled value="">Choose...</option>
+                        <option
+                          *ngFor="let municipality of municipalityList"
+                          [value]="municipality.municipalityId"
+                        >
+                          {{ municipality.municipalities }}
+                        </option>
+                      </select>
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="cityMunicipalityClass" class="form-label"
+                            >CITY/MUNICIPALITY CLASS</label
+                          >
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="text"
+                            class="form-control"
+                            name="cityMunicipalityClass"
+                            id="cityMunicipalityClass"
+                            placeholder="cityMunicipalityClass"
+                            [(ngModel)]="inputs.cityMunicipalityClass"
+                          />
+                          
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="zipCode" class="form-label">ZIP CODE</label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="text"
+                            class="form-control"
+                            name="zipCode"
+                            id="zipCode"
+                            placeholder="ZipCode here"
+                            [(ngModel)]="inputs.zipCode"
+                          />
+                         
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="streetAddress" class="form-label"
+                            >BARANGAY</label
+                          >
+                          <select
+                          [ngModelOptions]="{standalone: true}"
+                            class="form-select"
+                            id="barangay"
+                            required
+                            name="barangay"
+                            [(ngModel)]="inputs.barangayId"
+                          >
+                            <option selected disabled value="">Choose...</option>
+                            <option
+                              *ngFor="let barangay of barangayList"
+                              [value]="barangay.barangayId"
+                            >
+                              {{ barangay.barangays }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="streetAddress" class="form-label"
+                            >Position/ Designation
+                          </label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="text"
+                            class="form-control"
+                            name="Occupation"
+                            id="Occupation"
+                            placeholder="(Write in Complete)"
+                            [(ngModel)]="inputs.position"
+                          />
+                          
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="emailAddress" class="form-label"
+                            >Email Address
+                          </label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="text"
+                            class="form-control"
+                            name="emailAddress"
+                            id="Ex. Jhon@gmail.com"
+                            placeholder=""
+                          [(ngModel)]="inputs.emailAddress"
+                           
+                          />
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="OfficeOrganizationAddress" class="form-label"
+                            >Office/ Organization & Address
+                          </label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="text"
+                            class="form-control"
+                            name="OfficeOrganizationAddress"
+                            id="OfficeOrganizationAddress"
+                            placeholder=""
+                            [(ngModel)]="inputs.officeOrganizationAddress"
+                          />
+                         
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="streetAddress" class="form-label"
+                            >RBO Category
+                          </label>
+                          <select
+                          [ngModelOptions]="{standalone: true}"
+                            class="form-select"
+                            id="rbodirectory"
+                            required
+                            name="rbodirectory"
+                            [(ngModel)]="inputs.rboCategoryId"
+                          >
+                            <option selected disabled value="">Choose...</option>
+                            <option
+                              *ngFor="let rbocategory of rboCategoryList"
+                              [value]="rbocategory.rboCategoryId"
+                            >
+                              {{ rbocategory.shortName }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="streetAddress" class="form-label"
+                            >Commodity Category
+                          </label>
+                          <!-- <select  class="form-select" id="rbodirectory" required>
+                            <option selected disabled value="">Choose...</option>
+                            <option
+                              *ngFor="let rbodirectory of rboCategories"
+                              [value]="rbodirectory.id"
+                            >
+                              {{ rbodirectory.shortName }}
+                            </option>
+                          </select> -->
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="" class="form-label">Please Specify </label>
+                          <!-- <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="text"
+                            class="form-control"
+                            name=""
+                            id="Ex. Jhon@gmail.com"
+                            placeholder=""
+                          /> -->
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="streetAddress" class="form-label"
+                            >Intervention Received from</label
+                          >
+                          <select
+                          [ngModelOptions]="{standalone: true}"
+                            class="form-select"
+                            id="intervention"
+                            required
+                            name="intervention"
+                            [(ngModel)]="inputs.interventionReceivedId"
+                          >
+                            <option selected disabled value="">Choose...</option>
+                            <option
+                              *ngFor="let intervention of interventionReceivedList"
+                              [value]="intervention.interventionReceivedId"
+                            >
+                              {{ intervention.receivedFrom }}
+                            </option>
+                          </select>
+                          
+                        </div>
+                      </div>
+      
+                      <div class="col-md-3">
+                        <div class="mb-3">
+                          <label for="interventionDetails" class="form-label"
+                            >Please Specify
+                          </label>
+                          <input
+                          [ngModelOptions]="{standalone: true}"
+                            type="text"
+                            class="form-control"
+                            name="interventionDetails"
+                            id="Ex. Jhon@gmail.com"
+                            placeholder=""
+                          [(ngModel)]="inputs.interventionDetails"
+                            
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-12">
+                        <h4 class="card-title">Commodities</h4>
+                        <div formArrayName="commodities">
+                          <div class="row" *ngFor="let commodity of commodities().controls; let i = index" [formGroupName]="i">
+                            <div class="col-4">
+                              <!-- Select List for Commodity Name -->
+                            <label for="commodityName">Commodity Name:</label>
+                            <select formControlName="commodityName" class="form-control">
+                              <option *ngFor="let name of commodityNames" [value]="name">{{name}}</option>
+                            </select>
+                            </div>
+                            <div class="col-6 pb-2">
+                              <!-- Text Input for Commodity Details -->
+                            <label for="commodityDetails">Commodity Details:</label>
+                            <textarea type="text" class="form-control" rows="1" cols="33" formControlName="commodityDetails" placeholder="Enter details"></textarea>
+                            </div>
+                            <div style="margin-top:29px;" class="col-2">
+                               <!-- Remove Button -->
+                            <button type="button" class="btn btn-danger" (click)="removeCommodity(i)">Remove</button>
+                            </div>
+                            
+                           
+                          </div>
+                        </div>
+                        
+                        <!-- Add Commodity Button -->
+                        <button type="button" class="btn btn-primary mb-2" (click)="addCommodity()">Add Commodity</button>
+                        </div>
+      
+                      <hr />
+                    </div>
+      
+                    <div>
+                      <button class="btn btn-primary mt-2" type="submit">
+                        Add RBO
+                      </button>
+                      <button
+                        class="btn btn-warning mt-2 mx-2"
+                        [routerLink]="['/admin/rbo-directory']"
+                      >
+                        Back
+                      </button>
+                    </div>
+                  </form>
+
+                  
+                </div>
+              </div>
+              <!-- end card -->
+            </div>
+          </div>
+          <!-- end page title -->
+        </div>
+        <!-- container-fluid -->
+      </div>
+      
+      <!-- <app-footer></app-footer>
+        </div>
+      </div> -->
+      

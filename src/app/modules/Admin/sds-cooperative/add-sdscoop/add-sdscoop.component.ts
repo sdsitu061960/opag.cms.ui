@@ -31,6 +31,7 @@ export class AddSdscoopComponent implements OnInit, OnDestroy {
   entries: any[] = [];
   pageNumber = 1;
   pageSize = 5;
+  pageSizeAll = 500;
   totalPages: number = 0;
   totalRecords: number = 0;
   pageSizeOptions: number[] = [5, 10, 25, 50, 100];
@@ -89,7 +90,7 @@ export class AddSdscoopComponent implements OnInit, OnDestroy {
   }
 
   private fetchMunicipality() {
-    this.MunicipalitySubscription = this.municipalityService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+    this.MunicipalitySubscription = this.municipalityService.getAll(this.pageNumber, this.pageSizeAll, this.searchTerm)
       .subscribe({
         next: (response: any) => {
           this.municipalityList = response.items;
@@ -103,7 +104,7 @@ export class AddSdscoopComponent implements OnInit, OnDestroy {
   }
 
   private fetchcoopCategoryName() {
-    this.cooperativeNameSubcription = this.cooperativeNameService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+    this.cooperativeNameSubcription = this.cooperativeNameService.getAll(this.pageNumber, this.pageSizeAll, this.searchTerm)
       .subscribe({
         next: (response: any) => {
           this.coopCategoryNameList = response.items;
@@ -117,7 +118,7 @@ export class AddSdscoopComponent implements OnInit, OnDestroy {
   }
 
   private fetchcoopType() {
-    this.cooperativeTypeSucription = this.cooperativeTypeService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+    this.cooperativeTypeSucription = this.cooperativeTypeService.getAll(this.pageNumber, 100, this.searchTerm)
       .subscribe({
         next: (response: any) => {
           this.coopTypeList = response.items;
@@ -131,7 +132,7 @@ export class AddSdscoopComponent implements OnInit, OnDestroy {
   }
 
   private fetchCoopAssetSize() {
-    this.coopAssetSizeSucription = this.coopAssetSizeService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+    this.coopAssetSizeSucription = this.coopAssetSizeService.getAll(this.pageNumber, this.pageSizeAll, this.searchTerm)
       .subscribe({
         next: (response: any) => {
           this.coopAssetSizeList = response.items;

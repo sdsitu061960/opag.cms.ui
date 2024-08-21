@@ -76,7 +76,7 @@ export class CooperativeTypeListComponent implements OnInit, OnDestroy {
 
           Swal.fire({
             icon: 'success',
-            text: "Barangay Created!",
+            text: "Cooperative Type Created!",
             showConfirmButton: false,
             timer: 1000,
           });
@@ -86,7 +86,7 @@ export class CooperativeTypeListComponent implements OnInit, OnDestroy {
         error: (error) => {
           Swal.fire({
             icon: 'error',
-            text: "Error Creating barangay.",
+            text: "Error Creating Cooperative Type.",
             showConfirmButton: false,
             timer: 2000,
           });
