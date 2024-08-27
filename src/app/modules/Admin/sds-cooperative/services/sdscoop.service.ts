@@ -37,6 +37,7 @@ export class SdscoopService extends BaseService<ISdsCooperative, ISdsCooperative
     filterOnCoopTypeId?: string,
     filterOnCoopAssetSizeCatNameId?: string): Observable<PaginatedResponse<ISdsCooperative[]>> {
     let params = new HttpParams()
+      .set('searchTerm', searchTerm || '')
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString())
       .set('filterOnCoopName', filterOnCoopName || '')
@@ -45,21 +46,21 @@ export class SdscoopService extends BaseService<ISdsCooperative, ISdsCooperative
       .set('filterOnCoopTypeId', filterOnCoopTypeId || '')
       .set('filterOnCoopAssetSizeCatNameId', filterOnCoopAssetSizeCatNameId || '');
 
-    if (searchTerm) {
-      params = params.set('searchTerm', searchTerm);
-    }
-    if (filterOnMunicipalitiesId) {
-      params = params.set('filterOnMunicipality', filterOnMunicipalitiesId);
-    }
-    if (filterOnCooperativeCategoryNameId) {
-      params = params.set('filterOnCooperativeCategoryNameId', filterOnCooperativeCategoryNameId);
-    }
-    if (filterOnCoopTypeId) {
-      params = params.set('filterOnCoopType', filterOnCoopTypeId);
-    }
-    if (filterOnCoopAssetSizeCatNameId) {
-      params = params.set('filterOnCoopAssetSizeCatName', filterOnCoopAssetSizeCatNameId);
-    }
+    // if (searchTerm) {
+    //   params = params.set('searchTerm', searchTerm);
+    // }
+    // if (filterOnMunicipalitiesId) {
+    //   params = params.set('filterOnMunicipality', filterOnMunicipalitiesId);
+    // }
+    // if (filterOnCooperativeCategoryNameId) {
+    //   params = params.set('filterOnCooperativeCategoryNameId', filterOnCooperativeCategoryNameId);
+    // }
+    // if (filterOnCoopTypeId) {
+    //   params = params.set('filterOnCoopType', filterOnCoopTypeId);
+    // }
+    // if (filterOnCoopAssetSizeCatNameId) {
+    //   params = params.set('filterOnCoopAssetSizeCatName', filterOnCoopAssetSizeCatNameId);
+    // }
 
     return this.http.get<PaginatedResponse<ISdsCooperative[]>>(`${environment.apiBaseUrl}/api/SdsCooperative/all`, { params });
   }

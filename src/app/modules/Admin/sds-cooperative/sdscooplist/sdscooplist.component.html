@@ -7,15 +7,7 @@
           class="page-title-box d-sm-flex align-items-center justify-content-between"
         >
           <h4 class="mb-sm-0">SDS COOP PER CATEGORY</h4>
-
-          <div class="page-title-right">
-            <ol class="breadcrumb m-0">
-              <li class="breadcrumb-item">
-                <a href="javascript: void(0);">Utility</a>
-              </li>
-              <li class="breadcrumb-item active">Starter page</li>
-            </ol>
-          </div>
+          
         </div>
       </div>
 
@@ -131,7 +123,7 @@
             >
               <div class="row">
                 <div class="col-sm-12"> 
-                  <ng-container *ngIf="sdsCoopList.length > 0">
+                  <ng-container *ngIf="sdsCoopList.length > 0; else loader">
                     <table
                       datatable
                       
@@ -150,16 +142,16 @@
                             tabindex="0"
                             rowspan="1"
                             colspan="1"
-                            style="width: 165px"
+                            style="width: 20px"
                             aria-label="Position: activate to sort column ascending"
                           >
-                            No.
+                           Name of Cooperative
                           </th>
                           <th
                             tabindex="0"
                             rowspan="1"
                             colspan="1"
-                            style="width: 165px"
+                            style="width: 180px"
                             aria-label="Position: activate to sort column ascending"
                           >
                            Name of Cooperative
@@ -217,7 +209,7 @@
                       <tbody>
                         <tr class="odd" *ngFor="let data of sdsCoopList; let i = index">
                           <td valign="top" class="">
-                           # {{ (pageNumber - 1) * pageSize + i + 1 }}
+                            {{ (pageNumber - 1) * pageSize + i + 1 }}
                           </td>
                           <td valign="top" class="">
                             {{ data.coopName }}
@@ -263,7 +255,7 @@
                   </ng-container>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center">
+                <!-- <div class="d-flex justify-content-between align-items-center">
                   <p>Showing {{(pageNumber - 1) * pageSize + 1}} to {{pageNumber * pageSize > totalRecords ? totalRecords : pageNumber * pageSize}} of {{totalRecords}} entries</p>
                   <div class="d-flex align-items-center">
                     <button class="btn btn-primary me-2" (click)="onPrev()" [disabled]="pageNumber === 1">Previous</button>
@@ -274,11 +266,24 @@
                     
                     <button class="btn btn-primary ms-2" (click)="onNext()" [disabled]="pageNumber * pageSize >= totalRecords">Next</button>
                   </div>
+                </div> -->
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <p>Showing {{ (pageNumber - 1) * pageSize + 1 }} to {{ (pageNumber * pageSize > totalRecords) ? totalRecords : pageNumber * pageSize }} of {{ totalRecords }} entries</p>
+                  <div class="d-flex align-items-center">
+                    <button class="btn btn-primary me-2" (click)="onPrev()" [disabled]="pageNumber === 1">Previous</button>
+                
+                    <ng-container *ngFor="let page of totalPagesArray">
+                      <button class="btn btn-primary mx-1" (click)="goToPage(page)" [class.btn-primary]="pageNumber === page">{{ page }}</button>
+                    </ng-container>
+                
+                    <button class="btn btn-primary ms-2" (click)="onNext()" [disabled]="pageNumber * pageSize >= totalRecords">Next</button>
+                  </div>
                 </div>
 
-                <div  *ngIf="sdsCoopList.length === 0" class="mt-2">
+                <!-- <div  *ngIf="sdsCoopList.length === 0" class="mt-2">
                   <p class="text-center">No entries found.</p>
-                </div>
+                </div> -->
 
               </div>
             </div>
@@ -609,3 +614,11 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+<ng-template #loader>
+  <div class="text-center mt-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</ng-template>

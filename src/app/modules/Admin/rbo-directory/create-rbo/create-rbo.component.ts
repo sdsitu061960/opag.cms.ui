@@ -101,7 +101,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
 
   newCommodity(): FormGroup {
     return this.formBuilder.group({
-      commodityName: '',  // Select list for commodity names
+      commodityId: '',  // Select list for commodity names
       commodityDetails: '',  // Text input for commodity details
     })
   }
@@ -114,10 +114,6 @@ export class CreateRboComponent implements OnInit, OnDestroy {
     this.commodities().removeAt(i);
   }
 
-  onSubmit() {
-    console.log(this.rboDirectoryForm.value);
-  }
-
   ngOnInit(): void {
     this.fetchMunicipality();
     this.fetchBarangay();
@@ -126,7 +122,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
   }
 
   //----------------------------------
-
+  //Retrive Commodity
   //----------------------------------
 
   private fetchMunicipality() {
@@ -134,7 +130,6 @@ export class CreateRboComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response: any) => {
           this.municipalityList = response.items;
-          console.log(this.municipalityList);
           this.totalPages = response.totalPages;
           this.totalRecords = response.totalRecords;
         },

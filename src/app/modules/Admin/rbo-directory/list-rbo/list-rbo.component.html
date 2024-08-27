@@ -120,7 +120,7 @@
               >
                 <div class="row">
                   <div class="col-sm-12"> 
-                    <ng-container *ngIf="RboDirectoryList.length > 0">
+                    <ng-container *ngIf="RboDirectoryList.length > 0; else loader">
                       <table
                         datatable
                         class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
@@ -282,9 +282,9 @@
                     </div>
                   </div>
   
-                  <div  *ngIf="RboDirectoryList.length === 0" class="mt-2">
+                  <!-- <div  *ngIf="RboDirectoryList.length === 0" class="mt-2">
                     <p class="text-center">No entries found.</p>
-                  </div>
+                  </div> -->
   
                 </div>
               </div>
@@ -914,3 +914,12 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
+
+
+<ng-template #loader>
+  <div class="text-center mt-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</ng-template>

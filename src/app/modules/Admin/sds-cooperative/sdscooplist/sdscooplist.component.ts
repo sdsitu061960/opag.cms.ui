@@ -66,7 +66,6 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
   private FetchSdsCoopIdSubcription?: Subscription;
   private UpdateSdsCoopSubcription?: Subscription;
 
-
   //reset
   @ViewChild('formRef', { static: false }) form!: NgForm;
   //close modal
@@ -91,7 +90,7 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
     this.fetchcoopCategoryName();
     this.fetchcoopType();
     this.fetchCoopAssetSize();
-    this.CoopBusinessAsset$ = this.coopBusinessAssetService.getAllCoopBusinessAsset();
+    this.CoopBusinessAsset$ = this.coopBusinessAssetService.getAllCoopBusinessAsset(this.pageNumber, this.pageSizeAll);
   }
 
   private fetchMunicipality() {
@@ -268,12 +267,6 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
     )
   }
 
-
-
-
-
-
-
   onDelete(sdsCooperativeId: string): void {
     Swal.fire({
       title: "Are you sure?",
@@ -312,6 +305,7 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
       (this.filterOnCoopTypeId ? coop.cooperativeType.cooperativeTypeId === this.filterOnCoopTypeId : true) &&
       (this.filterOnCoopAssetSizeCatNameId ? coop.cooperativeAssetSizeId === this.filterOnCoopAssetSizeCatNameId : true)
     );
+
   }
 
   onFilter(): void {
@@ -373,7 +367,14 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    this.AddSdsCoopSubcription?.unsubscribe();
+    this.MunicipalitySubscription?.unsubscribe();
+    this.cooperativeNameSubcription?.unsubscribe();
+    this.cooperativeTypeSucription?.unsubscribe();
+    this.coopAssetSizeSucription?.unsubscribe();
+    this.onDeleteSubcription?.unsubscribe();
+    this.FetchSdsCoopIdSubcription?.unsubscribe();
+    this.UpdateSdsCoopSubcription?.unsubscribe();
   }
 
 }

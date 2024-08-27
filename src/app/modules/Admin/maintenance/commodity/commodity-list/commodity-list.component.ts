@@ -1,63 +1,56 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { BarangayService } from '../service/barangay-service.service';
-import { IBarangay, IBarangayInput } from '../model/barangay.model';
-import Swal from 'sweetalert2';
+import { ICommodity, ICommodityinput } from '../model/commodity.model';
 import { NgForm } from '@angular/forms';
+import { CommodityService } from '../service/commodity.service';
 import { Subscription } from 'rxjs';
-import { MunicipalityService } from '../../municipality/service/municipality.service';
-import { IMunicipality } from '../../municipality/model/municipality';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-barangay-list',
-  templateUrl: './barangay-list.component.html',
-  styleUrls: ['./barangay-list.component.css']
+  selector: 'app-commodity-list',
+  templateUrl: './commodity-list.component.html',
+  styleUrls: ['./commodity-list.component.css']
 })
-export class BarangayListComponent implements OnInit, OnDestroy {
-  barangayList: IBarangay[] = [];
-  municipalityList: IMunicipality[] = [];
-  inputs: IBarangayInput = { barangays: '', municipalityId: '' };
-  barangay: IBarangay | any;
+export class CommodityListComponent implements OnInit, OnDestroy {
+  commodityList: ICommodity[] = [];
+  inputs: ICommodityinput = { commodityName: '', commodityDescription: '' };
+  commodity: ICommodity | any;
 
   //Paganation
   entries: any[] = [];
   pageNumber = 1;
   pageSize = 5;
-  LargepageSize = 1000;
   totalPages: number = 0;
   totalRecords: number = 0;
   pageSizeOptions: number[] = [5, 10, 25, 50, 100];
   visiblePageCount = 5;
   searchTerm: string = '';
 
-  //subscription
-  private BarangaySucription?: Subscription;
-  private AddBarangaySubcription?: Subscription;
-  private FetchBarangayByIdSubscription?: Subscription;
-  private UpdateBarangaySubcription?: Subscription;
-  private onDeleteSubcription?: Subscription;
-
   //reset
   @ViewChild('formRef', { static: false }) form!: NgForm;
   //close modal
-  @ViewChild('closeModal') closeModal!: ElementRef;
+  @ViewChild('closeModal') closeModal!: ElementRef
   // open modal
   @ViewChild('updateModal') updateModal!: ElementRef;
   // close modal
   @ViewChild('closeModalUpdate') closeModals!: ElementRef;
 
-  constructor(private barangayService: BarangayService,
-    private municipalityService: MunicipalityService) { }
+  private getCommoditySubscription?: Subscription;
+  private AddCommoditySubscription?: Subscription;
+  private fetchCommodityByIdSubcription?: Subscription;
+  private UpdatecommoditySubscription?: Subscription;
+  private onDeleteSubcription?: Subscription;
+
+  constructor(private commodityService: CommodityService) { }
 
   ngOnInit(): void {
-    this.fetchBarangay();
-    this.fetchMunicipality();
+    this.fetchcommodity();
   }
 
-  private fetchBarangay() {
-    this.BarangaySucription = this.barangayService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+  private fetchcommodity() {
+    this.getCommoditySubscription = this.commodityService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
       .subscribe({
         next: (response: any) => {
-          this.barangayList = response.items;
+          this.commodityList = response.items;
           this.totalPages = response.totalPages;
           this.totalRecords = response.totalRecords;
         },
@@ -67,46 +60,28 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       });
   }
 
-  private fetchMunicipality() {
-    this.municipalityService.getAll(this.pageNumber, this.LargepageSize, this.searchTerm)
+  AddcoopCategoryName(): void {
+    this.AddCommoditySubscription = this.commodityService.create(this.inputs)
       .subscribe({
-        next: (response: any) => {
-          this.municipalityList = response.items;
-          this.totalPages = response.totalPages;
-          this.totalRecords = response.totalRecords;
-        },
-        error: (error) => {
-          console.error('Error fetching Data:', error);
-        }
-      });
-  }
-
-  AddBarangay(): void {
-    console.log('submited');
-    this.AddBarangaySubcription = this.barangayService.create(this.inputs)
-      .subscribe({
-
         next: (response) => {
-
           // reset form
           this.form.resetForm();
-
           // close modal
           this.closeModal.nativeElement.click();
 
           Swal.fire({
             icon: 'success',
-            text: "Barangay Created!",
+            text: "Commodity Created!",
             showConfirmButton: false,
             timer: 1000,
           });
 
-          this.fetchBarangay();
+          this.fetchcommodity();
         },
         error: (error) => {
           Swal.fire({
             icon: 'error',
-            text: "Error Creating barangay.",
+            text: "Error Creating Commodity.",
             showConfirmButton: false,
             timer: 2000,
           });
@@ -114,27 +89,25 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       });
   }
 
-  fetchBarangayById(barangayId: string): void {
-    this.FetchBarangayByIdSubscription = this.barangayService.getById(barangayId).subscribe((data: IBarangay) => {
-      this.barangay = data;
-      console.log(this.barangay);
+  fetchCommodityById(commodityId: string): void {
+    this.fetchCommodityByIdSubcription = this.commodityService.getById(commodityId).subscribe((data: ICommodityinput) => {
+      this.commodity = data;
     });
   }
 
-  updateBarangayOnSubmit(): void {
-    this.UpdateBarangaySubcription = this.barangayService.update(this.barangay).subscribe(
+  updatecommodityOnSubmit(): void {
+    this.UpdatecommoditySubscription = this.commodityService.update(this.commodity).subscribe(
       response => {
         Swal.fire({
           icon: 'success',
           title: 'success',
           text: 'Updated Successfully!',
         });
-        console.log(this.barangay);
         // reset form
         this.form.resetForm();
         // close modal
         this.closeModals.nativeElement.click();
-        this.fetchBarangay();
+        this.fetchcommodity();
       },
       error => {
         Swal.fire({
@@ -146,7 +119,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     )
   }
 
-  onDelete(barangayId: string): void {
+  onDelete(commodityId: string): void {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -157,10 +130,10 @@ export class BarangayListComponent implements OnInit, OnDestroy {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.onDeleteSubcription = this.barangayService.delete(barangayId)
+        this.onDeleteSubcription = this.commodityService.delete(commodityId)
           .subscribe({
             next: (response) => {
-              this.fetchBarangay();
+              this.fetchcommodity();
             },
             error: (error) => {
               Swal.fire({
@@ -176,16 +149,15 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     });
   }
 
-
   onSearch(): void {
     this.pageNumber = 1; // Reset to first page whenever a search is performed
-    this.fetchBarangay();
+    this.fetchcommodity();
   }
 
   onPrev(): void {
     if (this.pageNumber > 1) {
       this.pageNumber--;
-      this.fetchBarangay();
+      this.fetchcommodity();
     }
   }
 
@@ -193,7 +165,7 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     console.log('Total Record:', this.totalRecords);
     if (this.pageNumber * this.pageSize < this.totalRecords) {
       this.pageNumber++;
-      this.fetchBarangay();
+      this.fetchcommodity();
     }
   }
 
@@ -201,13 +173,13 @@ export class BarangayListComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLSelectElement;
     this.pageSize = +target.value;
     this.pageNumber = 1; // Reset to first page whenever page size changes
-    this.fetchBarangay();
+    this.fetchcommodity();
   }
 
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.pageNumber = page;
-      this.fetchBarangay();
+      this.fetchcommodity();
     }
   }
 
@@ -230,11 +202,10 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.BarangaySucription?.unsubscribe();
-    this.AddBarangaySubcription?.unsubscribe();
-    this.FetchBarangayByIdSubscription?.unsubscribe();
-    this.UpdateBarangaySubcription?.unsubscribe();
+    this.getCommoditySubscription?.unsubscribe();
+    this.AddCommoditySubscription?.unsubscribe();
+    this.fetchCommodityByIdSubcription?.unsubscribe();
+    this.UpdatecommoditySubscription?.unsubscribe();
     this.onDeleteSubcription?.unsubscribe();
   }
-
 }

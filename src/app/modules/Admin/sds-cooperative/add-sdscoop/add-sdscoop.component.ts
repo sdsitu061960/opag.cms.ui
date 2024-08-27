@@ -85,7 +85,7 @@ export class AddSdscoopComponent implements OnInit, OnDestroy {
     this.fetchcoopCategoryName();
     this.fetchcoopType();
     this.fetchCoopAssetSize();
-    this.CoopBusinessAsset$ = this.coopBusinessAssetService.getAllCoopBusinessAsset();
+    this.CoopBusinessAsset$ = this.coopBusinessAssetService.getAllCoopBusinessAsset(this.pageNumber, this.pageSizeAll);
     // console.log(data);
   }
 

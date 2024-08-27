@@ -25,6 +25,7 @@ import { CoopAssetSizeListComponent } from './modules/Admin/maintenance/cooperat
 import { CoopBusinessListComponent } from './modules/Admin/maintenance/cooperative business/coop-business-list/coop-business-list.component';
 import { CoopReceivedListComponent } from './modules/Admin/maintenance/intervention recieved/coop-received-list/coop-received-list.component';
 import { CoopCategoryNameListComponent } from './modules/Admin/maintenance/cooperative Name/coop-category-name-list/coop-category-name-list.component';
+import { CommodityListComponent } from './modules/Admin/maintenance/commodity/commodity-list/commodity-list.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { CoopCategoryNameListComponent } from './modules/Admin/maintenance/coope
     CoopAssetSizeListComponent,
     CoopBusinessListComponent,
     CoopReceivedListComponent,
-    CoopCategoryNameListComponent
+    CoopCategoryNameListComponent,
+    CommodityListComponent
   ],
   imports: [
     BrowserModule,
