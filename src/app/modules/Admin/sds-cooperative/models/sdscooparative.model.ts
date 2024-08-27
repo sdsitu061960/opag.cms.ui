@@ -62,5 +62,9 @@ export interface ISdsCooperativeUpdate {
     certificateTaxExemption: boolean;
 }
 
+export interface MunicipalityCountDto {
+    municipalityId: string;
+    count: number;
+}
 
 

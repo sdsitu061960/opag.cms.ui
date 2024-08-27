@@ -121,13 +121,22 @@
                 </button>
               </div> -->
             </div>
-            <h4 class="card-title mb-4">Total number of Cooperative per Municipality</h4>
+
+
+
+            <h4 class="card-title mb-4">Cooperatives per municipality</h4>
             <div>
-              <div id="line-column-chart" class="apex-charts" dir="ltr"></div>
+              <highcharts-chart 
+              *ngIf="chartOptions"
+              [Highcharts]="highcharts"
+              [options]="chartOptions"
+              style="height: 100%; width: 100%; display: block;">
+            </highcharts-chart>
             </div>
           </div>
 
           <div class="card-body border-top text-center">
+            
             <!-- <div class="row">
               <div class="col-sm-4">
                 <div class="d-inline-flex">

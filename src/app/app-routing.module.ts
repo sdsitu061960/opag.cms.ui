@@ -16,6 +16,7 @@ import { CoopCategoryNameListComponent } from './modules/Admin/maintenance/coope
 import { AddSdscoopComponent } from './modules/Admin/sds-cooperative/add-sdscoop/add-sdscoop.component';
 import { CreateRboComponent } from './modules/Admin/rbo-directory/create-rbo/create-rbo.component';
 import { CommodityListComponent } from './modules/Admin/maintenance/commodity/commodity-list/commodity-list.component';
+import { ReportsComponent } from './modules/Admin/reports/reports/reports.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'coop-category-name', component: CoopCategoryNameListComponent, title: 'Category Name' },
       { path: 'sds-cooperative/add', component: AddSdscoopComponent, title: 'Add SDS Cooperative' },
       { path: 'commodity', component: CommodityListComponent, title: 'Commodity' },
+      { path: 'reports', component: ReportsComponent, title: 'Reports' },
     ]
   }
 ];

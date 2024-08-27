@@ -15,18 +15,6 @@ export class SdscoopService extends BaseService<ISdsCooperative, ISdsCooperative
     super(http, 'SdsCooperative');
   }
 
-  // getAll(pageNumber: number, pageSize: number, searchTerm?: string): Observable<PaginatedResponse<TModel[]>> {
-  //   let params = new HttpParams()
-  //     .set('pageNumber', pageNumber.toString())
-  //     .set('pageSize', pageSize.toString());
-
-  //   if (searchTerm) {
-  //     params = params.set('searchTerm', searchTerm);
-  //   }
-
-  //   return this.http.get<PaginatedResponse<TModel[]>>(`${this.apiBaseUrl}/all`, { params });
-  // }
-
   getAllSdsCooperative(
     pageNumber: number,
     pageSize: number,
@@ -65,14 +53,14 @@ export class SdscoopService extends BaseService<ISdsCooperative, ISdsCooperative
     return this.http.get<PaginatedResponse<ISdsCooperative[]>>(`${environment.apiBaseUrl}/api/SdsCooperative/all`, { params });
   }
 
-  //Get All Coop Business Asset
-  // getAllCoopBusinessAsset(): Observable<ICoopBusiness[]> {
-  //   return this.http.get<ICoopBusiness[]>(`${environment.apiBaseUrl}/api/cooperativeBusinessActivity`);
-  // }
   getAllCoopBusinessAsset(): Observable<ICoopBusiness[]> {
     return this.http.get<ICoopBusinessResponse>(`${environment.apiBaseUrl}/api/CooperativeBusinessActivity/all`).pipe(
       map(response => response.items)
     );
+  }
+
+  countMunicipality(): Observable<ISdsCooperative[]> {
+    return this.http.get<ISdsCooperative[]>(`${this.apiBaseUrl}/CountMunicipality`);
   }
 
 

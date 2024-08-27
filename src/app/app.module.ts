@@ -26,6 +26,8 @@ import { CoopBusinessListComponent } from './modules/Admin/maintenance/cooperati
 import { CoopReceivedListComponent } from './modules/Admin/maintenance/intervention recieved/coop-received-list/coop-received-list.component';
 import { CoopCategoryNameListComponent } from './modules/Admin/maintenance/cooperative Name/coop-category-name-list/coop-category-name-list.component';
 import { CommodityListComponent } from './modules/Admin/maintenance/commodity/commodity-list/commodity-list.component';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { ReportsComponent } from './modules/Admin/reports/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { CommodityListComponent } from './modules/Admin/maintenance/commodity/co
     CoopBusinessListComponent,
     CoopReceivedListComponent,
     CoopCategoryNameListComponent,
-    CommodityListComponent
+    CommodityListComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ import { CommodityListComponent } from './modules/Admin/maintenance/commodity/co
     SharedModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HighchartsChartModule
   ],
   providers: [BarangayService],
   bootstrap: [AppComponent]
