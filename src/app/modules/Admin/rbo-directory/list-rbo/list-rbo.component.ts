@@ -61,6 +61,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
   private onDeleteSubcription?: Subscription;
   private getCommoditySubscription?: Subscription;
 
+
   constructor(private ruralBaseOrganizationService: RboDirectoryService,
     private municipalityService: MunicipalityService,
     private barangayService: BarangayService,
@@ -183,44 +184,56 @@ export class ListRboComponent implements OnInit, OnDestroy {
 
       // Populate commodities when editing
       this.populateCommodities(data.commodity);
-
-      // Populate other form fields as necessary
     });
   }
 
-  // Method to populate the commodities form array
   populateCommodities(commodities: any[]): void {
     const commoditiesArray = this.commodities();
+
+    // Clear existing form array controls
+    while (commoditiesArray.length) {
+      commoditiesArray.removeAt(0);
+    }
+
+    // Add each commodity to the form array
     commodities.forEach(commodity => {
-      commoditiesArray.push(this.formBuilder.group({
-        commodityId: [commodity.commodityId],  // Set the commodity ID
-        commodityDetails: [commodity.commodityDetails],  // Set the commodity details
-      }));
+      console.log('Commodity:', commodity);  // Log to check details
+      commoditiesArray.push(this.newCommodity(commodity));
     });
   }
 
+  // Method to get the form array
   commodities(): FormArray {
     return this.rboDirectoryForm.get("commodities") as FormArray;
   }
 
-  newCommodity(): FormGroup {
+  // Method to create a new form group for a commodity
+  newCommodity(commodity?: any): FormGroup {
     return this.formBuilder.group({
-      commodityId: '',  // Select list for commodity 
-      commodityDetails: '',  // Text input for commodity details
+      commodityId: [commodity ? commodity.commodityId : ''],  // Set the commodity ID
+      commodityDetails: [commodity ? commodity.commodityDetails : ''],  // Set the commodity details
     });
   }
 
+  // Method to add a new commodity form group to the array
   addCommodity(): void {
     this.commodities().push(this.newCommodity());
   }
 
+  // Method to remove a commodity form group from the array
   removeCommodity(i: number): void {
     this.commodities().removeAt(i);
   }
 
+
   onUpdateRboDirectory(): void {
 
+    // Extract updated commodities from form
     const updatedCommodities = this.commodities().value;
+
+    // Map commodityId and commodityDetails from the form array
+    const commodityIds = updatedCommodities.map((commodity: any) => commodity.commodityId);
+    const commodityDetails = updatedCommodities.map((commodity: any) => commodity.commodityDetails);
     //Define Default Value for sds Cooperative
     let updateRboDirectory: IRuralOrganizationMemberInput = {
       ruralOrganizationMemberId: '',
@@ -258,52 +271,59 @@ export class ListRboComponent implements OnInit, OnDestroy {
       interventionDetails: '',
       others: '',
       trainingAttended: '',
-      commodityId: updatedCommodities.map((commodity: any) => commodity.commodityId),
-      commodityDetails: updatedCommodities.map((commodity: any) => commodity.commodityDetails)
-      // commodityId: [],
-      // commodityDetails: []
+      commodityId: [],
+      commodityDetails: []
     };
 
+    // if (this.rboDirectoryInput && this.rboDirectoryInput.ruralOrganizationMemberId) {
+    //   updateRboDirectory = {
+    //     ruralOrganizationMemberId: this.rboDirectoryInput.ruralOrganizationMemberId,
+    //     firstName: this.rboDirectoryInput.firstName,
+    //     middleName: this.rboDirectoryInput.middleName,
+    //     lastName: this.rboDirectoryInput.lastName,
+    //     suffix: this.rboDirectoryInput.suffix,
+    //     region: this.rboDirectoryInput.region,
+    //     gender: this.rboDirectoryInput.gender,
+    //     civilStatus: this.rboDirectoryInput.civilStatus,
+    //     dateOfBirth: this.rboDirectoryInput.dateOfBirth,
+    //     age: this.rboDirectoryInput.age,
+    //     educationalAttainment: this.rboDirectoryInput.educationalAttainment,
+    //     degree: this.rboDirectoryInput.degree,
+    //     contactNumber: this.rboDirectoryInput.contactNumber,
+    //     association: this.rboDirectoryInput.association,
+    //     landSize: this.rboDirectoryInput.landSize,
+    //     registeredWith: this.rboDirectoryInput.registeredWith,
+    //     registeredNo: this.rboDirectoryInput.registeredNo,
+    //     tin: this.rboDirectoryInput.tin,
+    //     femaleMembers: this.rboDirectoryInput.femaleMembers,
+    //     maleMembers: this.rboDirectoryInput.maleMembers,
+    //     dateApproved: this.rboDirectoryInput.dateApproved,
+    //     district: this.rboDirectoryInput.district,
+    //     province: this.rboDirectoryInput.province,
+    //     municipalityId: this.rboDirectoryInput.municipalityId,
+    //     cityMunicipalityClass: this.rboDirectoryInput.cityMunicipalityClass,
+    //     zipCode: this.rboDirectoryInput.zipCode,
+    //     barangayId: this.rboDirectoryInput.barangayId,
+    //     position: this.rboDirectoryInput.position,
+    //     emailAddress: this.rboDirectoryInput.emailAddress,
+    //     officeOrganizationAddress: this.rboDirectoryInput.officeOrganizationAddress,
+    //     rboCategoryId: this.rboDirectoryInput.rboCategoryId,
+    //     interventionReceivedId: this.rboDirectoryInput.interventionReceivedId,
+    //     interventionDetails: this.rboDirectoryInput.interventionDetails,
+    //     others: this.rboDirectoryInput.others,
+    //     trainingAttended: this.rboDirectoryInput.trainingAttended,
+    //     commodityId: this.selectedCommodityName ?? [],
+    //     commodityDetails: this.selectedCommodityDetail ?? []
+    //   }
+    // }
+
+    // Update with actual values if available
     if (this.rboDirectoryInput && this.rboDirectoryInput.ruralOrganizationMemberId) {
       updateRboDirectory = {
-        ruralOrganizationMemberId: this.rboDirectoryInput.ruralOrganizationMemberId,
-        firstName: this.rboDirectoryInput.firstName,
-        middleName: this.rboDirectoryInput.middleName,
-        lastName: this.rboDirectoryInput.lastName,
-        suffix: this.rboDirectoryInput.suffix,
-        region: this.rboDirectoryInput.region,
-        gender: this.rboDirectoryInput.gender,
-        civilStatus: this.rboDirectoryInput.civilStatus,
-        dateOfBirth: this.rboDirectoryInput.dateOfBirth,
-        age: this.rboDirectoryInput.age,
-        educationalAttainment: this.rboDirectoryInput.educationalAttainment,
-        degree: this.rboDirectoryInput.degree,
-        contactNumber: this.rboDirectoryInput.contactNumber,
-        association: this.rboDirectoryInput.association,
-        landSize: this.rboDirectoryInput.landSize,
-        registeredWith: this.rboDirectoryInput.registeredWith,
-        registeredNo: this.rboDirectoryInput.registeredNo,
-        tin: this.rboDirectoryInput.tin,
-        femaleMembers: this.rboDirectoryInput.femaleMembers,
-        maleMembers: this.rboDirectoryInput.maleMembers,
-        dateApproved: this.rboDirectoryInput.dateApproved,
-        district: this.rboDirectoryInput.district,
-        province: this.rboDirectoryInput.province,
-        municipalityId: this.rboDirectoryInput.municipalityId,
-        cityMunicipalityClass: this.rboDirectoryInput.cityMunicipalityClass,
-        zipCode: this.rboDirectoryInput.zipCode,
-        barangayId: this.rboDirectoryInput.barangayId,
-        position: this.rboDirectoryInput.position,
-        emailAddress: this.rboDirectoryInput.emailAddress,
-        officeOrganizationAddress: this.rboDirectoryInput.officeOrganizationAddress,
-        rboCategoryId: this.rboDirectoryInput.rboCategoryId,
-        interventionReceivedId: this.rboDirectoryInput.interventionReceivedId,
-        interventionDetails: this.rboDirectoryInput.interventionDetails,
-        others: this.rboDirectoryInput.others,
-        trainingAttended: this.rboDirectoryInput.trainingAttended,
-        commodityId: this.selectedCommodityName ?? [],
-        commodityDetails: this.selectedCommodityDetail ?? []
-      }
+        ...this.rboDirectoryInput,  // Spread existing values
+        commodityId: commodityIds,  // Update commodityId
+        commodityDetails: commodityDetails  // Update commodityDetails
+      };
     }
 
     this.UpdateRboDirectorySubcription = this.ruralBaseOrganizationService.update(updateRboDirectory).subscribe(
@@ -313,7 +333,8 @@ export class ListRboComponent implements OnInit, OnDestroy {
           title: 'success',
           text: 'Updated Successfully!',
         });
-        // this.fetchSdsCoop();
+
+        this.fetchRboDirectory();
 
         // reset form
         this.editrboDirectoryList = {

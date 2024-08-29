@@ -244,7 +244,7 @@
                               <span
                                 *ngFor="let commodity of data.commodity"
                                 class="badge bg-warning me-2"
-                                >{{ commodity.commodityName }}</span
+                                >{{ commodity.commodityName }} {{ commodity.commodityDescription }}</span
                               >
                             </td>
                             <td>
@@ -339,8 +339,8 @@
         <div class="container p-2">
           <ng-container *ngIf="rboDirectoryInput">
             <!-- (ngSubmit)="onUpdateFormSubmit()" -->
-            <form #form="ngForm" (ngSubmit)="onUpdateRboDirectory()">
-              <h4 class="card-title-desc text-center">
+            <form [formGroup]="rboDirectoryForm" #form="ngForm" (ngSubmit)="onUpdateRboDirectory()">
+              <h4 class="card-title-desc text-center" style="color: #1F1B1B;">
                 President/Chairman Information Details
               </h4>
               <div class="row">
@@ -348,6 +348,7 @@
                   <div class="mb-3">
                     <label for="FirstName" class="form-label">FIRSTNAME</label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       type="text"
                       class="form-control"
                       name="FirstName"
@@ -361,6 +362,7 @@
                   <div class="mb-3">
                     <label for="MiddleName" class="form-label">MIDLENAME</label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       type="text"
                       class="form-control"
                       name="MiddleName"
@@ -374,6 +376,7 @@
                   <div class="mb-3">
                     <label for="LastName" class="form-label">LASTNAME</label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       type="text"
                       class="form-control"
                       name="LastName"
@@ -389,6 +392,7 @@
                   <div class="mb-3">
                     <label for="Suffix" class="form-label">SUFFIX</label>
                     <select
+                    [ngModelOptions]="{standalone: true}"
                       class="form-select"
                       id="Suffix"
                       required
@@ -421,6 +425,7 @@
                   <div class="mb-3">
                     <label for="Sex" class="form-label">SEX</label>
                     <select
+                    [ngModelOptions]="{standalone: true}"
                       class="form-select"
                       id="Sex"
                       required
@@ -440,6 +445,7 @@
                       >CIVIL STATUS</label
                     >
                     <select
+                    [ngModelOptions]="{standalone: true}"
                       class="form-select"
                       id="civilStat"
                       required
@@ -462,6 +468,7 @@
                       >DATE OF BIRTH
                     </label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       type="date"
                       name="DateOfBirth"
                       class="form-control"
@@ -478,7 +485,8 @@
                   <div class="mb-3">
                     <label for="Age" class="form-label">AGE</label>
                     <input
-                      type="text"
+                    [ngModelOptions]="{standalone: true}"
+                      type="number"
                       class="form-control"
                       name="Age"
                       id="Age"
@@ -494,6 +502,7 @@
                       >HIGHEST EDUCATIONAL ATTAINMENT</label
                     >
                     <select
+                    [ngModelOptions]="{standalone: true}"
                       class="form-select"
                       id="EducationalAttainment"
                       required
@@ -515,6 +524,7 @@
                   <div class="mb-3">
                     <label for="streetAddress" class="form-label">DEGREE</label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       type="text"
                       class="form-control"
                       name="Degree"
@@ -531,6 +541,7 @@
                       >Contact Number/s
                     </label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       type="text"
                       class="form-control"
                       name="contactNumber"
@@ -544,13 +555,14 @@
 
                 <hr />
 
-                <h4 class="card-title-desc text-center">
+                <h4 class="card-title-desc text-center" style="color: #1F1B1B;">
                   Organization Profile
                 </h4>
                 <div class="row">
                   <div class="col-4">
                     <label for="assoc">Association/Organiation</label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       id="assoc"
                       name="assoc"
                       type="text"
@@ -562,9 +574,10 @@
                   <div class="col-3">
                     <label for="completeName">Service Area (HA) </label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       id="serviceHa"
                       name="serviceHa"
-                      type="text"
+                      type="number"
                       class="form-control"
                       class="form-control"
                       [(ngModel)]="rboDirectoryInput.landSize"
@@ -574,6 +587,7 @@
                   <div class="col-2">
                     <label for="regWith">Registered with:</label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       id="regWith"
                       name="regWith"
                       type="text"
@@ -585,6 +599,7 @@
                   <div class="col-3">
                     <label for="registeredNo">Registaion Number:</label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       id="registeredNo"
                       name="registeredNo"
                       type="text"
@@ -595,19 +610,11 @@
                 </div>
 
                 <div class="row">
-                  <!-- <div class="col-2">
-                    <label for="femaleMembers">Size of Hectars</label>
-                    <input
-                      id="femaleMembers"
-                      name="femaleMembers"
-                      type="number"
-                      class="form-control"
-                    />
-                  </div> -->
 
                   <div class="col-3">
                     <label for="Contact">TIN</label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       id="tin"
                       name="tin"
                       type="text"
@@ -619,6 +626,7 @@
                   <div class="col-3">
                     <label for="femaleMembers">Female Members</label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       id="femaleMembers"
                       name="femaleMembers"
                       type="number"
@@ -629,6 +637,7 @@
                   <div class="col-3">
                     <label for="maleMembers">Male Members</label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       id="maleMembers"
                       name="maleMembers"
                       type="number"
@@ -640,6 +649,7 @@
                   <div class="col-3">
                     <label for="regWith">Date Approved:</label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       id="regWith"
                       name="regWith"
                       type="date"
@@ -657,6 +667,7 @@
                       >DISTRICT</label
                     >
                     <select
+                    [ngModelOptions]="{standalone: true}"
                       class="form-select"
                       id="district"
                       required
@@ -687,6 +698,7 @@
                       >MUNICIPALITY</label
                     >
                     <select
+                    [ngModelOptions]="{standalone: true}"
                       class="form-select"
                       id="municipality"
                       required
@@ -710,6 +722,7 @@
                       >CITY/MUNICIPALITY CLASS</label
                     >
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       type="text"
                       class="form-control"
                       name="CityMunicipalityClass"
@@ -724,6 +737,7 @@
                   <div class="mb-3">
                     <label for="ZipCode" class="form-label">ZIP CODE</label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       type="text"
                       class="form-control"
                       name="ZipCode"
@@ -740,6 +754,7 @@
                       >BARANGAY</label
                     >
                     <select
+                    [ngModelOptions]="{standalone: true}"
                       class="form-select"
                       id="barangay"
                       required
@@ -763,6 +778,7 @@
                       >Position/ Designation
                     </label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       type="text"
                       class="form-control"
                       name="Occupation"
@@ -779,6 +795,7 @@
                       >Email Address
                     </label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       type="text"
                       class="form-control"
                       name="EmailAddress"
@@ -795,6 +812,7 @@
                       >Office/ Organization & Address
                     </label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       type="text"
                       class="form-control"
                       name="OfficeOrganizationAddress"
@@ -811,6 +829,7 @@
                       >RBO Category
                     </label>
                     <select
+                    [ngModelOptions]="{standalone: true}"
                       class="form-select"
                       id="rbodirectory"
                       required
@@ -830,40 +849,11 @@
 
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <label for="streetAddress" class="form-label"
-                      >Commodity Category
-                    </label>
-                    <select class="form-select" id="rbodirectory" required>
-                      <option selected disabled value="">Choose...</option>
-                      <!-- <option
-                        *ngFor="let rbodirectory of rboCategories"
-                        [value]="rbodirectory.id"
-                      >
-                        {{ rbodirectory.shortName }}
-                      </option> -->
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="" class="form-label">Please Specify </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name=""
-                      id="Ex. Jhon@gmail.com"
-                      placeholder=""
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <div class="mb-3">
                     <label for="InterventionRecievedId" class="form-label"
                       >Intervention Received from</label
                     >
                     <select
+                    [ngModelOptions]="{standalone: true}"
                       class="form-select"
                       id="interventionRecievedId"
                       name="interventionRecievedId"
@@ -886,6 +876,7 @@
                       >Please Specify
                     </label>
                     <input
+                    [ngModelOptions]="{standalone: true}"
                       type="text"
                       class="form-control"
                       name="interventionDetails"
@@ -905,8 +896,8 @@
                         <label for="commodityId">Commodity Name:</label>
                         <select formControlName="commodityId" class="form-control">
                           <option selected disabled value="">Choose...</option>
-                          <option *ngFor="let commodity of commodityList" [value]="commodity.commodityId">
-                            {{ commodity.commodityName }}
+                          <option *ngFor="let item of commodityList" [value]="item.commodityId">
+                            {{ item.commodityName }}
                           </option>
                         </select>
                       </div>
