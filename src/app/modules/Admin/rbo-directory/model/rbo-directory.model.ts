@@ -2,6 +2,7 @@ import { IBarangay } from "../../maintenance/barangay/model/barangay.model";
 import { IMunicipality } from "../../maintenance/municipality/model/municipality";
 import { IRboCateory } from "../../maintenance/rbo category/model/rbo-category.model";
 import { ICoopReceived } from "../../maintenance/intervention recieved/model/coo-received.model";
+import { ICommodity } from "../../maintenance/commodity/model/commodity.model";
 
 export interface IRuralOrganizationMember {
     ruralOrganizationMemberId: string;
@@ -44,6 +45,8 @@ export interface IRuralOrganizationMember {
     barangay: IBarangay;
     rboCategory: IRboCateory;
     interventionReceived: ICoopReceived;
+
+    commodity: ICommodity[];
 }
 
 export interface IRuralOrganizationMemberInput {
@@ -82,6 +85,9 @@ export interface IRuralOrganizationMemberInput {
     interventionDetails: string;
     others: string;
     trainingAttended: string;
+
+    commodityId: string[];
+    commodityDetails: string[];
 
     // municipality: IMunicipality;
     // barangay: IBarangay;

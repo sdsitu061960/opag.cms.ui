@@ -11,6 +11,9 @@ import { IBarangay } from '../../maintenance/barangay/model/barangay.model';
 import { IRboCateory } from '../../maintenance/rbo category/model/rbo-category.model';
 import { ICoopReceived } from '../../maintenance/intervention recieved/model/coo-received.model';
 import Swal from 'sweetalert2';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { CommodityService } from '../../maintenance/commodity/service/commodity.service';
+import { ICommodity } from '../../maintenance/commodity/model/commodity.model';
 
 @Component({
   selector: 'app-list-rbo',
@@ -24,6 +27,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
   rboCategoryList: IRboCateory[] = [];
   interventionReceivedList: ICoopReceived[] = [];
   editrboDirectoryList: IRuralOrganizationMember | any;
+  commodityList: ICommodity[] = [];
 
   @Input() rboDirectoryInput?: IRuralOrganizationMember;
 
@@ -41,6 +45,10 @@ export class ListRboComponent implements OnInit, OnDestroy {
   pageSizeOptions: number[] = [5, 10, 25, 50, 100];
   visiblePageCount = 5;
   searchTerm: string = '';
+  selectedCommodityName?: string[];
+  selectedCommodityDetail?: string[];
+
+  rboDirectoryForm: FormGroup;
 
   //Subcription
   private MunicipalitySubscription?: Subscription;
@@ -51,13 +59,20 @@ export class ListRboComponent implements OnInit, OnDestroy {
   private InterventionReceivedSubscription?: Subscription;
   private UpdateRboDirectorySubcription?: Subscription;
   private onDeleteSubcription?: Subscription;
+  private getCommoditySubscription?: Subscription;
 
   constructor(private ruralBaseOrganizationService: RboDirectoryService,
     private municipalityService: MunicipalityService,
     private barangayService: BarangayService,
     private rboCategoryService: RboCategoryService,
-    private interventionRecievedService: CoopReceivedService
-  ) { }
+    private interventionRecievedService: CoopReceivedService,
+    private formBuilder: FormBuilder,
+    private commodityService: CommodityService,
+  ) {
+    this.rboDirectoryForm = this.formBuilder.group({
+      commodities: this.formBuilder.array([]),  // Initialize form array for commodities
+    });
+  }
 
   ngOnInit(): void {
     this.fetchRboDirectory();
@@ -65,7 +80,21 @@ export class ListRboComponent implements OnInit, OnDestroy {
     this.fetchBarangay();
     this.fetchrboCategory();
     this.fetchInterventionReceived();
+    this.fetchcommodity();
+  }
 
+  private fetchcommodity() {
+    this.getCommoditySubscription = this.commodityService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+      .subscribe({
+        next: (response: any) => {
+          this.commodityList = response.items;
+          this.totalPages = response.totalPages;
+          this.totalRecords = response.totalRecords;
+        },
+        error: (error) => {
+          console.error('Error fetching Data:', error);
+        }
+      });
   }
 
   private fetchMunicipality() {
@@ -140,15 +169,58 @@ export class ListRboComponent implements OnInit, OnDestroy {
       });
   }
 
+  // fetchRboDirectoryById(rboDirectoryId: string): void {
+  //   this.fetchRboDirectoryByIdSubcription = this.ruralBaseOrganizationService.getById(rboDirectoryId).subscribe((data: IRuralOrganizationMember) => {
+  //     this.rboDirectoryInput = data;
+  //     console.log(data);
+  //     //this.selectedBusinessAsset = data.cooperativeBusinessActivities.map(x => x.cooperativeBusinessActivityId);
+  //   });
+  // }
   fetchRboDirectoryById(rboDirectoryId: string): void {
     this.fetchRboDirectoryByIdSubcription = this.ruralBaseOrganizationService.getById(rboDirectoryId).subscribe((data: IRuralOrganizationMember) => {
       this.rboDirectoryInput = data;
       console.log(data);
-      //this.selectedBusinessAsset = data.cooperativeBusinessActivities.map(x => x.cooperativeBusinessActivityId);
+
+      // Populate commodities when editing
+      this.populateCommodities(data.commodity);
+
+      // Populate other form fields as necessary
     });
   }
 
+  // Method to populate the commodities form array
+  populateCommodities(commodities: any[]): void {
+    const commoditiesArray = this.commodities();
+    commodities.forEach(commodity => {
+      commoditiesArray.push(this.formBuilder.group({
+        commodityId: [commodity.commodityId],  // Set the commodity ID
+        commodityDetails: [commodity.commodityDetails],  // Set the commodity details
+      }));
+    });
+  }
+
+  commodities(): FormArray {
+    return this.rboDirectoryForm.get("commodities") as FormArray;
+  }
+
+  newCommodity(): FormGroup {
+    return this.formBuilder.group({
+      commodityId: '',  // Select list for commodity 
+      commodityDetails: '',  // Text input for commodity details
+    });
+  }
+
+  addCommodity(): void {
+    this.commodities().push(this.newCommodity());
+  }
+
+  removeCommodity(i: number): void {
+    this.commodities().removeAt(i);
+  }
+
   onUpdateRboDirectory(): void {
+
+    const updatedCommodities = this.commodities().value;
     //Define Default Value for sds Cooperative
     let updateRboDirectory: IRuralOrganizationMemberInput = {
       ruralOrganizationMemberId: '',
@@ -186,6 +258,10 @@ export class ListRboComponent implements OnInit, OnDestroy {
       interventionDetails: '',
       others: '',
       trainingAttended: '',
+      commodityId: updatedCommodities.map((commodity: any) => commodity.commodityId),
+      commodityDetails: updatedCommodities.map((commodity: any) => commodity.commodityDetails)
+      // commodityId: [],
+      // commodityDetails: []
     };
 
     if (this.rboDirectoryInput && this.rboDirectoryInput.ruralOrganizationMemberId) {
@@ -224,7 +300,9 @@ export class ListRboComponent implements OnInit, OnDestroy {
         interventionReceivedId: this.rboDirectoryInput.interventionReceivedId,
         interventionDetails: this.rboDirectoryInput.interventionDetails,
         others: this.rboDirectoryInput.others,
-        trainingAttended: this.rboDirectoryInput.trainingAttended
+        trainingAttended: this.rboDirectoryInput.trainingAttended,
+        commodityId: this.selectedCommodityName ?? [],
+        commodityDetails: this.selectedCommodityDetail ?? []
       }
     }
 
@@ -273,6 +351,8 @@ export class ListRboComponent implements OnInit, OnDestroy {
           interventionDetails: '',
           others: '',
           trainingAttended: '',
+          commodityId: [],
+          commodityDetails: []
         }
 
 
@@ -375,7 +455,14 @@ export class ListRboComponent implements OnInit, OnDestroy {
     return pages;
   }
   ngOnDestroy(): void {
-
+    this.MunicipalitySubscription?.unsubscribe();
+    this.rboDirectorySubcription?.unsubscribe();
+    this.BarangaySubscription?.unsubscribe();
+    this.RboCategorySubscription?.unsubscribe();
+    this.fetchRboDirectoryByIdSubcription?.unsubscribe();
+    this.InterventionReceivedSubscription?.unsubscribe();
+    this.UpdateRboDirectorySubcription?.unsubscribe();
+    this.onDeleteSubcription?.unsubscribe();
   }
 
 }

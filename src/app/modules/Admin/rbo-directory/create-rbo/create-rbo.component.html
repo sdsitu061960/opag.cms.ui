@@ -33,9 +33,9 @@
                   <h4 class="card-title-desc text-center">
                     President/Chairman Information Details
                   </h4>
-                  <!-- (ngSubmit)="OnAddFormSubmit()" -->
+                   <!-- (ngSubmit)="onSubmit()" -->
 
-                  <form [formGroup]="rboDirectoryForm" #form="ngForm" (ngSubmit)="AddRboDirectory()">
+                  <form [formGroup]="rboDirectoryForm" #form="ngForm" (ngSubmit)="AddRboDirectory()"  >
                     <div class="row">
                       <div class="col-md-3">
                         <div class="mb-3">
@@ -639,10 +639,21 @@
                           <div class="row" *ngFor="let commodity of commodities().controls; let i = index" [formGroupName]="i">
                             <div class="col-4">
                               <!-- Select List for Commodity Name -->
-                            <label for="commodityName">Commodity Name:</label>
-                            <select formControlName="commodityName" class="form-control">
+                            <label for="commodityId">Commodity Name:</label>
+                            <!-- <select formControlName="commodityName" class="form-control">
                               <option *ngFor="let name of commodityNames" [value]="name">{{name}}</option>
+                            </select> -->
+                            <!-- [(ngModel)]="inputs.commodityId" -->
+                            <select
+                              formControlName="commodityId"
+                              class="form-control"
+                            >
+                              <option selected disabled value="">Choose...</option>
+                              <option *ngFor="let commodity of commodityList" [value]="commodity.commodityId">
+                                {{ commodity.commodityName }}
+                              </option>
                             </select>
+
                             </div>
                             <div class="col-6 pb-2">
                               <!-- Text Input for Commodity Details -->
@@ -654,12 +665,28 @@
                             <button type="button" class="btn btn-danger" (click)="removeCommodity(i)">Remove</button>
                             </div>
                             
+                            <!-- <select
+                            formControlName="commodityName"
+                            class="form-select"
+                            id="intervention"
+                            required
+                            name="intervention"
+                            [(ngModel)]="inputs.commodityId"
+                          >
+                            <option selected disabled value="">Choose...</option>
+                            <option
+                              *ngFor="let commodity of commodityList"
+                              [value]="commodity.commodityId"
+                            >
+                              {{ commodity.commodityName }}
+                            </option>
+                          </select> -->
                            
                           </div>
                         </div>
                         
-                        <!-- Add Commodity Button -->
-                        <button type="button" class="btn btn-primary mb-2" (click)="addCommodity()">Add Commodity</button>
+                          <!-- Add Commodity Button -->
+                          <button type="button" class="btn btn-primary mb-2" (click)="addCommodity()">Add Commodity</button>
                         </div>
       
                       <hr />

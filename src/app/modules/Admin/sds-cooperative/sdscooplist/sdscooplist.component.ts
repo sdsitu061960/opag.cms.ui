@@ -51,10 +51,10 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
   visiblePageCount = 5;
   searchTerm: string = '';
   filterOnCoopName: string = '';
-  filterOnMunicipalitiesId: string = '';
-  filterOnCooperativeCategoryNameId: string = '';
-  filterOnCoopTypeId: string = '';
-  filterOnCoopAssetSizeCatNameId: string = '';
+  filterOnMunicipality: string = '';
+  filterOnCategoryName: string = '';
+  filterOnCoopType: string = '';
+  filterOnCoopAssetSizeCatName: string = '';
 
   //Subcription
   private AddSdsCoopSubcription?: Subscription;
@@ -155,17 +155,17 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
       this.pageNumber,
       this.pageSize,
       this.searchTerm,
-      '',
-      '',
-      '',
-      '',
-      '')
+      this.filterOnCoopName,
+      this.filterOnMunicipality,
+      this.filterOnCategoryName,
+      this.filterOnCoopType,
+      this.filterOnCoopAssetSizeCatName)
       .subscribe({
         next: (response: any) => {
           this.sdsCoopList = response.items;
           this.totalPages = response.totalPages;
           this.totalRecords = response.totalRecords;
-          this.onFilters();
+          // this.onFilters();
         },
         error: (error) => {
           console.error('Error fetching Data:', error);
@@ -198,7 +198,9 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
       emailAddress: '',
       cooperativeAssetSizeId: '',
       cooperativeBusinessActivityIds: [],
-      certificateTaxExemption: false
+      certificateTaxExemption: false,
+      femaleMembers: 0,
+      maleMembers: 0
     };
 
     if (this.sdsCoopModel && this.sdsCoopModel.sdsCooperativeId) {
@@ -218,7 +220,9 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
         emailAddress: this.sdsCoopModel.emailAddress,
         cooperativeAssetSizeId: this.sdsCoopModel.cooperativeAssetSizeId,
         cooperativeBusinessActivityIds: this.selectedBusinessAsset ?? [],
-        certificateTaxExemption: this.sdsCoopModel.certificateTaxExemption
+        certificateTaxExemption: this.sdsCoopModel.certificateTaxExemption,
+        femaleMembers: this.sdsCoopModel.femaleMembers,
+        maleMembers: this.sdsCoopModel.maleMembers,
       }
     }
 
@@ -248,6 +252,8 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
           cooperativeAssetSizeId: '',
           cooperativeBusinessActivityIds: [],
           certificateTaxExemption: false,
+          femaleMembers: 0,
+          maleMembers: 0
         }
 
 
@@ -300,16 +306,16 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
   onFilters(): void {
     this.sdsCoopList = this.sdsCoopList.filter(coop =>
       coop.coopName.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
-      (this.filterOnMunicipalitiesId ? coop.municipality.municipalityId === this.filterOnMunicipalitiesId : true) &&
-      (this.filterOnCooperativeCategoryNameId ? coop.cooperativeCategoryName.cooperativeCategoryNameId === this.filterOnCooperativeCategoryNameId : true) &&
-      (this.filterOnCoopTypeId ? coop.cooperativeType.cooperativeTypeId === this.filterOnCoopTypeId : true) &&
-      (this.filterOnCoopAssetSizeCatNameId ? coop.cooperativeAssetSizeId === this.filterOnCoopAssetSizeCatNameId : true)
+      (this.filterOnMunicipality ? coop.municipality.municipalityId === this.filterOnMunicipality : true) &&
+      (this.filterOnCategoryName ? coop.cooperativeCategoryName.cooperativeCategoryNameId === this.filterOnCategoryName : true) &&
+      (this.filterOnCoopType ? coop.cooperativeType.cooperativeTypeId === this.filterOnCoopType : true) &&
+      (this.filterOnCoopAssetSizeCatName ? coop.cooperativeAssetSizeId === this.filterOnCoopAssetSizeCatName : true)
     );
-
   }
 
   onFilter(): void {
-    this.onFilters();
+    this.pageNumber = 1;
+    //this.onFilters();
     this.fetchSdsCoop();
   }
 

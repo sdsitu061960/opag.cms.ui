@@ -20,19 +20,19 @@ export class SdscoopService extends BaseService<ISdsCooperative, ISdsCooperative
     pageSize: number,
     searchTerm?: string,
     filterOnCoopName?: string,
-    filterOnMunicipalitiesId?: string,
-    filterOnCooperativeCategoryNameId?: string,
-    filterOnCoopTypeId?: string,
-    filterOnCoopAssetSizeCatNameId?: string): Observable<PaginatedResponse<ISdsCooperative[]>> {
+    filterOnMunicipality?: string,
+    filterOnCategoryName?: string,
+    filterOnCoopType?: string,
+    filterOnCoopAssetSizeCatName?: string): Observable<PaginatedResponse<ISdsCooperative[]>> {
     let params = new HttpParams()
       .set('searchTerm', searchTerm || '')
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString())
       .set('filterOnCoopName', filterOnCoopName || '')
-      .set('filterOnMunicipalitiesId', filterOnMunicipalitiesId || '')
-      .set('filterOnCooperativeCategoryNameId', filterOnCooperativeCategoryNameId || '')
-      .set('filterOnCoopTypeId', filterOnCoopTypeId || '')
-      .set('filterOnCoopAssetSizeCatNameId', filterOnCoopAssetSizeCatNameId || '');
+      .set('filterOnMunicipality', filterOnMunicipality || '')
+      .set('filterOnCategoryName', filterOnCategoryName || '')
+      .set('filterOnCoopType', filterOnCoopType || '')
+      .set('filterOnCoopAssetSizeCatName', filterOnCoopAssetSizeCatName || '');
 
     // if (searchTerm) {
     //   params = params.set('searchTerm', searchTerm);

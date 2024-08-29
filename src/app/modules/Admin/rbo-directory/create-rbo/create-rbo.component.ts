@@ -13,6 +13,8 @@ import { IRuralOrganizationMemberInput } from '../model/rbo-directory.model';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { CommodityService } from '../../maintenance/commodity/service/commodity.service';
+import { ICommodity } from '../../maintenance/commodity/model/commodity.model';
 
 @Component({
   selector: 'app-create-rbo',
@@ -24,6 +26,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
   barangayList: IBarangay[] = [];
   rboCategoryList: IRboCateory[] = [];
   interventionReceivedList: ICoopReceived[] = [];
+  commodityList: ICommodity[] = [];
 
   //Paganation
   entries: any[] = [];
@@ -71,21 +74,24 @@ export class CreateRboComponent implements OnInit, OnDestroy {
     interventionDetails: '',
     others: '',
     trainingAttended: '',
+    commodityId: [],
+    commodityDetails: []
   };
 
   private MunicipalitySubscription?: Subscription;
   private BarangaySubscription?: Subscription;
   private RboCategorySubscription?: Subscription;
   private InterventionReceivedSubscription?: Subscription;
+  private getCommoditySubscription?: Subscription;
 
   rboDirectoryForm: FormGroup;
-  commodityNames = ['Wheat', 'Rice', 'Corn', 'Barley'];
 
   constructor(private rboDirectoryService: RboDirectoryService,
     private municipalityService: MunicipalityService,
     private barangayService: BarangayService,
     private rboCategoryService: RboCategoryService,
     private coopReceivedService: CoopReceivedService,
+    private commodityService: CommodityService,
     private router: Router,
     private formBuilder: FormBuilder
   ) {
@@ -95,13 +101,22 @@ export class CreateRboComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnInit(): void {
+    this.fetchMunicipality();
+    this.fetchBarangay();
+    this.fetchRboCategory();
+    this.fetchInterventionReceived();
+    this.fetchcommodity();
+  }
+
+
   commodities(): FormArray {
     return this.rboDirectoryForm.get("commodities") as FormArray
   }
 
   newCommodity(): FormGroup {
     return this.formBuilder.group({
-      commodityId: '',  // Select list for commodity names
+      commodityId: '',  // Select list for commodity 
       commodityDetails: '',  // Text input for commodity details
     })
   }
@@ -114,16 +129,19 @@ export class CreateRboComponent implements OnInit, OnDestroy {
     this.commodities().removeAt(i);
   }
 
-  ngOnInit(): void {
-    this.fetchMunicipality();
-    this.fetchBarangay();
-    this.fetchRboCategory();
-    this.fetchInterventionReceived();
+  private fetchcommodity() {
+    this.getCommoditySubscription = this.commodityService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+      .subscribe({
+        next: (response: any) => {
+          this.commodityList = response.items;
+          this.totalPages = response.totalPages;
+          this.totalRecords = response.totalRecords;
+        },
+        error: (error) => {
+          console.error('Error fetching Data:', error);
+        }
+      });
   }
-
-  //----------------------------------
-  //Retrive Commodity
-  //----------------------------------
 
   private fetchMunicipality() {
     this.MunicipalitySubscription = this.municipalityService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
@@ -180,9 +198,20 @@ export class CreateRboComponent implements OnInit, OnDestroy {
         }
       });
   }
+  // Helper function to validate if a string is a valid GUID
+  isGuid(value: string): boolean {
+    const guidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    return guidPattern.test(value);
+  }
 
   AddRboDirectory(): void {
-    //console.log(this.inputs);
+    // Extract the values from the commodities FormArray
+    const commoditiesArray = this.commodities().value;
+
+    // Map the commodityId and commodityDetails to the inputs object
+    this.inputs.commodityId = commoditiesArray.map((commodity: any) => commodity.commodityId);
+    this.inputs.commodityDetails = commoditiesArray.map((commodity: any) => commodity.commodityDetails);
+
     this.rboDirectoryService.create(this.inputs)
       .subscribe({
 
@@ -201,6 +230,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
 
         },
         error: (error) => {
+          console.log(this.rboDirectoryForm.value);
           Swal.fire({
             icon: 'error',
             text: "Error Creating Rbo.",
@@ -212,7 +242,11 @@ export class CreateRboComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    this.MunicipalitySubscription?.unsubscribe();
+    this.BarangaySubscription?.unsubscribe();
+    this.RboCategorySubscription?.unsubscribe();
+    this.InterventionReceivedSubscription?.unsubscribe();
+    this.getCommoditySubscription?.unsubscribe();
   }
 
 }

@@ -57,6 +57,8 @@ export class AddSdscoopComponent implements OnInit, OnDestroy {
     cooperativeAssetSizeId: '',
     cooperativeBusinessActivityIds: [],
     certificateTaxExemption: false,
+    femaleMembers: 0,
+    maleMembers: 0
   };
 
 

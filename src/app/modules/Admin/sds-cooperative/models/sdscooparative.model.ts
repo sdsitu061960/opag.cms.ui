@@ -22,6 +22,8 @@ export interface ISdsCooperative {
     cooperativeAssetSizeId: string;
     cooperativeBusinessActivities: ICoopBusiness[];
     certificateTaxExemption: boolean;
+    femaleMembers: number;
+    maleMembers: number;
 
 }
 
@@ -41,6 +43,8 @@ export interface ISdsCooperativeInput {
     cooperativeAssetSizeId: string;
     cooperativeBusinessActivityIds: string[];
     certificateTaxExemption: boolean;
+    femaleMembers: number;
+    maleMembers: number;
 }
 
 export interface ISdsCooperativeUpdate {
@@ -60,6 +64,8 @@ export interface ISdsCooperativeUpdate {
     cooperativeAssetSizeId: string;
     cooperativeBusinessActivityIds: string[];
     certificateTaxExemption: boolean;
+    femaleMembers: number;
+    maleMembers: number;
 }
 
 export interface MunicipalityCountDto {
