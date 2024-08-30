@@ -28,6 +28,7 @@ import { CoopCategoryNameListComponent } from './modules/Admin/maintenance/coope
 import { CommodityListComponent } from './modules/Admin/maintenance/commodity/commodity-list/commodity-list.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ReportsComponent } from './modules/Admin/reports/reports/reports.component';
+import { RegisteredWithListComponent } from './modules/Admin/maintenance/RegisteredWith/registered-with-list/registered-with-list.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { ReportsComponent } from './modules/Admin/reports/reports/reports.compon
     CoopReceivedListComponent,
     CoopCategoryNameListComponent,
     CommodityListComponent,
-    ReportsComponent
+    ReportsComponent,
+    RegisteredWithListComponent
   ],
   imports: [
     BrowserModule,

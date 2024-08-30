@@ -195,7 +195,7 @@
                               style="width: 165px"
                               aria-label="Position: activate to sort column ascending"
                             >
-                            Total Number of Farmers 
+                            Total Number of Members 
                             </th>
                             <th
                               tabindex="0"
@@ -255,20 +255,23 @@
                             </td>
                             
                             <td valign="top" class="">
+                              <div class=" d-flex justify-content-between">
+                                <a 
+                                  (click)="fetchRboDirectoryById(data.ruralOrganizationMemberId)"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#editModal"
+                                  class="btn btn-info waves-effect waves-light btn-sm"
+                                >
+                                  Edit
+                                </a>
+                                <a 
+                                  (click)="onDelete(data.ruralOrganizationMemberId)"
+                                  class="btn btn-danger waves-effect waves-light btn-sm"
+                                >
+                                  Delete
+                                </a>
+                              </div>
                               
-                              <button
-                              (click)="fetchRboDirectoryById(data.ruralOrganizationMemberId)"
-                                data-bs-toggle="modal"
-                                data-bs-target="#editModal"
-                                class="btn btn-info waves-effect waves-light m-2"
-                              >
-                                Edit
-                              </button>
-                              <a
-                              (click)="onDelete(data.ruralOrganizationMemberId)"
-                                class="btn btn-danger waves-effect waves-light"
-                                >Delete</a
-                              >
                             </td>
                           </tr>
                         </tbody>
