@@ -3,6 +3,7 @@ import { IMunicipality } from "../../maintenance/municipality/model/municipality
 import { IRboCateory } from "../../maintenance/rbo category/model/rbo-category.model";
 import { ICoopReceived } from "../../maintenance/intervention recieved/model/coo-received.model";
 import { ICommodity } from "../../maintenance/commodity/model/commodity.model";
+import { IRegisteredWith } from "../../maintenance/RegisteredWith/model/registered-with.model";
 
 export interface IRuralOrganizationMember {
     ruralOrganizationMemberId: string;
@@ -20,7 +21,7 @@ export interface IRuralOrganizationMember {
     contactNumber: string;
     association: string;
     landSize: number;
-    registeredWith: string;
+    registeredWithId: string;
     registeredNo: string;
     tin: string;
     femaleMembers: number;
@@ -36,7 +37,7 @@ export interface IRuralOrganizationMember {
     emailAddress?: string;
     officeOrganizationAddress?: string;
     rboCategoryId: string;
-    interventionReceivedId: string;
+    interventionReceived: string;
     interventionDetails: string;
     others: string;
     trainingAttended: string;
@@ -44,7 +45,7 @@ export interface IRuralOrganizationMember {
     municipality: IMunicipality;
     barangay: IBarangay;
     rboCategory: IRboCateory;
-    interventionReceived: ICoopReceived;
+    registeredWith: IRegisteredWith;
 
     commodity: ICommodity[];
 }
@@ -65,7 +66,7 @@ export interface IRuralOrganizationMemberInput {
     contactNumber: string;
     association: string;
     landSize: number;
-    registeredWith: string;
+    registeredWithId: string;
     registeredNo: string;
     tin: string;
     femaleMembers: number;
@@ -81,16 +82,11 @@ export interface IRuralOrganizationMemberInput {
     emailAddress?: string;
     officeOrganizationAddress?: string;
     rboCategoryId: string;
-    interventionReceivedId: string;
+    interventionReceived: string;
     interventionDetails: string;
     others: string;
     trainingAttended: string;
 
     commodityId: string[];
     commodityDetails: string[];
-
-    // municipality: IMunicipality;
-    // barangay: IBarangay;
-    // rboCategory: IRboCateory;
-    // interventionReceived: ICoopReceived;
 }

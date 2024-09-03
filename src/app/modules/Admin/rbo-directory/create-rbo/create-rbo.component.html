@@ -279,18 +279,30 @@
                           />
                           
                         </div>
-      
-                        <div class="col-2">
-                          <label for="registeredWith">Registered with:</label>
-                          <input
-                          [ngModelOptions]="{standalone: true}"
-                            id="registeredWith"
-                            name="registeredWith"
-                            type="text"
-                            class="form-control"
-                            [(ngModel)]="inputs.registeredWith" 
-                          />
-                          
+
+                        <div class="col-md-2">
+                          <div class="mb-3">
+                            <label for="registeredWithId" class="form-label"
+                              >Registered With</label
+                            >
+                            <select
+                            [ngModelOptions]="{standalone: true}"
+                              class="form-select"
+                              id="registeredWithId"
+                              required
+                              name="registeredWithId"
+                              [(ngModel)]="inputs.registeredWithId"
+                            >
+                              <option selected disabled value="">Choose...</option>
+                              <option
+                                *ngFor="let registeredWith of registeredWithList"
+                                [value]="registeredWith.registeredWithId"
+                              >
+                                {{ registeredWith.fullForm }}
+                              </option>
+                            </select>
+                            
+                          </div>
                         </div>
       
                         <div class="col-3">
@@ -558,30 +570,18 @@
                           </select>
                         </div>
                       </div> 
-      
+
                       <div class="col-md-3">
-                        <div class="mb-3">
-                          <label for="streetAddress" class="form-label"
-                            >Intervention Received from</label
-                          >
-                          <select
-                          [ngModelOptions]="{standalone: true}"
-                            class="form-select"
-                            id="intervention"
-                            required
-                            name="intervention"
-                            [(ngModel)]="inputs.interventionReceivedId"
-                          >
-                            <option selected disabled value="">Choose...</option>
-                            <option
-                              *ngFor="let intervention of interventionReceivedList"
-                              [value]="intervention.interventionReceivedId"
-                            >
-                              {{ intervention.receivedFrom }}
-                            </option>
-                          </select>
-                          
-                        </div>
+                        <label for="interventionReceived">Intervention Recieved</label>
+                        <input
+                        [ngModelOptions]="{standalone: true}"
+                          id="interventionReceived"
+                          name="interventionReceived"
+                          type="text"
+                          class="form-control"
+                          [(ngModel)]="inputs.interventionReceived" 
+                        />
+                        
                       </div>
       
                       <div class="col-md-3">

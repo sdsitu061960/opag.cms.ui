@@ -235,7 +235,7 @@
                               {{ data.barangay.barangays}}
                             </td>
                             <td valign="top" class="">
-                              {{ data.registeredWith}}
+                              {{ data.registeredWith.shortName}}
                             </td>
                             <!-- <td>
                               null
@@ -589,14 +589,21 @@
 
                   <div class="col-2">
                     <label for="regWith">Registered with:</label>
-                    <input
+                    <select
                     [ngModelOptions]="{standalone: true}"
-                      id="regWith"
-                      name="regWith"
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="rboDirectoryInput.registeredWith"
-                    />
+                      class="form-select"
+                      id="registeredWithId"
+                      name="registeredWithId"
+                      [(ngModel)]="rboDirectoryInput.registeredWithId"
+                    >
+                      <option selected disabled value="">Choose...</option>
+                      <option
+                        *ngFor="let registeredWith of registeredWithList"
+                        [value]="registeredWith.registeredWithId"
+                      >
+                        {{ registeredWith.shortName }}
+                      </option>
+                    </select>
                   </div>
 
                   <div class="col-3">
@@ -852,6 +859,24 @@
 
                 <div class="col-md-3">
                   <div class="mb-3">
+                    <label for="interventionReceived" class="form-label"
+                      >Intervention Recieved
+                    </label>
+                    <input
+                    [ngModelOptions]="{standalone: true}"
+                      type="text"
+                      class="form-control"
+                      name="interventionReceived"
+                      id="interventionReceived"
+                      placeholder="Intervention Received"
+                      [(ngModel)]="rboDirectoryInput.interventionReceived"
+                    />
+                  </div>
+                </div>
+
+
+                <div class="col-md-3">
+                  <!-- <div class="mb-3">
                     <label for="InterventionRecievedId" class="form-label"
                       >Intervention Received from</label
                     >
@@ -870,7 +895,7 @@
                         {{ interventionRecieved.receivedFrom }}
                       </option>
                     </select>
-                  </div>
+                  </div> -->
                 </div>
 
                 <div class="col-md-3">

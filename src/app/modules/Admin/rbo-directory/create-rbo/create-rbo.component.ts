@@ -15,6 +15,8 @@ import Swal from 'sweetalert2';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CommodityService } from '../../maintenance/commodity/service/commodity.service';
 import { ICommodity } from '../../maintenance/commodity/model/commodity.model';
+import { RegisteredWithService } from '../../maintenance/RegisteredWith/service/registered-with.service';
+import { IRegisteredWith } from '../../maintenance/RegisteredWith/model/registered-with.model';
 
 @Component({
   selector: 'app-create-rbo',
@@ -27,6 +29,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
   rboCategoryList: IRboCateory[] = [];
   interventionReceivedList: ICoopReceived[] = [];
   commodityList: ICommodity[] = [];
+  registeredWithList: IRegisteredWith[] = [];
 
   //Paganation
   entries: any[] = [];
@@ -54,7 +57,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
     contactNumber: '',
     association: '',
     landSize: 0,
-    registeredWith: '',
+    registeredWithId: '',
     registeredNo: '',
     tin: '',
     femaleMembers: 0,
@@ -70,7 +73,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
     emailAddress: '',
     officeOrganizationAddress: '',
     rboCategoryId: '',
-    interventionReceivedId: '',
+    interventionReceived: '',
     interventionDetails: '',
     others: '',
     trainingAttended: '',
@@ -83,6 +86,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
   private RboCategorySubscription?: Subscription;
   private InterventionReceivedSubscription?: Subscription;
   private getCommoditySubscription?: Subscription;
+  private registrationwithSucription?: Subscription;
 
   rboDirectoryForm: FormGroup;
 
@@ -93,7 +97,8 @@ export class CreateRboComponent implements OnInit, OnDestroy {
     private coopReceivedService: CoopReceivedService,
     private commodityService: CommodityService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private registeredWithService: RegisteredWithService
   ) {
     this.rboDirectoryForm = formBuilder.group({
       //name: '',
@@ -107,6 +112,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
     this.fetchRboCategory();
     this.fetchInterventionReceived();
     this.fetchcommodity();
+    this.fetchRegisteredTo();
   }
 
 
@@ -185,6 +191,20 @@ export class CreateRboComponent implements OnInit, OnDestroy {
       });
   }
 
+  private fetchRegisteredTo() {
+    this.registrationwithSucription = this.registeredWithService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+      .subscribe({
+        next: (response: any) => {
+          this.registeredWithList = response.items;
+          this.totalPages = response.totalPages;
+          this.totalRecords = response.totalRecords;
+        },
+        error: (error) => {
+          console.error('Error fetching Data:', error);
+        }
+      });
+  }
+
   private fetchInterventionReceived() {
     this.InterventionReceivedSubscription = this.coopReceivedService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
       .subscribe({
@@ -247,6 +267,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
     this.RboCategorySubscription?.unsubscribe();
     this.InterventionReceivedSubscription?.unsubscribe();
     this.getCommoditySubscription?.unsubscribe();
+    this.registrationwithSucription?.unsubscribe();
   }
 
 }

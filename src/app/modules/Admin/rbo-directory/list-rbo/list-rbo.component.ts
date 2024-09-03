@@ -14,6 +14,9 @@ import Swal from 'sweetalert2';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CommodityService } from '../../maintenance/commodity/service/commodity.service';
 import { ICommodity } from '../../maintenance/commodity/model/commodity.model';
+import { RegisteredWithService } from '../../maintenance/RegisteredWith/service/registered-with.service';
+import { IRegisteredWith } from '../../maintenance/RegisteredWith/model/registered-with.model';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-list-rbo',
@@ -28,6 +31,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
   interventionReceivedList: ICoopReceived[] = [];
   editrboDirectoryList: IRuralOrganizationMember | any;
   commodityList: ICommodity[] = [];
+  registeredWithList: IRegisteredWith[] = [];
 
   @Input() rboDirectoryInput?: IRuralOrganizationMember;
 
@@ -60,6 +64,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
   private UpdateRboDirectorySubcription?: Subscription;
   private onDeleteSubcription?: Subscription;
   private getCommoditySubscription?: Subscription;
+  private registrationwithSucription?: Subscription;
 
 
   constructor(private ruralBaseOrganizationService: RboDirectoryService,
@@ -69,6 +74,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
     private interventionRecievedService: CoopReceivedService,
     private formBuilder: FormBuilder,
     private commodityService: CommodityService,
+    private registeredWithService: RegisteredWithService
   ) {
     this.rboDirectoryForm = this.formBuilder.group({
       commodities: this.formBuilder.array([]),  // Initialize form array for commodities
@@ -82,6 +88,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
     this.fetchrboCategory();
     this.fetchInterventionReceived();
     this.fetchcommodity();
+    this.fetchRegisteredTo();
   }
 
   private fetchcommodity() {
@@ -155,6 +162,20 @@ export class ListRboComponent implements OnInit, OnDestroy {
       });
   }
 
+  private fetchRegisteredTo() {
+    this.registrationwithSucription = this.registeredWithService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+      .subscribe({
+        next: (response: any) => {
+          this.registeredWithList = response.items;
+          this.totalPages = response.totalPages;
+          this.totalRecords = response.totalRecords;
+        },
+        error: (error) => {
+          console.error('Error fetching Data:', error);
+        }
+      });
+  }
+
   fetchRboDirectory() {
     this.rboDirectorySubcription = this.ruralBaseOrganizationService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
       .subscribe({
@@ -170,13 +191,6 @@ export class ListRboComponent implements OnInit, OnDestroy {
       });
   }
 
-  // fetchRboDirectoryById(rboDirectoryId: string): void {
-  //   this.fetchRboDirectoryByIdSubcription = this.ruralBaseOrganizationService.getById(rboDirectoryId).subscribe((data: IRuralOrganizationMember) => {
-  //     this.rboDirectoryInput = data;
-  //     console.log(data);
-  //     //this.selectedBusinessAsset = data.cooperativeBusinessActivities.map(x => x.cooperativeBusinessActivityId);
-  //   });
-  // }
   fetchRboDirectoryById(rboDirectoryId: string): void {
     this.fetchRboDirectoryByIdSubcription = this.ruralBaseOrganizationService.getById(rboDirectoryId).subscribe((data: IRuralOrganizationMember) => {
       this.rboDirectoryInput = data;
@@ -251,7 +265,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
       contactNumber: '',
       association: '',
       landSize: 0,
-      registeredWith: '',
+      registeredWithId: '',
       registeredNo: '',
       tin: '',
       femaleMembers: 0,
@@ -267,7 +281,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
       emailAddress: '',
       officeOrganizationAddress: '',
       rboCategoryId: '',
-      interventionReceivedId: '',
+      interventionReceived: '',
       interventionDetails: '',
       others: '',
       trainingAttended: '',
@@ -352,7 +366,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
           degree: '',
           association: '',
           landSize: '',
-          registeredWith: '',
+          registeredWithId: '',
           registeredNo: '',
           tin: '',
           femaleMembers: '',
@@ -368,7 +382,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
           emailAddress: '',
           officeOrganizationAddress: '',
           rboCategoryId: '',
-          interventionReceivedId: '',
+          interventionReceived: '',
           interventionDetails: '',
           others: '',
           trainingAttended: '',
