@@ -3,13 +3,16 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
 import { IBarangay, PaginatedResponse } from 'src/app/modules/Admin/maintenance/barangay/model/barangay.model';
+import { CookieService } from 'ngx-cookie-service';
 
 export class BaseService<TModel, TModelInput> {
 
   //base url
   protected apiBaseUrl: string;
 
-  constructor(protected http: HttpClient, apiBaseUrl: string) {
+  constructor(protected http: HttpClient, apiBaseUrl: string,
+    private cookieService: CookieService
+  ) {
     this.apiBaseUrl = `${environment.apiBaseUrl}/api/${apiBaseUrl}`;
   }
 
@@ -35,7 +38,7 @@ export class BaseService<TModel, TModelInput> {
 
   //Create
   create(data: TModelInput): Observable<TModelInput> {
-    return this.http.post<TModelInput>(`${this.apiBaseUrl}`, data);
+    return this.http.post<TModelInput>(`${this.apiBaseUrl}/?addAuth=true`, data);
   }
 
   //Get by Id
@@ -45,11 +48,20 @@ export class BaseService<TModel, TModelInput> {
 
   //Update
   update(data: TModelInput): Observable<TModel> {
-    return this.http.put<TModel>(`${this.apiBaseUrl}`, data);
+    return this.http.put<TModel>(`${this.apiBaseUrl}/?addAuth=true`, data
+    );
   }
 
   //Delete
   delete(id: string): Observable<TModel> {
-    return this.http.delete<TModel>(`${this.apiBaseUrl}/${id}`);
+    return this.http.delete<TModel>(`${this.apiBaseUrl}/${id}/?addAuth=true`);
   }
 }
+
+
+// ,
+//       {
+//         headers: {
+//           'Authorization': this.cookieService.get('Authorization')
+//         }
+//       }

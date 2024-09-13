@@ -229,19 +229,19 @@
                           </td>
                           
                           <td valign="top" class="">
-                            <div class="d-grid gap-2 d-md-block">
+                            <div class="d-flex justify-content-between">
                               <button
                             (click)="fetchSdsCoopById(data.sdsCooperativeId)"
                               data-bs-toggle="modal"
                               data-bs-target="#editModal"
-                              class="btn btn-info waves-effect waves-light m-2"
+                              class="btn btn-info waves-effect waves-light btn-sm"
                             >
                               Edit
                             </button>
                             <!-- (click)="onDelete(data.barangayId)" -->
                             <a
                             (click)="onDelete(data.sdsCooperativeId)"
-                              class="btn btn-danger waves-effect waves-light"
+                              class="btn btn-danger waves-effect waves-light btn-sm"
                               >Delete</a
                             >
                             </div>

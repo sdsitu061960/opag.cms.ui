@@ -6,13 +6,14 @@ import { environment } from 'src/environments/environment.development';
 import { map, Observable } from 'rxjs';
 import { ICoopBusiness, ICoopBusinessResponse } from '../../maintenance/cooperative business/model/cooperative-business.model';
 import { PaginatedResponse } from '../../maintenance/barangay/model/barangay.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SdscoopService extends BaseService<ISdsCooperative, ISdsCooperativeInput> {
-  constructor(http: HttpClient) {
-    super(http, 'SdsCooperative');
+  constructor(http: HttpClient, cookieService: CookieService) {
+    super(http, 'SdsCooperative', cookieService);
   }
 
   getAllSdsCooperative(

@@ -48,6 +48,8 @@ export interface IRuralOrganizationMember {
     registeredWith: IRegisteredWith;
 
     commodity: ICommodity[];
+    commoditys: ICommodity;
+
 }
 
 export interface IRuralOrganizationMemberInput {

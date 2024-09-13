@@ -35,6 +35,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
   entries: any[] = [];
   pageNumber = 1;
   pageSize = 5;
+  SizeAll = 500;
   totalPages: number = 0;
   totalRecords: number = 0;
   pageSizeOptions: number[] = [5, 10, 25, 50, 100];
@@ -164,7 +165,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
   }
 
   private fetchBarangay() {
-    this.BarangaySubscription = this.barangayService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+    this.BarangaySubscription = this.barangayService.getAll(this.pageNumber, this.SizeAll, this.searchTerm)
       .subscribe({
         next: (response: any) => {
           this.barangayList = response.items;

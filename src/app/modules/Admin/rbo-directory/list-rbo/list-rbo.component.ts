@@ -44,6 +44,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
   entries: any[] = [];
   pageNumber = 1;
   pageSize = 5;
+  pageSizeAll = 500;
   totalPages: number = 0;
   totalRecords: number = 0;
   pageSizeOptions: number[] = [5, 10, 25, 50, 100];
@@ -51,6 +52,11 @@ export class ListRboComponent implements OnInit, OnDestroy {
   searchTerm: string = '';
   selectedCommodityName?: string[];
   selectedCommodityDetail?: string[];
+
+  filterOnMunicipality: string = '';
+  filterOnBarangay: string = '';
+  filterOnRegisteredWith: string = '';
+  filterOnCommodity: string = '';
 
   rboDirectoryForm: FormGroup;
 
@@ -92,7 +98,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
   }
 
   private fetchcommodity() {
-    this.getCommoditySubscription = this.commodityService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+    this.getCommoditySubscription = this.commodityService.getAll(this.pageNumber, this.pageSizeAll, this.searchTerm)
       .subscribe({
         next: (response: any) => {
           this.commodityList = response.items;
@@ -106,7 +112,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
   }
 
   private fetchMunicipality() {
-    this.MunicipalitySubscription = this.municipalityService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+    this.MunicipalitySubscription = this.municipalityService.getAll(this.pageNumber, this.pageSizeAll, this.searchTerm)
       .subscribe({
         next: (response: any) => {
           this.municipalityList = response.items;
@@ -120,7 +126,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
   }
 
   private fetchBarangay() {
-    this.BarangaySubscription = this.barangayService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+    this.BarangaySubscription = this.barangayService.getAll(this.pageNumber, this.pageSizeAll, this.searchTerm)
       .subscribe({
         next: (response: any) => {
           this.barangayList = response.items;
@@ -163,7 +169,7 @@ export class ListRboComponent implements OnInit, OnDestroy {
   }
 
   private fetchRegisteredTo() {
-    this.registrationwithSucription = this.registeredWithService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+    this.registrationwithSucription = this.registeredWithService.getAll(this.pageNumber, this.pageSizeAll, this.searchTerm)
       .subscribe({
         next: (response: any) => {
           this.registeredWithList = response.items;
@@ -177,7 +183,14 @@ export class ListRboComponent implements OnInit, OnDestroy {
   }
 
   fetchRboDirectory() {
-    this.rboDirectorySubcription = this.ruralBaseOrganizationService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+    this.rboDirectorySubcription = this.ruralBaseOrganizationService.getAllRboDirectory(
+      this.pageNumber,
+      this.pageSize,
+      this.searchTerm,
+      this.filterOnMunicipality,
+      this.filterOnBarangay,
+      this.filterOnRegisteredWith,
+      this.filterOnCommodity)
       .subscribe({
         next: (response: any) => {
           this.RboDirectoryList = response.items;
@@ -457,6 +470,22 @@ export class ListRboComponent implements OnInit, OnDestroy {
     }
   }
 
+  onFilters(): void {
+    this.RboDirectoryList = this.RboDirectoryList.filter(rboDirectory =>
+      rboDirectory.association.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
+      (this.filterOnMunicipality ? rboDirectory.municipality.municipalityId === this.filterOnMunicipality : true) &&
+      (this.filterOnBarangay ? rboDirectory.barangay.barangayId === this.filterOnBarangay : true) &&
+      (this.filterOnRegisteredWith ? rboDirectory.registeredWith.registeredWithId === this.filterOnRegisteredWith : true)
+      && (this.filterOnCommodity ? rboDirectory.commoditys.commodityId === this.filterOnCommodity : true)
+    );
+  }
+
+  onFilter(): void {
+    this.pageNumber = 1;
+    //this.onFilters();
+    this.fetchRboDirectory();
+  }
+
   onPageSizeChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
     this.pageSize = +target.value;
@@ -498,6 +527,8 @@ export class ListRboComponent implements OnInit, OnDestroy {
     this.InterventionReceivedSubscription?.unsubscribe();
     this.UpdateRboDirectorySubcription?.unsubscribe();
     this.onDeleteSubcription?.unsubscribe();
+    this.getCommoditySubscription?.unsubscribe();
+    this.registrationwithSucription?.unsubscribe();
   }
 
 }

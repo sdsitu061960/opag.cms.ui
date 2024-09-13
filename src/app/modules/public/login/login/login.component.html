@@ -29,31 +29,35 @@
 
                     <h4 class="font-size-18 mt-4">Welcome Back !</h4>
                     <p class="text-muted">
-                      Sign in to continue to RSRBO SYSTEM.
+                      Sign in to continue to RBO REGISTRY SYSTEM.
                     </p>
                   </div>
 
                   <div class="p-2 mt-5">
-                    <form class="" action="index.html">
+                    <form class="" (ngSubmit)="onFormSubmit()">
                       <div class="mb-3 auth-form-group-custom mb-4">
                         <i class="ri-user-2-line auti-custom-input-icon"></i>
-                        <label for="username">Username</label>
+                        <label for="email">Email/Username</label>
                         <input
                           type="text"
                           class="form-control"
-                          id="username"
+                          id="email"
+                          name="email"
                           placeholder="Enter username"
+                          [(ngModel)]="model.email"
                         />
                       </div>
 
                       <div class="mb-3 auth-form-group-custom mb-4">
                         <i class="ri-lock-2-line auti-custom-input-icon"></i>
-                        <label for="userpassword">Password</label>
+                        <label for="password">Password</label>
                         <input
                           type="password"
                           class="form-control"
-                          id="userpassword"
+                          id="password"
+                          name="password"
                           placeholder="Enter password"
+                          [(ngModel)]="model.password"
                         />
                       </div>
 
@@ -78,12 +82,6 @@
                           Log In
                         </button>
 
-                        <button
-                          [routerLink]="['admin']"
-                          class="btn tbn-primary"
-                        >
-                          Go to Admin
-                        </button>
                       </div>
 
                       <div class="mt-4 text-center">

@@ -16,7 +16,7 @@ import { BarangayListComponent } from './modules/Admin/maintenance//barangay/bar
 import { CreateRboComponent } from './modules/Admin/rbo-directory/create-rbo/create-rbo.component';
 import { ListRboComponent } from './modules/Admin/rbo-directory/list-rbo/list-rbo.component';
 import { BarangayService } from './modules/Admin/maintenance/barangay/service/barangay-service.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MunicipalityListComponent } from './modules/Admin/maintenance/municipality/municipality-list/municipality-list.component';
 import { RboCategoryListComponent } from './modules/Admin/maintenance/rbo category/rbo-category-list/rbo-category-list.component';
@@ -29,6 +29,7 @@ import { CommodityListComponent } from './modules/Admin/maintenance/commodity/co
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ReportsComponent } from './modules/Admin/reports/reports/reports.component';
 import { RegisteredWithListComponent } from './modules/Admin/maintenance/RegisteredWith/registered-with-list/registered-with-list.component';
+import { AuthInterceptor } from './shared/components/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,11 @@ import { RegisteredWithListComponent } from './modules/Admin/maintenance/Registe
     ReactiveFormsModule,
     HighchartsChartModule
   ],
-  providers: [BarangayService],
+  providers: [BarangayService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

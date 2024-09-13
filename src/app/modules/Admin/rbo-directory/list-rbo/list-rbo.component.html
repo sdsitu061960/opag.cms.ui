@@ -56,49 +56,53 @@
   
                 <div class="col-2">
                   <select
-                    class="form-select"
-                   
-                  >
-                    <option value="" selected>All Municipality</option>
-                    <!-- <option *ngFor="let municipality of municipalityList" [value]="municipality.municipalityId">
-                      {{ municipality.municipalities }}
-                    </option> -->
-                  </select>
+                  class="form-select"
+                  [(ngModel)]="filterOnMunicipality"
+                  (change)="onFilter()"
+                >
+                  <option value="" selected>All Municipality</option>
+                  <option *ngFor="let municipality of municipalityList" [value]="municipality.municipalityId">
+                    {{ municipality.municipalities }}
+                  </option>
+                </select>
                 </div>
   
                 <div class="col-2">
                   <select
-                    class="form-select"
-                    
-                  >
-                    <option value="" selected>All Barangay</option>
-                    <!-- <option *ngFor="let categoryName of coopCategoryNameList" [value]="categoryName.cooperativeCategoryNameId">
-                      {{ categoryName.categoryName }}
-                    </option> -->
-                  </select>
+                  class="form-select"
+                  [(ngModel)]="filterOnBarangay"
+                  (change)="onFilter()"
+                >
+                  <option value="" selected>All Barangay</option>
+                  <option *ngFor="let barangay of barangayList" [value]="barangay.barangayId">
+                    {{ barangay.barangays }}
+                  </option>
+                </select>
                 </div>
                 
                 <div class="col-2">
                   <select
-                    class="form-select"
-                  
-                  >
-                    <option value="" selected>All Registered With</option>
-                    <!-- <option *ngFor="let coopType of coopTypeList" [value]="coopType.cooperativeTypeId">
-                      {{ coopType.cooperativeTypes }}
-                    </option> -->
-                  </select>
+                  class="form-select"
+                  [(ngModel)]="filterOnRegisteredWith"
+                  (change)="onFilter()"
+                >
+                  <option value="" selected>All Registered</option>
+                  <option *ngFor="let registered of registeredWithList" [value]="registered.registeredWithId">
+                    {{ registered.shortName }}
+                  </option>
+                </select>
                 </div>
                 <div class="col-2">
                   <select
-                    class="form-select"
-                    
-                  >
-                    <option value="" selected>All Commodity</option>
-                    <!-- <option *ngFor="let coopAsset of coopAssetSizeList" [value]="coopAsset.cooperativeAssetSizeId">
-                      {{ coopAsset.assetSizeCategory }}
-                    </option> -->
-                  </select>
+                  class="form-select"
+                  [(ngModel)]="filterOnCommodity"
+                  (change)="onFilter()"
+                >
+                  <option value="" selected>All Commodity</option>
+                  <option *ngFor="let commodity of commodityList" [value]="commodity.commodityId">
+                    {{ commodity.commodityName }}
+                  </option>
+                </select>
                 </div>
                
                 <div class="d-flex align-items-center">
@@ -255,7 +259,7 @@
                             </td>
                             
                             <td valign="top" class="">
-                              <div class=" d-flex justify-content-between">
+                              <div class="d-flex justify-content-between">
                                 <a 
                                   (click)="fetchRboDirectoryById(data.ruralOrganizationMemberId)"
                                   data-bs-toggle="modal"

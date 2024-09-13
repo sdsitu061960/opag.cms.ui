@@ -5,14 +5,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { ICoopBusinessResponse } from '../model/cooperative-business.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoopBusinessService extends BaseService<ICoopBusiness, ICoopBusinessInput> {
 
-  constructor(http: HttpClient) {
-    super(http, 'CooperativeBusinessActivity');
+  constructor(http: HttpClient, cookieService: CookieService) {
+    super(http, 'CooperativeBusinessActivity', cookieService);
   }
 
   //Get All Coop Business Asset

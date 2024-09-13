@@ -498,10 +498,15 @@
         >
           <img
             class="rounded-circle header-profile-user"
-            src="assets/images/users/avatar-2.jpg"
+            src="assets/images/users/avatar-9.png"
             alt="Header Avatar"
           />
-          <span class="d-none d-xl-inline-block ms-1">Admin</span>
+
+        <!-- <ng-container *ngIf="user === undefined; else ">
+
+        </ng-container> -->
+
+          <span class="d-none d-xl-inline-block ms-1">{{ user?.email}}</span>
           <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-end">
@@ -514,7 +519,8 @@
             ><i class="ri-settings-2-line align-middle me-1"></i> Settings</a
           >
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item text-danger" href="index.html#"
+          <!-- href="index.html#" -->
+          <a class="dropdown-item text-danger" (click)="onLogout()"
             ><i class="ri-shut-down-line align-middle me-1 text-danger"></i>
             Logout</a
           >

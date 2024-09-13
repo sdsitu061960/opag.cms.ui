@@ -5,14 +5,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PaginatedResponse } from '../../maintenance/barangay/model/barangay.model';
 import { environment } from 'src/environments/environment.development';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RboDirectoryService extends BaseService<IRuralOrganizationMember, IRuralOrganizationMemberInput> {
 
-  constructor(http: HttpClient) {
-    super(http, 'RuralBaseOrganization');
+  constructor(http: HttpClient, cookieService: CookieService) {
+    super(http, 'RuralBaseOrganization', cookieService);
   }
 
   getAllData(): Observable<IRuralOrganizationMember[]> {
