@@ -3,7 +3,7 @@
     <div class="d-flex">
       <!-- LOGO -->
       <div class="navbar-brand-box">
-        <a href="index.html" class="logo logo-dark">
+        <a href="#" class="logo logo-dark">
           <span class="logo-sm">
             <img
               src="assets/images/logo-sm-dark.png"
@@ -20,7 +20,7 @@
           </span>
         </a>
 
-        <a href="index.html" class="logo logo-light">
+        <a [routerLink]="['/admin/dashboard']" class="logo logo-light">
           <span class="logo-sm">
             <img
               src="assets/images/logo-sm-light.png"
@@ -305,13 +305,13 @@
           <div class="px-lg-2">
             <div class="row g-0">
               <div class="col">
-                <a class="dropdown-icon-item" href="index.html#">
+                <a class="dropdown-icon-item" href="#">
                   <img src="assets/images/brands/github.png" alt="Github" />
                   <span>GitHub</span>
                 </a>
               </div>
               <div class="col">
-                <a class="dropdown-icon-item" href="index.html#">
+                <a class="dropdown-icon-item" href="#">
                   <img
                     src="assets/images/brands/bitbucket.png"
                     alt="bitbucket"
@@ -320,7 +320,7 @@
                 </a>
               </div>
               <div class="col">
-                <a class="dropdown-icon-item" href="index.html#">
+                <a class="dropdown-icon-item" href="#">
                   <img src="assets/images/brands/dribbble.png" alt="dribbble" />
                   <span>Dribbble</span>
                 </a>
@@ -329,13 +329,13 @@
 
             <div class="row g-0">
               <div class="col">
-                <a class="dropdown-icon-item" href="index.html#">
+                <a class="dropdown-icon-item" href="#">
                   <img src="assets/images/brands/dropbox.png" alt="dropbox" />
                   <span>Dropbox</span>
                 </a>
               </div>
               <div class="col">
-                <a class="dropdown-icon-item" href="index.html#">
+                <a class="dropdown-icon-item" href="#">
                   <img
                     src="assets/images/brands/mail_chimp.png"
                     alt="mail_chimp"
@@ -344,7 +344,7 @@
                 </a>
               </div>
               <div class="col">
-                <a class="dropdown-icon-item" href="index.html#">
+                <a class="dropdown-icon-item" href="#">
                   <img src="assets/images/brands/slack.png" alt="slack" />
                   <span>Slack</span>
                 </a>
@@ -385,12 +385,12 @@
                 <h6 class="m-0">Notifications</h6>
               </div>
               <div class="col-auto">
-                <a href="index.html#!" class="small"> View All</a>
+                <a href="#!" class="small"> View All</a>
               </div>
             </div>
           </div>
           <div data-simplebar style="max-height: 230px">
-            <a href="index.html" class="text-reset notification-item">
+            <a href="#" class="text-reset notification-item">
               <div class="d-flex">
                 <div class="avatar-xs me-3">
                   <span
@@ -412,7 +412,7 @@
                 </div>
               </div>
             </a>
-            <a href="index.html" class="text-reset notification-item">
+            <a href="#" class="text-reset notification-item">
               <div class="d-flex">
                 <img
                   src="assets/images/users/avatar-3.jpg"
@@ -430,7 +430,7 @@
                 </div>
               </div>
             </a>
-            <a href="index.html" class="text-reset notification-item">
+            <a href="#" class="text-reset notification-item">
               <div class="d-flex">
                 <div class="avatar-xs me-3">
                   <span
@@ -511,15 +511,15 @@
         </button>
         <div class="dropdown-menu dropdown-menu-end">
           <!-- item-->
-          <a class="dropdown-item" href="index.html#"
+          <a class="dropdown-item" href="#"
             ><i class="ri-user-line align-middle me-1"></i> Profile</a
           >
           <!-- <span class="badge bg-success float-end mt-1">11</span> -->
-          <a class="dropdown-item d-block" href="index.html#"
+          <a class="dropdown-item d-block" href="#"
             ><i class="ri-settings-2-line align-middle me-1"></i> Settings</a
           >
           <div class="dropdown-divider"></div>
-          <!-- href="index.html#" -->
+          <!-- href="#" -->
           <a class="dropdown-item text-danger" (click)="onLogout()"
             ><i class="ri-shut-down-line align-middle me-1 text-danger"></i>
             Logout</a

@@ -130,7 +130,7 @@
                             style="width: 20px"
                             aria-label="Position: activate to sort column ascending"
                           >
-                           Name of Cooperative
+                           No.
                           </th>
                           <th
                             tabindex="0"
@@ -205,7 +205,13 @@
                           <td valign="top" class="">
                             {{ (pageNumber - 1) * pageSize + i + 1 }}
                           </td>
-                          <td valign="top" class="">
+                          <td
+                          (click)="fetchSdsCoopById(data.sdsCooperativeId)"
+                              data-bs-toggle="modal"
+                              data-bs-target="#editModal"
+                              class="btn btn-info waves-effect waves-light btn-sm"
+                              style="cursor: pointer;"
+                          valign="top" class="">
                             {{ data.coopName }}
                           </td>
                           <td valign="top" class="">
@@ -308,7 +314,7 @@
   <div class="modal-dialog modal-lg" style="max-width: 90%">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="myLargeModalLabel">Edit Cooperative</h5>
+        <h5 class="modal-title" id="myLargeModalLabel">View/Edit Cooperative</h5>
         <button
           type="button"
           class="btn-close"

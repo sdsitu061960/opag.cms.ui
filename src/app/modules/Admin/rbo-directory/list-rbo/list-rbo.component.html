@@ -229,7 +229,13 @@
                             <td valign="top" class="">
                               {{ (pageNumber - 1) * pageSize + i + 1 }}
                             </td>
-                            <td valign="top" class="">
+                            <td 
+                            style="cursor: pointer;"
+                            (click)="fetchRboDirectoryById(data.ruralOrganizationMemberId)"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editModal"
+                            class="btn btn-info waves-effect waves-light btn-sm"
+                            valign="top" class="">
                               {{ data.association}}
                             </td>
                             <td valign="top" class="">
@@ -332,7 +338,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="myLargeModalLabel">
-          Edit Rural Base Organization
+          View/Edit Rural Base Organization
         </h5>
         <button
           type="button"
