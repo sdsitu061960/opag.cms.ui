@@ -30,6 +30,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { ReportsComponent } from './modules/Admin/reports/reports/reports.component';
 import { RegisteredWithListComponent } from './modules/Admin/maintenance/RegisteredWith/registered-with-list/registered-with-list.component';
 import { AuthInterceptor } from './shared/components/interceptors/auth.interceptor';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AuthInterceptor } from './shared/components/interceptors/auth.intercept
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    NgSelectModule
   ],
   providers: [BarangayService, {
     provide: HTTP_INTERCEPTORS,

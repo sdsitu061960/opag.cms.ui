@@ -32,8 +32,9 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
   coopAssetSizeList: ICoopAssetSize[] = [];
 
   //Store nan value as Array[]
-  selectedBusinessAsset?: string[];
+  //selectedBusinessAsset?: string[];
 
+  selectedBusinessAsset?: any[] = [];
   @Input() sdsCoopModel?: ISdsCooperative;
   private subscriptions: Subscription[] = [];
 
@@ -50,11 +51,12 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
   pageSizeOptions: number[] = [5, 10, 25, 50, 100];
   visiblePageCount = 5;
   searchTerm: string = '';
-  filterOnCoopName: string = '';
-  filterOnMunicipality: string = '';
-  filterOnCategoryName: string = '';
-  filterOnCoopType: string = '';
-  filterOnCoopAssetSizeCatName: string = '';
+  filterOnCoopName: any = null;
+  filterOnMunicipality: any = null;
+  filterOnCategoryName: any = null;
+  filterOnCoopType: any = null;
+  filterOnCoopAssetSizeCatName: any = null;
+
 
   //Subcription
   private AddSdsCoopSubcription?: Subscription;

@@ -53,10 +53,10 @@ export class ListRboComponent implements OnInit, OnDestroy {
   selectedCommodityName?: string[];
   selectedCommodityDetail?: string[];
 
-  filterOnMunicipality: string = '';
-  filterOnBarangay: string = '';
-  filterOnRegisteredWith: string = '';
-  filterOnCommodity: string = '';
+  filterOnMunicipality: any = null;
+  filterOnBarangay: any = null;
+  filterOnRegisteredWith: any = null;
+  filterOnCommodity: any = null;
 
   rboDirectoryForm: FormGroup;
 

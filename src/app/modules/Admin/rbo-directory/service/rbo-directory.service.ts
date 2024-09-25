@@ -40,26 +40,4 @@ export class RboDirectoryService extends BaseService<IRuralOrganizationMember, I
 
     return this.http.get<PaginatedResponse<IRuralOrganizationMember[]>>(`${environment.apiBaseUrl}/api/RuralBaseOrganization/all`, { params });
   }
-  // getAllSdsCooperative(
-  //   pageNumber: number,
-  //   pageSize: number,
-  //   searchTerm?: string,
-  //   filterOnCoopName?: string,
-  //   filterOnMunicipality?: string,
-  //   filterOnCategoryName?: string,
-  //   filterOnCoopType?: string,
-  //   filterOnCoopAssetSizeCatName?: string): Observable<PaginatedResponse<ISdsCooperative[]>> {
-  //   let params = new HttpParams()
-  //     .set('searchTerm', searchTerm || '')
-  //     .set('pageNumber', pageNumber.toString())
-  //     .set('pageSize', pageSize.toString())
-  //     .set('filterOnCoopName', filterOnCoopName || '')
-  //     .set('filterOnMunicipality', filterOnMunicipality || '')
-  //     .set('filterOnCategoryName', filterOnCategoryName || '')
-  //     .set('filterOnCoopType', filterOnCoopType || '')
-  //     .set('filterOnCoopAssetSizeCatName', filterOnCoopAssetSizeCatName || '');
-
-  //   return this.http.get<PaginatedResponse<ISdsCooperative[]>>(`${environment.apiBaseUrl}/api/SdsCooperative/all`, { params });
-  // }
-
 }

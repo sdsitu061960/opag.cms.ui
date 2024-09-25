@@ -38,7 +38,7 @@
                 </select>
               </div>
 
-              <div class="col-2">
+              <!-- <div class="col-2">
                 <select
                   class="form-select"
                   [(ngModel)]="filterOnMunicipality"
@@ -49,9 +49,22 @@
                     {{ municipality.municipalities }}
                   </option>
                 </select>
-              </div>
+              </div> -->
 
               <div class="col-2">
+                <ng-select
+                  [items]="municipalityList"
+                  bindLabel="municipalities"
+                  bindValue="municipalityId"
+                  [(ngModel)]="filterOnMunicipality"
+                  (change)="onFilter()"
+                  placeholder="All Municipality"
+                  [clearable]="true"
+                >
+                </ng-select>
+              </div>
+              
+              <!-- <div class="col-2">
                 <select
                   class="form-select"
                   [(ngModel)]="filterOnCategoryName"
@@ -62,9 +75,22 @@
                     {{ categoryName.categoryName }}
                   </option>
                 </select>
+              </div> -->
+
+              <div class="col-2">
+                <ng-select
+                  [items]="coopCategoryNameList"
+                  bindLabel="categoryName"
+                  bindValue="cooperativeCategoryNameId"
+                  [(ngModel)]="filterOnCategoryName"
+                  (change)="onFilter()"
+                  placeholder="All Category Name"
+                  [clearable]="true"
+                >
+                </ng-select>
               </div>
               
-              <div class="col-2">
+              <!-- <div class="col-2">
                 <select
                   class="form-select"
                   [(ngModel)]="filterOnCoopType"
@@ -75,8 +101,23 @@
                     {{ coopType.cooperativeTypes }}
                   </option>
                 </select>
-              </div>
+              </div> -->
+
               <div class="col-2">
+                <ng-select
+                  [items]="coopTypeList"
+                  bindLabel="cooperativeTypes"
+                  bindValue="cooperativeTypeId"
+                  [(ngModel)]="filterOnCoopType"
+                  (change)="onFilter()"
+                  placeholder="All Cooperative Type"
+                  [clearable]="true"
+                >
+                </ng-select>
+              </div>
+
+              
+              <!-- <div class="col-2">
                 <select
                   class="form-select"
                   [(ngModel)]="filterOnCoopAssetSizeCatName"
@@ -87,8 +128,21 @@
                     {{ coopAsset.assetSizeCategory }}
                   </option>
                 </select>
+              </div> -->
+              
+              <div class="col-2">
+                <ng-select
+                  [items]="coopAssetSizeList"
+                  bindLabel="assetSizeCategory"
+                  bindValue="cooperativeAssetSizeId"
+                  [(ngModel)]="filterOnCoopAssetSizeCatName"
+                  (change)="onFilter()"
+                  placeholder="All Asset Size"
+                  [clearable]="true"
+                >
+                </ng-select>
               </div>
-             
+              
               <div class="d-flex align-items-center">
                 <input
                   type="text"
@@ -345,7 +399,7 @@
                 </div>
                 <!-- your.component.html -->
 
-                <div class="col-md-2">
+                <!-- <div class="col-md-2">
                   <div class="mb-3">
                     <label for="coopNameModel" class="form-label">Municipality Name</label>
                     <select
@@ -364,7 +418,25 @@
                       </option>
                     </select>
                   </div>
+                </div> -->
+
+                <div class="col-md-2">
+                  <div class="mb-3">
+                    <label for="municipality" class="form-label">Municipality Name</label>
+                    <ng-select
+                      [ngModelOptions]="{standalone: true}"
+                      [items]="municipalityList"
+                      bindLabel="municipalities"
+                      bindValue="municipalityId"
+                      [(ngModel)]="sdsCoopModel.municipalityId"
+                      placeholder="Choose..."
+                      required
+                      [clearable]="false"
+                    >
+                    </ng-select>
+                  </div>
                 </div>
+                
 
                 <div class="col-md-4">
                   <div class="mb-3">
@@ -383,7 +455,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div class="mb-3">
                     <label for="number" class="form-label"
                       >REGISTRATION NUMBER</label
@@ -415,7 +487,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                   <div class="mb-3">
                     <label for="categoryName" class="form-label"
                       >CATEGORY NAME</label
@@ -440,7 +512,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                   <div class="mb-3">
                     <label for="coopType" class="form-label"
                       >COOPERATIVE TYPE</label
@@ -461,7 +533,25 @@
                       </option>
                     </select>
                   </div>
+                </div> -->
+
+                <div class="col-md-3">
+                  <div class="mb-3">
+                    <label for="coopType" class="form-label">COOPERATIVE TYPE</label>
+                    <ng-select
+                    [ngModelOptions]="{standalone: true}"
+                      [items]="coopTypeList"
+                      bindLabel="cooperativeTypes"
+                      bindValue="cooperativeTypeId"
+                      [(ngModel)]="sdsCoopModel.cooperativeTypeId"
+                      placeholder="Choose..."
+                      required
+                      [clearable]="false"
+                    >
+                    </ng-select>
+                  </div>
                 </div>
+                
 
                 <div class="col-md-3">
                   <div class="mb-3">
@@ -522,7 +612,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-6">
                   <div class="mb-3">
                     <label for="femaleMembers" class="form-label"
                       >Female Members</label
@@ -538,7 +628,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-6">
                   <div class="mb-3">
                     <label for="maleMembers" class="form-label"
                       >Male Members</label
@@ -555,7 +645,9 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-md-6">
+
+                  <!-- Old -->
+                  <!-- <div class="col-md-6">
                     <div class="mt-3">
                       <label
                         for="businessActivities"
@@ -582,8 +674,52 @@
                         </select>
                       </ng-container>
                     </div>
-                  </div>
+                  </div> -->
 
+                  <!-- Ng -->
+                  <!-- <div class="col-md-6">
+                    <div class="mt-3">
+                      <label for="businessActivities" class="form-label radio-inline">BUSINESS ACTIVITIES</label>
+                      <ng-container *ngIf="CoopBusinessAsset$ | async as CoopBusinessAsset">
+                        <ng-select
+                          [items]="CoopBusinessAsset"
+                          bindLabel="businessActivities"
+                          bindValue="cooperativeBusinessActivityId"
+                          [(ngModel)]="selectedBusinessAsset"
+                          placeholder="Select business activities..."
+                          [closeOnSelect]="false"
+                          [clearable]="true"
+                          style="height: 200px"
+                          [multiple]="true"
+                        >
+                        </ng-select>
+                      </ng-container>
+                    </div>
+                  </div> -->
+
+                  <div class="col-md-6">
+                    <div class="mt-3">
+                      <label for="businessActivities" class="form-label radio-inline">
+                        BUSINESS ACTIVITIES
+                      </label>
+                      <ng-container *ngIf="CoopBusinessAsset$ | async as CoopBusinessAsset">
+                        <ng-select
+                        [ngModelOptions]="{standalone: true}"
+                          [items]="CoopBusinessAsset"
+                          bindLabel="businessActivities"
+                          bindValue="cooperativeBusinessActivityId"
+                          [(ngModel)]="selectedBusinessAsset"
+                          placeholder="Select business activities..."
+                          [closeOnSelect]="false"
+                          [clearable]="true"
+                          [multiple]="true"
+                          style="height: 200px"
+                        >
+                        </ng-select>
+                      </ng-container>
+                    </div>
+                  </div>
+                  
                   <div class="col-md-6">
                     <div class="row">
                       <div class="col-md-12">

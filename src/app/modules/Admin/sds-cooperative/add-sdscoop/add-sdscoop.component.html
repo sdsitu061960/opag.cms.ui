@@ -43,7 +43,7 @@
                   </div>
                   <!-- your.component.html -->
   
-                  <div class="col-md-2">
+                  <!-- <div class="col-md-2">
                     <div class="mb-3">
                       <label for="municipality" class="form-label"
                         >MUNICIPALITY</label
@@ -64,8 +64,27 @@
                         </option>
                       </select>
                     </div>
+                  </div> -->
+                  
+                  <div class="col-md-2">
+                    <div class="mb-3">
+                      <label for="municipality" class="form-label">MUNICIPALITY</label>
+                      <ng-select
+                      [ngModelOptions]="{standalone: true}"
+                        [items]="municipalityList"
+                        bindLabel="municipalities"
+                        bindValue="municipalityId"
+                        [(ngModel)]="inputs.municipalityId"
+                        placeholder="Choose..."
+                        [clearable]="true"
+                      >
+                        <!-- Placeholder option -->
+                        <ng-option [value]="null">Choose...</ng-option>
+                      </ng-select>
+                    </div>
                   </div>
-  
+
+                  
                   <div class="col-md-4">
                     <div class="mb-3">
                       <label for="streetAddress" class="form-label"
@@ -83,7 +102,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <div class="mb-3">
                       <label for="number" class="form-label"
                         >REGISTRATION NUMBER</label
@@ -114,7 +133,7 @@
                     </div>
                   </div>
   
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <div class="mb-3">
                       <label for="categoryName" class="form-label"
                         >CATEGORY NAME</label
@@ -137,7 +156,7 @@
                     </div>
                   </div>
   
-                  <div class="col-md-3">
+                  <!-- <div class="col-md-3">
                     <div class="mb-3">
                       <label for="cooperativeTypes" class="form-label"
                         >COOPERATIVE TYPE</label
@@ -158,8 +177,25 @@
                         </option>
                       </select>
                     </div>
+                  </div> -->
+                  
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="cooperativeTypes" class="form-label">COOPERATIVE TYPE</label>
+                      <ng-select
+                      [ngModelOptions]="{standalone: true}"
+                        [items]="coopTypeList"
+                        bindLabel="cooperativeTypes"
+                        bindValue="cooperativeTypeId"
+                        [(ngModel)]="inputs.cooperativeTypeId"
+                        placeholder="Choose..."
+                        [clearable]="true"
+                      >
+                      </ng-select>
+                    </div>
                   </div>
-  
+
+                  
                   <div class="col-md-3">
                     <div class="mb-3">
                       <label for="contactPerson" class="form-label"
@@ -252,7 +288,8 @@
                   </div>
   
                   <div class="row">
-                    <div class="col-md-6">
+
+                    <!-- <div class="col-md-6">
                       <div class="mt-3">
                         <label
                           for="coopBusinessActivities"
@@ -279,8 +316,31 @@
                           </select>
                         </ng-container>
                       </div>
-                    </div>
-  
+                    </div> -->
+
+                    <div class="col-md-6">
+                      <div class="mt-3">
+                        <label for="coopBusinessActivities" class="form-label radio-inline">BUSINESS ACTIVITIES</label>
+                        
+                        <ng-container *ngIf="CoopBusinessAsset$ | async as CoopBusinessAsset">
+                          <ng-select
+                            [items]="CoopBusinessAsset"
+                            bindLabel="businessActivities"
+                            bindValue="cooperativeBusinessActivityId"
+                            [(ngModel)]="inputs.cooperativeBusinessActivityIds"
+                            name="businessActivities"
+                            id="businessActivities"
+                            [multiple]="true"
+                            placeholder="Select business activities..."
+                            [clearable]="true"
+                            [closeOnSelect]="false"
+                          >
+                          </ng-select>
+                        </ng-container>
+                      </div>
+                  </div>
+                  
+                    
                     <div class="col-md-6">
                       <div class="row">
                         <div class="col-md-12">

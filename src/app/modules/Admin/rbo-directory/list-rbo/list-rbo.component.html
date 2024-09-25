@@ -54,7 +54,7 @@
                   </select>
                 </div>
   
-                <div class="col-2">
+                <!-- <div class="col-2">
                   <select
                   class="form-select"
                   [(ngModel)]="filterOnMunicipality"
@@ -65,9 +65,22 @@
                     {{ municipality.municipalities }}
                   </option>
                 </select>
+                </div> -->
+
+                <div class="col-2">
+                  <ng-select
+                    [items]="municipalityList"
+                    bindLabel="municipalities"
+                    bindValue="municipalityId"
+                    [(ngModel)]="filterOnMunicipality"
+                    (change)="onFilter()"
+                    placeholder="All Municipality"
+                  >
+                    <ng-option [value]="''" disabled>All Municipality</ng-option>
+                  </ng-select>
                 </div>
   
-                <div class="col-2">
+                <!-- <div class="col-2">
                   <select
                   class="form-select"
                   [(ngModel)]="filterOnBarangay"
@@ -78,9 +91,24 @@
                     {{ barangay.barangays }}
                   </option>
                 </select>
+                </div> -->
+
+                <div class="col-2">
+                  <ng-select
+                    [items]="barangayList"
+                    bindLabel="barangays"
+                    bindValue="barangayId"
+                    [(ngModel)]="filterOnBarangay"
+                    (change)="onFilter()"
+                    placeholder="All Barangay"
+                  >
+                    <!-- Option with an empty value by default -->
+                    <ng-option [value]="''">All Barangay</ng-option>
+                  </ng-select>
                 </div>
                 
-                <div class="col-2">
+                
+                <!-- <div class="col-2"> 
                   <select
                   class="form-select"
                   [(ngModel)]="filterOnRegisteredWith"
@@ -91,8 +119,25 @@
                     {{ registered.shortName }}
                   </option>
                 </select>
-                </div>
+                </div> -->
+
                 <div class="col-2">
+                  <ng-select
+                    [items]="registeredWithList"
+                    bindLabel="shortName"
+                    bindValue="registeredWithId"
+                    [(ngModel)]="filterOnRegisteredWith"
+                    (change)="onFilter()"
+                    placeholder="All Registered"
+                    [clearable]="true"
+                  >
+                    <!-- Option with an empty value by default -->
+                    <ng-option [value]="''">All Registered</ng-option>
+                  </ng-select>
+                </div>
+                
+
+                <!-- <div class="col-2">
                   <select
                   class="form-select"
                   [(ngModel)]="filterOnCommodity"
@@ -103,7 +148,21 @@
                     {{ commodity.commodityName }}
                   </option>
                 </select>
+                </div> -->
+
+                <div class="col-2">
+                  <ng-select
+                    [items]="commodityList"
+                    bindLabel="commodityName"
+                    bindValue="commodityId"
+                    [(ngModel)]="filterOnCommodity"
+                    (change)="onFilter()"
+                    placeholder="All Commodity"
+                    [clearable]="true" 
+                  >
+                  </ng-select>
                 </div>
+                
                
                 <div class="d-flex align-items-center">
                   <input
@@ -356,6 +415,7 @@
               <h4 class="card-title-desc text-center" style="color: #1F1B1B;">
                 President/Chairman Information Details
               </h4>
+              
               <div class="row">
                 <div class="col-md-3">
                   <div class="mb-3">
@@ -385,7 +445,7 @@
                     />
                   </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                   <div class="mb-3">
                     <label for="LastName" class="form-label">LASTNAME</label>
                     <input
@@ -401,7 +461,7 @@
                 </div>
                 <!-- your.component.html -->
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                   <div class="mb-3">
                     <label for="Suffix" class="form-label">SUFFIX</label>
                     <select
@@ -425,7 +485,10 @@
                   </div>
                 </div>
 
-                <div class="col-md-2">
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
                   <div class="mb-3">
                     <label for="municipality" class="form-label">REGION</label>
                     <p class="form-select">
@@ -434,7 +497,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                   <div class="mb-3">
                     <label for="Sex" class="form-label">SEX</label>
                     <select
@@ -475,7 +538,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                   <div class="mb-3">
                     <label for="DateOfBirth" class="form-label"
                       >DATE OF BIRTH
@@ -494,7 +557,11 @@
                   </div>
                 </div>
 
-                <div class="col-md-1">
+              </div>
+
+              <div class="row">
+
+                <div class="col-md-3">
                   <div class="mb-3">
                     <label for="Age" class="form-label">AGE</label>
                     <input
@@ -509,10 +576,10 @@
                   </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div class="mb-3">
                     <label for="streetAddress" class="form-label"
-                      >HIGHEST EDUCATIONAL ATTAINMENT</label
+                      >EDUCATIONAL ATTAINMENT</label
                     >
                     <select
                     [ngModelOptions]="{standalone: true}"
@@ -566,11 +633,14 @@
                   </div>
                 </div>
 
+              </div>
+
                 <hr />
 
                 <h4 class="card-title-desc text-center" style="color: #1F1B1B;">
                   Organization Profile
                 </h4>
+
                 <div class="row">
                   <div class="col-4">
                     <label for="assoc">Association/Organiation</label>
@@ -584,20 +654,23 @@
                     />
                   </div>
 
-                  <div class="col-3">
-                    <label for="completeName">Service Area (HA) </label>
-                    <input
-                    [ngModelOptions]="{standalone: true}"
-                      id="serviceHa"
-                      name="serviceHa"
-                      type="number"
-                      class="form-control"
-                      class="form-control"
-                      [(ngModel)]="rboDirectoryInput.landSize"
-                    />
-                  </div>
 
                   <div class="col-2">
+                    <label for="regWith">Date Approved:</label>
+                    <input
+                    [ngModelOptions]="{standalone: true}"
+                      id="regWith"
+                      name="regWith"
+                      type="date"
+                      class="form-control"
+                      value="{{ rboDirectoryInput.dateApproved }}"
+                      [ngModel]="rboDirectoryInput.dateApproved | date : 'yyy-MM-dd'"
+                      (ngModelChange)="rboDirectoryInput.dateApproved = $event"
+                    />
+                  </div>
+                  
+
+                  <div class="col-3">
                     <label for="regWith">Registered with:</label>
                     <select
                     [ngModelOptions]="{standalone: true}"
@@ -666,262 +739,307 @@
                     />
                   </div>
 
+                 
+
                   <div class="col-3">
-                    <label for="regWith">Date Approved:</label>
+                    <label for="completeName">Service Area (HA) </label>
                     <input
                     [ngModelOptions]="{standalone: true}"
-                      id="regWith"
-                      name="regWith"
-                      type="date"
+                      id="serviceHa"
+                      name="serviceHa"
+                      type="number"
                       class="form-control"
-                      value="{{ rboDirectoryInput.dateApproved }}"
-                      [ngModel]="rboDirectoryInput.dateApproved | date : 'yyy-MM-dd'"
-                      (ngModelChange)="rboDirectoryInput.dateApproved = $event"
+                      class="form-control"
+                      [(ngModel)]="rboDirectoryInput.landSize"
                     />
                   </div>
+
+
+
+
                 </div>
 
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="streetAddress" class="form-label"
-                      >DISTRICT</label
-                    >
-                    <select
-                    [ngModelOptions]="{standalone: true}"
-                      class="form-select"
-                      id="district"
-                      required
-                      name="district"
-                      [(ngModel)]="rboDirectoryInput.district"
-                    >
-                    <option selected disabled value="">Choose...</option>
-                    <option value="I">I</option>
-                    <option value="II">II</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="streetAddress" class="form-label"
-                      >PROVINCE</label
-                    >
-                    <p class="form-select">
-                      Surigao Del Sur
-                    </p>
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="streetAddress" class="form-label"
-                      >MUNICIPALITY</label
-                    >
-                    <select
-                    [ngModelOptions]="{standalone: true}"
-                      class="form-select"
-                      id="municipality"
-                      required
-                      name="municipality"
-                      [(ngModel)]="rboDirectoryInput.municipalityId"
-                    >
-                      <option selected disabled value="">Choose...</option>
-                      <option
-                        *ngFor="let municipality of municipalityList"
-                        [value]="municipality.municipalityId"
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="streetAddress" class="form-label"
+                        >DISTRICT</label
                       >
-                        {{ municipality.municipalities }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="CityMunicipalityClass" class="form-label"
-                      >CITY/MUNICIPALITY CLASS</label
-                    >
-                    <input
-                    [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      class="form-control"
-                      name="CityMunicipalityClass"
-                      id="CityMunicipalityClass"
-                      placeholder="CityMunicipalityClass"
-                      [(ngModel)]="rboDirectoryInput.cityMunicipalityClass"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="ZipCode" class="form-label">ZIP CODE</label>
-                    <input
-                    [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      class="form-control"
-                      name="ZipCode"
-                      id="ZipCode"
-                      placeholder="ZipCode here"
-                      [(ngModel)]="rboDirectoryInput.zipCode"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="streetAddress" class="form-label"
-                      >BARANGAY</label
-                    >
-                    <select
-                    [ngModelOptions]="{standalone: true}"
-                      class="form-select"
-                      id="barangay"
-                      required
-                      name="barangay"
-                      [(ngModel)]="rboDirectoryInput.barangayId"
-                    >
-                      <option selected disabled value="">Choose...</option>
-                      <option
-                        *ngFor="let barangay of barangayList"
-                        [value]="barangay.barangayId"
+                      <select
+                      [ngModelOptions]="{standalone: true}"
+                        class="form-select"
+                        id="district"
+                        required
+                        name="district"
+                        [(ngModel)]="rboDirectoryInput.district"
                       >
-                        {{ barangay.barangays }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="streetAddress" class="form-label"
-                      >Position/ Designation
-                    </label>
-                    <input
-                    [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      class="form-control"
-                      name="Occupation"
-                      id="Occupation"
-                      placeholder="(Write in Complete)"
-                      [(ngModel)]="rboDirectoryInput.position"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="EmailAddress" class="form-label"
-                      >Email Address
-                    </label>
-                    <input
-                    [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      class="form-control"
-                      name="EmailAddress"
-                      id="Ex. Jhon@gmail.com"
-                      placeholder=""
-                      [(ngModel)]="rboDirectoryInput.emailAddress"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="OfficeOrganizationAddress" class="form-label"
-                      >Office/ Organization & Address
-                    </label>
-                    <input
-                    [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      class="form-control"
-                      name="OfficeOrganizationAddress"
-                      id="OfficeOrganizationAddress"
-                      placeholder=""
-                      [(ngModel)]="rboDirectoryInput.officeOrganizationAddress"
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="streetAddress" class="form-label"
-                      >RBO Category
-                    </label>
-                    <select
-                    [ngModelOptions]="{standalone: true}"
-                      class="form-select"
-                      id="rbodirectory"
-                      required
-                      name="rbodirectory"
-                      [(ngModel)]="rboDirectoryInput.rboCategoryId"
-                    >
                       <option selected disabled value="">Choose...</option>
-                      <option
-                        *ngFor="let rbodirectory of rboCategoryList"
-                        [value]="rbodirectory.rboCategoryId"
-                      >
-                        {{ rbodirectory.shortName }}
-                      </option>
-                    </select>
+                      <option value="I">I</option>
+                      <option value="II">II</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="interventionReceived" class="form-label"
-                      >Intervention Recieved
-                    </label>
-                    <input
-                    [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      class="form-control"
-                      name="interventionReceived"
-                      id="interventionReceived"
-                      placeholder="Intervention Received"
-                      [(ngModel)]="rboDirectoryInput.interventionReceived"
-                    />
-                  </div>
-                </div>
-
-
-                <div class="col-md-3">
-                  <!-- <div class="mb-3">
-                    <label for="InterventionRecievedId" class="form-label"
-                      >Intervention Received from</label
-                    >
-                    <select
-                    [ngModelOptions]="{standalone: true}"
-                      class="form-select"
-                      id="interventionRecievedId"
-                      name="interventionRecievedId"
-                      [(ngModel)]="rboDirectoryInput.interventionReceivedId"
-                    >
-                      <option selected disabled value="">Choose...</option>
-                      <option
-                        *ngFor="let interventionRecieved of interventionReceivedList"
-                        [value]="interventionRecieved.interventionReceivedId"
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="streetAddress" class="form-label"
+                        >PROVINCE</label
                       >
-                        {{ interventionRecieved.receivedFrom }}
-                      </option>
-                    </select>
+                      <p class="form-select">
+                        Surigao Del Sur
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="streetAddress" class="form-label"
+                        >MUNICIPALITY</label
+                      >
+                      <select
+                      [ngModelOptions]="{standalone: true}"
+                        class="form-select"
+                        id="municipality"
+                        required
+                        name="municipality"
+                        [(ngModel)]="rboDirectoryInput.municipalityId"
+                      >
+                        <option selected disabled value="">Choose...</option>
+                        <option
+                          *ngFor="let municipality of municipalityList"
+                          [value]="municipality.municipalityId"
+                        >
+                          {{ municipality.municipalities }}
+                        </option>
+                      </select>
+                    </div>
                   </div> -->
+
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="municipality" class="form-label">MUNICIPALITY</label>
+                      <ng-select
+                        [items]="municipalityList"
+                        bindLabel="municipalities"
+                        bindValue="municipalityId"
+                        [(ngModel)]="rboDirectoryInput.municipalityId"
+                        [ngModelOptions]="{standalone: true}"
+                        placeholder="Choose..."
+                        id="municipality"
+                        required
+                        name="municipality"
+                      >
+                      </ng-select>
+                    </div>
+                  </div>
+                  
+
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="CityMunicipalityClass" class="form-label"
+                        >CITY/MUNICIPALITY CLASS</label
+                      >
+                      <input
+                      [ngModelOptions]="{standalone: true}"
+                        type="text"
+                        class="form-control"
+                        name="CityMunicipalityClass"
+                        id="CityMunicipalityClass"
+                        placeholder="CityMunicipalityClass"
+                        [(ngModel)]="rboDirectoryInput.cityMunicipalityClass"
+                      />
+                    </div>
+                  </div>
                 </div>
 
-                <div class="col-md-3">
-                  <div class="mb-3">
-                    <label for="interventionDetails" class="form-label"
-                      >Please Specify
-                    </label>
-                    <input
-                    [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      class="form-control"
-                      name="interventionDetails"
-                      id="interventionDetails"
-                      placeholder=""
-                      [(ngModel)]="rboDirectoryInput.interventionDetails"
-                    />
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="ZipCode" class="form-label">ZIP CODE</label>
+                      <input
+                      [ngModelOptions]="{standalone: true}"
+                        type="text"
+                        class="form-control"
+                        name="ZipCode"
+                        id="ZipCode"
+                        placeholder="ZipCode here"
+                        [(ngModel)]="rboDirectoryInput.zipCode"
+                      />
+                    </div>
+                  </div>
+<!-- 
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="streetAddress" class="form-label"
+                        >BARANGAY</label
+                      >
+                      <select
+                      [ngModelOptions]="{standalone: true}"
+                        class="form-select"
+                        id="barangay"
+                        required
+                        name="barangay"
+                        [(ngModel)]="rboDirectoryInput.barangayId"
+                      >
+                        <option selected disabled value="">Choose...</option>
+                        <option
+                          *ngFor="let barangay of barangayList"
+                          [value]="barangay.barangayId"
+                        >
+                          {{ barangay.barangays }}
+                        </option>
+                      </select>
+                    </div>
+                  </div> -->
+
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="barangay" class="form-label">BARANGAY</label>
+                      <ng-select
+                        [items]="barangayList"
+                        bindLabel="barangays"
+                        bindValue="barangayId"
+                        [(ngModel)]="rboDirectoryInput.barangayId"
+                        [ngModelOptions]="{standalone: true}"
+                        placeholder="Choose..."
+                        id="barangay"
+                        required
+                        name="barangay"
+                      >
+                      </ng-select>
+                    </div>
+                  </div>
+                  
+
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="streetAddress" class="form-label"
+                        >Position/ Designation
+                      </label>
+                      <input
+                      [ngModelOptions]="{standalone: true}"
+                        type="text"
+                        class="form-control"
+                        name="Occupation"
+                        id="Occupation"
+                        placeholder="(Write in Complete)"
+                        [(ngModel)]="rboDirectoryInput.position"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="EmailAddress" class="form-label"
+                        >Email Address
+                      </label>
+                      <input
+                      [ngModelOptions]="{standalone: true}"
+                        type="text"
+                        class="form-control"
+                        name="EmailAddress"
+                        id="Ex. Jhon@gmail.com"
+                        placeholder=""
+                        [(ngModel)]="rboDirectoryInput.emailAddress"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="OfficeOrganizationAddress" class="form-label"
+                        >Office/ Organization & Address
+                      </label>
+                      <input
+                      [ngModelOptions]="{standalone: true}"
+                        type="text"
+                        class="form-control"
+                        name="OfficeOrganizationAddress"
+                        id="OfficeOrganizationAddress"
+                        placeholder=""
+                        [(ngModel)]="rboDirectoryInput.officeOrganizationAddress"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="streetAddress" class="form-label"
+                        >RBO Category
+                      </label>
+                      <select
+                      [ngModelOptions]="{standalone: true}"
+                        class="form-select"
+                        id="rbodirectory"
+                        required
+                        name="rbodirectory"
+                        [(ngModel)]="rboDirectoryInput.rboCategoryId"
+                      >
+                        <option selected disabled value="">Choose...</option>
+                        <option
+                          *ngFor="let rbodirectory of rboCategoryList"
+                          [value]="rbodirectory.rboCategoryId"
+                        >
+                          {{ rbodirectory.shortName }}
+                        </option>
+                      </select>
+                    </div>
+                  </div> -->
+
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="rbodirectory" class="form-label">RBO Category</label>
+                      <ng-select
+                        [items]="rboCategoryList"
+                        bindLabel="shortName"
+                        bindValue="rboCategoryId"
+                        [(ngModel)]="rboDirectoryInput.rboCategoryId"
+                        [ngModelOptions]="{standalone: true}"
+                        placeholder="Choose..."
+                        id="rbodirectory"
+                        required
+                        name="rbodirectory"
+                      >
+                      </ng-select>
+                    </div>
+                  </div>
+
+                  
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="interventionReceived" class="form-label"
+                        >Intervention Recieved
+                      </label>
+                      <input
+                      [ngModelOptions]="{standalone: true}"
+                        type="text"
+                        class="form-control"
+                        name="interventionReceived"
+                        id="interventionReceived"
+                        placeholder="Intervention Received"
+                        [(ngModel)]="rboDirectoryInput.interventionReceived"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="interventionDetails" class="form-label"
+                        >Please Specify
+                      </label>
+                      <input
+                      [ngModelOptions]="{standalone: true}"
+                        type="text"
+                        class="form-control"
+                        name="interventionDetails"
+                        id="interventionDetails"
+                        placeholder=""
+                        [(ngModel)]="rboDirectoryInput.interventionDetails"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -945,17 +1063,19 @@
                         <textarea type="text" class="form-control" rows="1" cols="33" formControlName="commodityDetails" placeholder="Enter details"></textarea>
                       </div>
                       <div style="margin-top:29px;" class="col-2">
-                        <!-- Remove Button -->
-                        <button type="button" class="btn btn-danger" (click)="removeCommodity(i)">Remove</button>
+                       <div class="d-grid">
+                         <!-- Remove Button -->
+                         <button type="button" class="btn btn-danger" (click)="removeCommodity(i)">Remove</button>
+                       </div>
                       </div>
                     </div>
                   </div>
                   <!-- Add Commodity Button -->
-                  <button type="button" class="btn btn-primary mb-2" (click)="addCommodity()">Add Commodity</button>
+                  <button type="button" class="btn w-100 btn-primary mb-2" (click)="addCommodity()">Add Commodity</button>
                 </div>
 
                 <hr />
-              </div>
+              
 
               <div>
                 <button class="btn btn-primary mt-2" type="submit">

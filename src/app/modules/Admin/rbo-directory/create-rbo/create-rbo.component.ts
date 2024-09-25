@@ -151,7 +151,7 @@ export class CreateRboComponent implements OnInit, OnDestroy {
   }
 
   private fetchMunicipality() {
-    this.MunicipalitySubscription = this.municipalityService.getAll(this.pageNumber, this.pageSize, this.searchTerm)
+    this.MunicipalitySubscription = this.municipalityService.getAll(this.pageNumber, this.SizeAll, this.searchTerm)
       .subscribe({
         next: (response: any) => {
           this.municipalityList = response.items;

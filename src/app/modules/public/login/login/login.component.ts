@@ -33,6 +33,7 @@ export class LoginComponent {
             undefined, '/', undefined, true, 'Strict'
           );
 
+
           //set user from local strorage
           this.authService.setUser({
             email: response.email,

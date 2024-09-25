@@ -18,29 +18,31 @@ import { CreateRboComponent } from './modules/Admin/rbo-directory/create-rbo/cre
 import { CommodityListComponent } from './modules/Admin/maintenance/commodity/commodity-list/commodity-list.component';
 import { ReportsComponent } from './modules/Admin/reports/reports/reports.component';
 import { RegisteredWithListComponent } from './modules/Admin/maintenance/RegisteredWith/registered-with-list/registered-with-list.component';
+import { authGuard } from './shared/auth/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   {
     path: 'admin',
+    canActivate: [authGuard],
     component: DefaultComponentComponent, children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, title: 'Main Dashboard' },
-      { path: 'rbo-directory', component: ListRboComponent, title: 'Rbo Directory' },
-      { path: 'rbo-directory/add', component: CreateRboComponent, title: 'Add Rbo Directory' },
-      { path: 'sds-cooperative', component: SdscooplistComponent, title: 'SDS Cooperative' },
-      { path: 'barangay', component: BarangayListComponent, title: 'Barangay' },
-      { path: 'municipality', component: MunicipalityListComponent, title: 'Municipality' },
-      { path: 'rbo-category', component: RboCategoryListComponent, title: 'RboCategory' },
-      { path: 'coop-type', component: CooperativeTypeListComponent, title: 'Cooperative Types' },
-      { path: 'ccop-asset', component: CoopAssetSizeListComponent, title: 'Cooperative Asset Size' },
-      { path: 'business-activity', component: CoopBusinessListComponent, title: 'Business Activity' },
-      { path: 'intervention-received', component: CoopReceivedListComponent, title: 'Intervention Received' },
-      { path: 'coop-category-name', component: CoopCategoryNameListComponent, title: 'Category Name' },
-      { path: 'sds-cooperative/add', component: AddSdscoopComponent, title: 'Add SDS Cooperative' },
-      { path: 'commodity', component: CommodityListComponent, title: 'Commodity' },
-      { path: 'registeredTo', component: RegisteredWithListComponent, title: 'Registered Category' },
-      { path: 'reports', component: ReportsComponent, title: 'Reports' },
+      { path: 'dashboard', component: DashboardComponent, title: 'Main Dashboard', canActivate: [authGuard] },
+      { path: 'rbo-directory', component: ListRboComponent, title: 'Rbo Directory', canActivate: [authGuard] },
+      { path: 'rbo-directory/add', component: CreateRboComponent, title: 'Add Rbo Directory', canActivate: [authGuard] },
+      { path: 'sds-cooperative', component: SdscooplistComponent, title: 'SDS Cooperative', canActivate: [authGuard] },
+      { path: 'barangay', component: BarangayListComponent, title: 'Barangay', canActivate: [authGuard] },
+      { path: 'municipality', component: MunicipalityListComponent, title: 'Municipality', canActivate: [authGuard] },
+      { path: 'rbo-category', component: RboCategoryListComponent, title: 'RboCategory', canActivate: [authGuard] },
+      { path: 'coop-type', component: CooperativeTypeListComponent, title: 'Cooperative Types', canActivate: [authGuard] },
+      { path: 'ccop-asset', component: CoopAssetSizeListComponent, title: 'Cooperative Asset Size', canActivate: [authGuard] },
+      { path: 'business-activity', component: CoopBusinessListComponent, title: 'Business Activity', canActivate: [authGuard] },
+      { path: 'intervention-received', component: CoopReceivedListComponent, title: 'Intervention Received', canActivate: [authGuard] },
+      { path: 'coop-category-name', component: CoopCategoryNameListComponent, title: 'Category Name', canActivate: [authGuard] },
+      { path: 'sds-cooperative/add', component: AddSdscoopComponent, title: 'Add SDS Cooperative', canActivate: [authGuard] },
+      { path: 'commodity', component: CommodityListComponent, title: 'Commodity', canActivate: [authGuard] },
+      { path: 'registeredTo', component: RegisteredWithListComponent, title: 'Registered Category', canActivate: [authGuard] },
+      { path: 'reports', component: ReportsComponent, title: 'Reports', canActivate: [authGuard] },
     ]
   }
 ];

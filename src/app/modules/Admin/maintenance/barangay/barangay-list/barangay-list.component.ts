@@ -82,7 +82,6 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   }
 
   AddBarangay(): void {
-    console.log('submited');
     this.AddBarangaySubcription = this.barangayService.create(this.inputs)
       .subscribe({
 
@@ -117,7 +116,6 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   fetchBarangayById(barangayId: string): void {
     this.FetchBarangayByIdSubscription = this.barangayService.getById(barangayId).subscribe((data: IBarangay) => {
       this.barangay = data;
-      console.log(this.barangay);
     });
   }
 
@@ -129,7 +127,6 @@ export class BarangayListComponent implements OnInit, OnDestroy {
           title: 'success',
           text: 'Updated Successfully!',
         });
-        console.log(this.barangay);
         // reset form
         this.form.resetForm();
         // close modal
@@ -190,7 +187,6 @@ export class BarangayListComponent implements OnInit, OnDestroy {
   }
 
   onNext(): void {
-    console.log('Total Record:', this.totalRecords);
     if (this.pageNumber * this.pageSize < this.totalRecords) {
       this.pageNumber++;
       this.fetchBarangay();
