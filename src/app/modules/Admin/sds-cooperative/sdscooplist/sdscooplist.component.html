@@ -15,10 +15,20 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Surigao Del Sur Cooperative</h4>
-            <div class="row">
+            <div class="col-12">
+              <p class="card-title-desc">This module you can modify Surigao Del Sur Cooperative.</p>
+            </div>
+            <div class="row pb-2">
+
               <div class="col-10">
-                <p class="card-title-desc">This module you can modify Surigao Del Sur Cooperative.</p>
+                <button
+                class="btn btn-primary waves-effect waves-light float-right"
+                (click)="printSds()" 
+              >
+                Print PDF
+              </button>
               </div>
+
               <div class="col-2">
                 <button
                   class="btn btn-primary waves-effect waves-light float-end"
@@ -28,7 +38,9 @@
                 >
                   Add Cooperative
                 </button>
+               
               </div>
+
             </div>
 
             <div class="d-flex flex-row justify-content-between align-items-center mb-3">

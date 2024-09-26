@@ -21,6 +21,8 @@
     "@ng-select/ng-select": "^11.2.0",
     "highcharts": "^11.4.7",
     "highcharts-angular": "^4.0.1",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.3",
     "jwt-decode": "^4.0.0",
     "ngx-cookie-service": "^16.0.0",
     "rxjs": "~7.8.0",
