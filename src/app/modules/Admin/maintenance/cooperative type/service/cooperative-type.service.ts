@@ -5,14 +5,15 @@ import { ICooperativeType, ICooperativeTypeInput } from '../module/cooperative-t
 import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/modules/public/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CooperativeTypeService extends BaseService<ICooperativeType, ICooperativeTypeInput> {
 
-  constructor(http: HttpClient, cookieService: CookieService) {
-    super(http, 'CooperativeType', cookieService);
+  constructor(http: HttpClient, cookieService: CookieService, authService: AuthService) {
+    super(http, 'CooperativeType', cookieService, authService);
   }
 
   //Get All Coop Type 

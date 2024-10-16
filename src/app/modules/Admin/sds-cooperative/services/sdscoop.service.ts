@@ -7,13 +7,14 @@ import { map, Observable } from 'rxjs';
 import { ICoopBusiness, ICoopBusinessResponse } from '../../maintenance/cooperative business/model/cooperative-business.model';
 import { PaginatedResponse } from '../../maintenance/barangay/model/barangay.model';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/modules/public/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SdscoopService extends BaseService<ISdsCooperative, ISdsCooperativeInput> {
-  constructor(http: HttpClient, cookieService: CookieService) {
-    super(http, 'SdsCooperative', cookieService);
+  constructor(http: HttpClient, cookieService: CookieService, authService: AuthService) {
+    super(http, 'SdsCooperative', cookieService, authService);
   }
 
   getAllSdsCooperative(
@@ -35,11 +36,11 @@ export class SdscoopService extends BaseService<ISdsCooperative, ISdsCooperative
       .set('filterOnCoopType', filterOnCoopType || '')
       .set('filterOnCoopAssetSizeCatName', filterOnCoopAssetSizeCatName || '');
 
-    return this.http.get<PaginatedResponse<ISdsCooperative[]>>(`${environment.apiBaseUrl}/api/SdsCooperative/all`, { params });
+    return this.http.get<PaginatedResponse<ISdsCooperative[]>>(`${environment.apiBaseUrl}/api/SdsCooperative/all/?addAuth=true`, { params });
   }
 
   getAllCoopBusinessAsset(): Observable<ICoopBusiness[]> {
-    return this.http.get<ICoopBusinessResponse>(`${environment.apiBaseUrl}/api/CooperativeBusinessActivity/all`).pipe(
+    return this.http.get<ICoopBusinessResponse>(`${environment.apiBaseUrl}/api/CooperativeBusinessActivity/all/?addAuth=true`).pipe(
       map(response => response.items)
     );
   }

@@ -105,9 +105,10 @@ export class RegisteredWithListComponent implements OnInit, OnDestroy {
     this.UpdateRegisteredToSubcription = this.registeredWithService.update(this.registeredWith).subscribe(
       response => {
         Swal.fire({
-          icon: 'success',
-          title: 'success',
+          icon: 'success',  
+          timer: 1500,
           text: 'Updated Successfully!',
+          showConfirmButton: false
         });
         // reset form
         this.form.resetForm();

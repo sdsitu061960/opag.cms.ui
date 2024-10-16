@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { LoginRequest } from '../login/login/models/login-request.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { LoginResponse } from '../login/login/models/login-response.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { User } from '../login/login/models/user.model';
 import { CookieService } from 'ngx-cookie-service';
@@ -16,14 +16,34 @@ export class AuthService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
+  // login(request: LoginRequest): Observable<LoginResponse> {
+  //   return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/api/auth/login`,
+  //     {
+  //       email: request.email,
+  //       password: request.password
+  //     }
+  //   );
+  // } 
+
   login(request: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/api/auth/login`,
-      {
-        email: request.email,
-        password: request.password
-      }
+    return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/api/auth/login`, {
+      email: request.email,
+      password: request.password
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        // Extract the error message
+        let errorMessage = 'Something went wrong. Please try again.';
+        if (error.status === 400 && error.error?.errors) {
+          const validationErrors = error.error.errors;
+          if (validationErrors[''] && validationErrors[''].length > 0) {
+            errorMessage = validationErrors[''][0];  // This will capture "Email or Password Incorrect"
+          }
+        }
+        return throwError(() => new Error(errorMessage));
+      })
     );
   }
+
 
   setUser(user: User): void {
 

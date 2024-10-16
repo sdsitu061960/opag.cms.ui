@@ -103,9 +103,10 @@ export class CoopCategoryNameListComponent implements OnInit, OnDestroy {
     this.UpdatecoopCategoryNameSubcription = this.cooperativeNameService.update(this.coopCategoryName).subscribe(
       response => {
         Swal.fire({
-          icon: 'success',
-          title: 'success',
+          icon: 'success',  
+          timer: 1500,
           text: 'Updated Successfully!',
+          showConfirmButton: false
         });
         // reset form
         this.form.resetForm();

@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
 import { IBarangay, PaginatedResponse } from 'src/app/modules/Admin/maintenance/barangay/model/barangay.model';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/modules/public/services/auth.service';
 
 export class BaseService<TModel, TModelInput> {
 
@@ -11,8 +12,8 @@ export class BaseService<TModel, TModelInput> {
   protected apiBaseUrl: string;
 
   constructor(protected http: HttpClient, apiBaseUrl: string,
-    private cookieService: CookieService
-  ) {
+    private cookieService: CookieService,
+    private authService: AuthService) {
     this.apiBaseUrl = `${environment.apiBaseUrl}/api/${apiBaseUrl}`;
   }
 
@@ -33,11 +34,16 @@ export class BaseService<TModel, TModelInput> {
       params = params.set('searchTerm', searchTerm);
     }
 
-    return this.http.get<PaginatedResponse<TModel[]>>(`${this.apiBaseUrl}/all`, { params });
+    return this.http.get<PaginatedResponse<TModel[]>>(`${this.apiBaseUrl}/all/?addAuth=true`, { params });
   }
 
   //Create
   create(data: TModelInput): Observable<TModelInput> {
+    const user = this.authService.getUser();
+    if (user) {
+      // Assuming data has a CreatedBy property. Adjust as needed.
+      (data as any).CreatedBy = user.email; // Use type assertion to set CreatedBy
+    }
     return this.http.post<TModelInput>(`${this.apiBaseUrl}/?addAuth=true`, data);
   }
 
@@ -48,6 +54,11 @@ export class BaseService<TModel, TModelInput> {
 
   //Update
   update(data: TModelInput): Observable<TModel> {
+    const user = this.authService.getUser();
+    if (user) {
+      // Assuming data has a LastModifiedBy property. Adjust as needed.
+      (data as any).LastModifiedBy = user.email; // Use type assertion to set LastModifiedBy
+    }
     return this.http.put<TModel>(`${this.apiBaseUrl}/?addAuth=true`, data
     );
   }

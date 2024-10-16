@@ -49,7 +49,7 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
   pageSizeAll = 500;
   totalPages: number = 0;
   totalRecords: number = 0;
-  pageSizeOptions: number[] = [5, 10, 25, 50, 100];
+  pageSizeOptions: number[] = [5, 10, 25, 50, 100, 500];
   visiblePageCount = 5;
   searchTerm: string = '';
   filterOnCoopName: any = null;
@@ -232,9 +232,10 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
     this.UpdateSdsCoopSubcription = this.sdscoopService.update(updateSdsCoop).subscribe(
       response => {
         Swal.fire({
-          icon: 'success',
-          title: 'success',
+          icon: 'success',  
+          timer: 1500,
           text: 'Updated Successfully!',
+          showConfirmButton: false
         });
         this.fetchSdsCoop();
 
@@ -377,11 +378,11 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
     const DateNow = new Date();
 
     // Manually format the date (MM/DD/YYYY)
-    const month = (DateNow.getMonth() + 1).toString().padStart(2, '0');  // Months are 0-based
-    const day = DateNow.getDate().toString().padStart(2, '0');
-    const year = DateNow.getFullYear();
+    // const month = (DateNow.getMonth() + 1).toString().padStart(2, '0');  // Months are 0-based
+    // const day = DateNow.getDate().toString().padStart(2, '0');
+    // const year = DateNow.getFullYear();
 
-    const formattedDate = `${month}/${day}/${year}`;
+    // const formattedDate = `${month}/${day}/${year}`;
 
     const pageWidth = doc.internal.pageSize.getWidth();
     const centerTextHorizontal = (text: string, y: number, bold: boolean = false) => {
@@ -407,17 +408,24 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
 
     doc.addImage(Png, 'PNG', 15, 10, witdth, height);
 
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+
     let yPos = 15;
     centerTextHorizontal('Republic of the Philippines', yPos);
     yPos += 5;
     centerTextHorizontal('PROVINCE OF SURIGAO DEL SUR', yPos);
     yPos += 5;
     centerTextHorizontal('OFFICE OF THE PROVINCIAL AGRICULTURIST', yPos, true);
-    yPos += 5;
-
-    centerTextHorizontal(`Date:${formattedDate}`, yPos);
     yPos += 10;
-    centerTextHorizontal('Surigao Del Sur Cooperatives', yPos);
+    centerTextHorizontal('SURIGAO DEL SUR COOPERATIVE LIST', yPos);
+    yPos += 5; // Move slightly less for closely related content
+    doc.setFontSize(12);
+    centerTextHorizontal(`As of ${formattedDate}`, yPos);
     yPos += 10;
 
     // Fetch the cooperative data
@@ -457,6 +465,21 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
             cellPadding: 1.5
           }
         });
+
+        // Set font for "Date Printed" footer
+        doc.setFont('Helvetica', 'normal');
+        doc.setFontSize(10);
+
+        // Get the current date and time for "Date Printed"
+        const currentDateTime = new Date();
+        const datePrinted = currentDateTime.toLocaleString(); // Display current date and time
+
+        const printedText = `Date Printed: ${datePrinted}`;
+        const printedTextWidth = doc.getTextWidth(printedText);
+        const printedTextX = pageWidth - printedTextWidth - 15; // Position with a margin from the right edge
+
+        // Position near the bottom right
+        doc.text(printedText, printedTextX, doc.internal.pageSize.getHeight() - 10);
 
         // Save the document
         doc.save(fileName);

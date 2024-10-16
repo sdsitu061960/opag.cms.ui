@@ -12,6 +12,8 @@ import { Route, Router } from '@angular/router';
 export class LoginComponent {
 
   model: LoginRequest;
+  errorMessage: string = ''; 
+  showError: boolean = false; 
 
   constructor(private authService: AuthService,
     private cookieService: CookieService,
@@ -24,25 +26,61 @@ export class LoginComponent {
 
   }
 
+  // onFormSubmit(): void {
+  //   this.authService.login(this.model)
+  //     .subscribe({
+  //       next: (response) => {
+  //         //set auth service
+  //         this.cookieService.set('Authorization', `Bearer ${response.token}`,
+  //           undefined, '/', undefined, true, 'Strict'
+  //         );
+
+
+  //         //set user from local strorage
+  //         this.authService.setUser({
+  //           email: response.email,
+  //           roles: response.roles
+  //         });
+
+  //         //Redirect back
+  //         this.router.navigateByUrl('/admin/dashboard');
+  //       }
+  //     })
+  // }
+
   onFormSubmit(): void {
+    this.errorMessage = '';
+    this.showError = false;
+
     this.authService.login(this.model)
       .subscribe({
         next: (response) => {
-          //set auth service
+          // Clear the error message
+          this.errorMessage = '';
+
+          // Set cookies, user info, and navigate to dashboard
           this.cookieService.set('Authorization', `Bearer ${response.token}`,
             undefined, '/', undefined, true, 'Strict'
           );
 
-
-          //set user from local strorage
           this.authService.setUser({
             email: response.email,
             roles: response.roles
           });
 
-          //Redirect back
           this.router.navigateByUrl('/admin/dashboard');
+        },
+        error: (error: Error) => {
+          // Set the error message to display in the UI
+          this.errorMessage = error.message || 'An error occurred during login. Please try again.';
+
+          this.showError = true;
+
+          // Hide the error message after 3 seconds
+          setTimeout(() => {
+            this.showError = false;
+          }, 3000);  
         }
-      })
+      });
   }
 }

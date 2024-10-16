@@ -35,6 +35,7 @@
 
                   <div class="p-2 mt-5">
                     <form class="" (ngSubmit)="onFormSubmit()">
+                      
                       <div class="mb-3 auth-form-group-custom mb-4">
                         <i class="ri-user-2-line auti-custom-input-icon"></i>
                         <label for="email">Email/Username</label>
@@ -59,6 +60,10 @@
                           placeholder="Enter password"
                           [(ngModel)]="model.password"
                         />
+                      </div>
+
+                      <div *ngIf="showError" class="error-card text-center">
+                        {{ errorMessage }}
                       </div>
 
                       <!-- <div class="form-check">
@@ -113,7 +118,8 @@
       </div>
       <div class="col-lg-8">
         <div class="authentication-bg">
-          <div class="bg-overlay"></div>
+          <div class=""></div>
+          <!-- bg-overlay -->
         </div>
       </div>
     </div>

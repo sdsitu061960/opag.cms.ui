@@ -103,9 +103,10 @@ export class CoopReceivedListComponent implements OnInit, OnDestroy {
     this.UpdateinterventionReceivedSubcription = this.coopReceivedService.update(this.interventionReceived).subscribe(
       response => {
         Swal.fire({
-          icon: 'success',
-          title: 'success',
+          icon: 'success',  
+          timer: 1500,
           text: 'Updated Successfully!',
+          showConfirmButton: false
         });
         // reset form
         this.form.resetForm();

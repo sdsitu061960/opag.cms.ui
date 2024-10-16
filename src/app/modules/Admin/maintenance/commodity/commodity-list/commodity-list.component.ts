@@ -99,9 +99,10 @@ export class CommodityListComponent implements OnInit, OnDestroy {
     this.UpdatecommoditySubscription = this.commodityService.update(this.commodity).subscribe(
       response => {
         Swal.fire({
-          icon: 'success',
-          title: 'success',
+          icon: 'success',  
+          timer: 1500,
           text: 'Updated Successfully!',
+          showConfirmButton: false
         });
         // reset form
         this.form.resetForm();
