@@ -31,6 +31,7 @@ import { ReportsComponent } from './modules/Admin/reports/reports/reports.compon
 import { RegisteredWithListComponent } from './modules/Admin/maintenance/RegisteredWith/registered-with-list/registered-with-list.component';
 import { AuthInterceptor } from './shared/components/interceptors/auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }],
+  },
+  { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
