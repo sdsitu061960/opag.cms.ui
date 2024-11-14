@@ -626,6 +626,22 @@
 
                 <div class="col-md-6">
                   <div class="mb-3">
+                    <label for="statOfCOC" class="form-label"
+                      >Status of Certificate of Compliance</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="statOfCOC"
+                      id="statOfCOC"
+                      placeholder="Status of COC"
+                      [(ngModel)]="sdsCoopModel.statOfCOC"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="mb-3">
                     <label for="femaleMembers" class="form-label"
                       >Female Members</label
                     >
@@ -640,7 +656,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                   <div class="mb-3">
                     <label for="maleMembers" class="form-label"
                       >Male Members</label

@@ -19,6 +19,7 @@ export interface ISdsCooperative {
     position: string;
     contactNumber: string;
     emailAddress: string;
+    statOfCOC: string;
     cooperativeAssetSizeId: string;
     cooperativeBusinessActivities: ICoopBusiness[];
     certificateTaxExemption: boolean;
@@ -40,6 +41,7 @@ export interface ISdsCooperativeInput {
     position: string;
     contactNumber: string;
     emailAddress: string;
+    statOfCOC: string;
     cooperativeAssetSizeId: string;
     cooperativeBusinessActivityIds: string[];
     certificateTaxExemption: boolean;
@@ -61,6 +63,7 @@ export interface ISdsCooperativeUpdate {
     position: string;
     contactNumber: string;
     emailAddress: string;
+    statOfCOC: string;
     cooperativeAssetSizeId: string;
     cooperativeBusinessActivityIds: string[];
     certificateTaxExemption: boolean;

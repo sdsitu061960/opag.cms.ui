@@ -54,6 +54,7 @@ export class AddSdscoopComponent implements OnInit, OnDestroy {
     position: '',
     contactNumber: '',
     emailAddress: '',
+    statOfCOC: '',
     cooperativeAssetSizeId: '',
     cooperativeBusinessActivityIds: [],
     certificateTaxExemption: false,
