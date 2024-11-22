@@ -1,4 +1,4 @@
-<div class="auth-body-bg">
+<div class="auth-body-bg" id="snow-container">
   <div class="container-fluid p-0">
     <div class="row g-0">
       <div class="col-lg-4">
@@ -79,7 +79,7 @@
                         >
                       </div> -->
 
-                      <div class="mt-4 text-center">
+                      <!-- <div class="mt-4 text-center">
                         <button
                           class="btn btn-primary w-md waves-effect waves-light"
                           type="submit"
@@ -87,6 +87,18 @@
                           Log In
                         </button>
 
+                      </div> -->
+
+                      <div class="mt-4 text-center">
+                        <button
+                          class="btn btn-primary w-md waves-effect waves-light"
+                          type="submit"
+                          [disabled]="isLoading"
+                          (click)="onFormSubmit()">
+                          <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          <span *ngIf="!isLoading" class="ml-2">Log In</span>
+                        </button>
+                                
                       </div>
 
                       <!-- <div class="mt-4 text-center">

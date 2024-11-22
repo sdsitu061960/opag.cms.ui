@@ -1,0 +1,171 @@
+<div class="page-content">
+    <div class="container-fluid">
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="page-title-box d-sm-flex align-items-center justify-content-between"
+          >
+            <h4 class="mb-sm-0">Manage User</h4>
+
+          </div>
+        </div>
+        
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Manage admin and user roles</h4>
+              <div class="row">
+                <div class="col-9">
+                  <p class="card-title-desc">This module you can modify user details and set new password.</p>
+                </div>
+                <div class="col-3">
+                  <button
+                    class="btn btn-primary waves-effect waves-light float-end"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addModal"
+                  >
+                    Add User
+                  </button>
+                </div>
+              </div>
+
+              <!-- <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+                <div class="d-flex align-items-center">
+                  <select id="pageSizeSelect" class="form-select" (change)="onPageSizeChange($event)">
+                    <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+                  </select>
+                </div>
+                <div class="d-flex align-items-center">
+                  <input  type="text" 
+                  class="form-control" 
+                  placeholder="Search..." 
+                  [(ngModel)]="searchTerm" 
+                  (input)="onSearch()" >
+                </div>
+              </div> -->
+
+             
+  
+              <div
+                id="datatable_wrapper"
+                class="dataTables_wrapper dt-bootstrap4 no-footer"
+              >
+                <div class="row">
+                  <div class="col-sm-12"> 
+                   
+                    <ng-container  *ngIf="IGetUserList.length > 0">
+                      <table
+                        datatable
+                        
+                        class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                        style="
+                          border-collapse: collapse;
+                          border-spacing: 0px;
+                          width: 100%;
+                        "
+                        role="grid"
+                        aria-describedby="datatable_info"
+                      >
+                        <thead>
+                          <tr role="row">
+                            <th
+                              class="sorting"
+                              tabindex="0"
+                              aria-controls="datatable"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                              Email
+                            </th>
+
+                            <th
+                              class="sorting"
+                              tabindex="0"
+                              aria-controls="datatable"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                              User
+                            </th>
+                            
+                            <th
+                              class="sorting"
+                              tabindex="0"
+                              aria-controls="datatable"
+                              rowspan="1"
+                              colspan="1"
+                              style="width: 165px"
+                              aria-label="Position: activate to sort column ascending"
+                            >
+                              Action
+                            </th>
+                          </tr>
+                        </thead>
+  
+                        <tbody>
+                          
+                          <tr class="odd" *ngFor="let data of IGetUserList">
+                            <td valign="top" class="">
+                               {{ data.email}}
+                            </td>
+                            <td valign="top" class="">
+                              Admin21
+                            </td>
+                            <td valign="top" class="">
+                              <!-- (click)="fetchcoopTypeById(data.cooperativeTypeId)" -->
+                              <button
+                             
+                                data-bs-toggle="modal"
+                                data-bs-target="#editModal"
+                                class="btn btn-info waves-effect waves-light m-2"
+                              >
+                                Edit
+                              </button>
+                              <!-- (click)="onDelete(data.cooperativeTypeId)" -->
+                              <a
+                                
+                                class="btn btn-danger waves-effect waves-light"
+                                >Delete</a
+                              >
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </ng-container>
+                  </div>
+
+                  <!-- <div class="d-flex justify-content-between align-items-center">
+                    <p>Showing {{(pageNumber - 1) * pageSize + 1}} to {{pageNumber * pageSize > totalRecords ? totalRecords : pageNumber * pageSize}} of {{totalRecords}} entries</p>
+                    <div class="d-flex align-items-center">
+                      <button class="btn btn-primary me-2" (click)="onPrev()" [disabled]="pageNumber === 1">Previous</button>
+                      
+                      <ng-container *ngFor="let page of totalPagesArray">
+                        <button class="btn btn-primary mx-1" (click)="goToPage(page)" [class.btn-primary]="pageNumber === page">{{ page }}</button>
+                      </ng-container>
+                      
+                      <button class="btn btn-primary ms-2" (click)="onNext()" [disabled]="pageNumber * pageSize >= totalRecords">Next</button>
+                    </div>
+                  </div>
+
+                  <div *ngIf="coopTypeList.length === 0" class="mt-2">
+                    <p class="text-center">No entries found.</p>
+                  </div> -->
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+       
+      </div>
+      <!-- end page title -->
+    </div>
+    <!-- container-fluid -->
+  </div>
+  

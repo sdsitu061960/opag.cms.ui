@@ -471,54 +471,98 @@ export class SdscooplistComponent implements OnInit, OnDestroy {
           }, 
      
         
+        // didDrawPage: (data) => {
+        //     const tableBottom = data.cursor ? data.cursor.y + 20 : 10;
+        //     yPos = tableBottom + 10;
+
+        //     const fontSize = 10; // Set desired font size
+        //     doc.setFontSize(fontSize); // Apply font size
+
+        //     // Text positions
+        //     const preparedByX = 6;
+        //     const notedByX = 75;
+        //     const approvedByX = 135;
+
+        //     // Draw headers for signatories in normal font
+        //     doc.setFont('Helvetica', 'normal');
+        //     doc.text('Prepared by:', preparedByX, yPos);
+        //     doc.text('Noted by:', notedByX, yPos);
+        //     doc.text('Approved by:', approvedByX, yPos);
+
+        //     // Signatory names
+        //     const namePreparedBy = 'JAMES STEVENSON M. MORILLA';
+        //     const nameNotedBy = 'ROSEMARIE M. GANATE, L.Arg.';
+        //     const nameApprovedBy = 'ESMERALDO S. RAYMENDO, L.Arg.';
+
+        //     // Set font to bold for signatory names
+        //     doc.setFont('Helvetica', 'bold');
+        //     // Draw signatory names
+        //     doc.text(namePreparedBy, preparedByX + 4, yPos + 10); // Adjusting X position slightly
+        //     doc.text(nameNotedBy, notedByX + 4, yPos + 10); // Adjusting X position slightly
+        //     doc.text(nameApprovedBy, approvedByX + 4, yPos + 10); // Adjusting X position slightly
+
+        //     // Calculate widths for lines based on text length
+        //     const namePreparedByWidth = doc.getTextWidth(namePreparedBy);
+        //     const nameNotedByWidth = doc.getTextWidth(nameNotedBy);
+        //     const nameApprovedByWidth = doc.getTextWidth(nameApprovedBy);
+
+        //     // Draw signature lines that match the width of the text
+        //     // Adjust x-axis dynamically based on the text width
+        //     doc.line(preparedByX + 4, yPos + 11, preparedByX + 4 + namePreparedByWidth, yPos + 11); // Signature line for Prepared By
+        //     doc.line(notedByX + 4, yPos + 11, notedByX + 4 + nameNotedByWidth, yPos + 11); // Signature line for Noted By
+        //     doc.line(approvedByX + 4, yPos + 11, approvedByX + 4 + nameApprovedByWidth, yPos + 11); // Signature line for Approved By
+
+        //     // Restore normal font for positions (job titles)
+        //     doc.setFont('Helvetica', 'normal');
+        //     doc.setFontSize(9); // Adjust to smaller size for positions
+        //     doc.text('Cooperative Development Specialist II', 11, yPos + 15); // Position text under Prepared By
+        //     doc.text('IDD Chief', 96, yPos + 15); // Position text under Noted By
+        //     doc.text('Provincial Agriculturist', 150, yPos + 15); // Position text under Approved By
+        // }
+
         didDrawPage: (data) => {
-            const tableBottom = data.cursor ? data.cursor.y + 20 : 10;
-            yPos = tableBottom + 10;
+          const tableBottom = data.cursor ? data.cursor.y + 20 : 10;
+          yPos = tableBottom + 10;
+      
+          const fontSize = 10; // Set desired font size
+          doc.setFontSize(fontSize); // Apply font size
+      
+          // Text positions
+          const preparedByX = 6;
+          const approvedByX = 115;
+      
+          // Draw headers for signatories in normal font
+          doc.setFont('Helvetica', 'normal');
+          doc.text('Prepared by:', preparedByX, yPos);
+          doc.text('Approved by:', approvedByX, yPos);
+      
+          // Signatory names
+          const namePreparedBy = 'ROSEMARIE M. GANATE, L.Agr.';
+          const nameApprovedBy = 'ESMERALDO S. RAYMENDO, L.Agr.';
+      
+          // Set font to bold for signatory names
+          doc.setFont('Helvetica', 'bold');
+          // Draw signatory names
+          doc.text(namePreparedBy, preparedByX + 4, yPos + 10); // Adjusting X position slightly
+          doc.text(nameApprovedBy, approvedByX + 4, yPos + 10); // Adjusting X position slightly
+      
+          // Calculate widths for lines based on text length
+          const namePreparedByWidth = doc.getTextWidth(namePreparedBy);
+          const nameApprovedByWidth = doc.getTextWidth(nameApprovedBy);
+      
+          // Draw signature lines that match the width of the text
+          // Adjust x-axis dynamically based on the text width
+          doc.line(preparedByX + 4, yPos + 11, preparedByX + 4 + namePreparedByWidth, yPos + 11); // Signature line for Prepared By
+          doc.line(approvedByX + 4, yPos + 11, approvedByX + 4 + nameApprovedByWidth, yPos + 11); // Signature line for Approved By
+      
+          // Restore normal font for positions (job titles)
+          doc.setFont('Helvetica', 'normal');
+          doc.setFontSize(9); // Adjust to smaller size for positions
+          doc.text('IDD Chief', 28, yPos + 15); // Position text under Prepared By
+          doc.text('Provincial Agriculturist', 133, yPos + 15); // Position text under Approved By
+      }
 
-            const fontSize = 10; // Set desired font size
-            doc.setFontSize(fontSize); // Apply font size
-
-            // Text positions
-            const preparedByX = 6;
-            const notedByX = 75;
-            const approvedByX = 135;
-
-            // Draw headers for signatories in normal font
-            doc.setFont('Helvetica', 'normal');
-            doc.text('Prepared by:', preparedByX, yPos);
-            doc.text('Noted by:', notedByX, yPos);
-            doc.text('Approved by:', approvedByX, yPos);
-
-            // Signatory names
-            const namePreparedBy = 'JAMES STEVENSON M. MORILLA';
-            const nameNotedBy = 'ROSEMARIE M. GANATE, L.Arg.';
-            const nameApprovedBy = 'ESMERALDO S. RAYMENDO, L.Arg.';
-
-            // Set font to bold for signatory names
-            doc.setFont('Helvetica', 'bold');
-            // Draw signatory names
-            doc.text(namePreparedBy, preparedByX + 4, yPos + 10); // Adjusting X position slightly
-            doc.text(nameNotedBy, notedByX + 4, yPos + 10); // Adjusting X position slightly
-            doc.text(nameApprovedBy, approvedByX + 4, yPos + 10); // Adjusting X position slightly
-
-            // Calculate widths for lines based on text length
-            const namePreparedByWidth = doc.getTextWidth(namePreparedBy);
-            const nameNotedByWidth = doc.getTextWidth(nameNotedBy);
-            const nameApprovedByWidth = doc.getTextWidth(nameApprovedBy);
-
-            // Draw signature lines that match the width of the text
-            // Adjust x-axis dynamically based on the text width
-            doc.line(preparedByX + 4, yPos + 11, preparedByX + 4 + namePreparedByWidth, yPos + 11); // Signature line for Prepared By
-            doc.line(notedByX + 4, yPos + 11, notedByX + 4 + nameNotedByWidth, yPos + 11); // Signature line for Noted By
-            doc.line(approvedByX + 4, yPos + 11, approvedByX + 4 + nameApprovedByWidth, yPos + 11); // Signature line for Approved By
-
-            // Restore normal font for positions (job titles)
-            doc.setFont('Helvetica', 'normal');
-            doc.setFontSize(9); // Adjust to smaller size for positions
-            doc.text('Cooperative Development Specialist II', 11, yPos + 15); // Position text under Prepared By
-            doc.text('IDD Chief', 96, yPos + 15); // Position text under Noted By
-            doc.text('Provincial Agriculturist', 150, yPos + 15); // Position text under Approved By
-        }
+      
 
         });
 

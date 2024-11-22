@@ -32,6 +32,7 @@ import { RegisteredWithListComponent } from './modules/Admin/maintenance/Registe
 import { AuthInterceptor } from './shared/components/interceptors/auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { UserComponent } from './modules/Admin/maintenance/user/user-list/user.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     CoopCategoryNameListComponent,
     CommodityListComponent,
     ReportsComponent,
-    RegisteredWithListComponent
+    RegisteredWithListComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

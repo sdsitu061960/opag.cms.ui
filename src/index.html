@@ -31,13 +31,50 @@
       rel="stylesheet"
       type="text/css"
     />
+
+    <style>
+      
+    #snow-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -10%; /* Start above the viewport */
+      font-size: 1.5em; /* Adjust size of snowflake */
+      color: white;
+      animation: fall linear infinite, drift ease-in-out infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -10%;
+      }
+      100% {
+        top: 110%; /* Ends below the viewport */
+      }
+    }
+
+    @keyframes drift {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(20px); /* Snowflakes drift left or right */
+      }
+    }
+
+    </style>
   </head>
 
   <body
     data-sidebar="dark"
     [class.sidebar-enable]="sidebarEnabled"
     data-sidebar="dark"
-    class=""
+    class="" 
   >
     <app-root></app-root>
 

@@ -20,6 +20,7 @@ import { ReportsComponent } from './modules/Admin/reports/reports/reports.compon
 import { RegisteredWithListComponent } from './modules/Admin/maintenance/RegisteredWith/registered-with-list/registered-with-list.component';
 import { authGuard } from './shared/auth/guards/auth.guard';
 import { NotfoundComponent } from './shared/components/notfoundcomponent/notfound/notfound.component';
+import { UserComponent } from './modules/Admin/maintenance/user/user-list/user.component';
 
 // const routes: Routes = [
 //   { path: '', component: LoginComponent },
@@ -71,7 +72,8 @@ const routes: Routes = [
       { path: 'sds-cooperative/add', component: AddSdscoopComponent, title: 'Add SDS Cooperative' },
       { path: 'commodity', component: CommodityListComponent, title: 'Commodity' },
       { path: 'registeredTo', component: RegisteredWithListComponent, title: 'Registered Category' },
-      { path: 'reports', component: ReportsComponent, title: 'Reports' }
+      { path: 'reports', component: ReportsComponent, title: 'Reports' },
+      { path: 'user', component: UserComponent, title: 'User'}
     ]
   },
   { path: '404', component: NotfoundComponent }, 
